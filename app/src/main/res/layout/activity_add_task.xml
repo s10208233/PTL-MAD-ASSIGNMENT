@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#252525"
+    tools:context=".AddTask">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/AddTaskTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginEnd="30dp"
+                android:fontFamily="@font/poppins"
+                android:text="Add Task"
+                android:textColor="#FFFFFF"
+                android:textSize="34sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/AddTaskSubtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:fontFamily="@font/poppins_light"
+                android:text="Create a new task for {TaskCategory}"
+                android:textColor="#BFFFFFFF"
+                android:textSize="22sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/AddTaskTitle" />
+
+            <TextView
+                android:id="@+id/TaskNameHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginEnd="30dp"
+                android:fontFamily="@font/poppins"
+                android:text="Name"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/AddTaskSubtitle" />
+
+            <EditText
+                android:id="@+id/editTextNewTaskName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:backgroundTint="@color/accentblue"
+                android:ems="10"
+                android:fontFamily="@font/poppins_light"
+                android:hint="Enter a new task name"
+                android:inputType="textPersonName"
+                android:textColor="#59FFFFFF"
+                android:textColorHint="#80FFFFFF"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TaskNameHeader" />
+
+            <TextView
+                android:id="@+id/DifficultHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginEnd="30dp"
+                android:fontFamily="@font/poppins"
+                android:text="Difficulty"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextNewTaskName" />
+
+            <TextView
+                android:id="@+id/diffTextSimple"
+                android:layout_width="134dp"
+                android:layout_height="26dp"
+                android:fontFamily="@font/poppins_light"
+                android:text="Simple"
+                android:textAlignment="center"
+                android:textColor="#06BA00"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/diffTextModerate"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/diffTextModerate" />
+
+            <TextView
+                android:id="@+id/diffTextModerate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/poppins_light"
+                android:text="Moderate"
+                android:textAlignment="center"
+                android:textColor="#D6BA00"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/diffTextHard"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/diffTextSimple"
+                app:layout_constraintTop_toBottomOf="@+id/DifficultHeader" />
+
+            <TextView
+                android:id="@+id/diffTextHard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_light"
+                android:text="Hard"
+                android:textAlignment="center"
+                android:textColor="#D50000"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/diffTextModerate"
+                app:layout_constraintTop_toTopOf="@+id/diffTextModerate" />
+
+            <TextView
+                android:id="@+id/DueDateHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginEnd="30dp"
+                android:fontFamily="@font/poppins"
+                android:text="Due Date"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="0dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="50dp"
+                android:backgroundTint="@color/accentblue"
+                android:indeterminateTint="@color/white"
+                android:max="2"
+                android:progress="1"
+                android:progressBackgroundTint="@color/white"
+                android:progressTint="@color/accentblue"
+                android:thumbTint="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/diffTextSimple"
+                app:tickMarkTint="@color/accentblue" />
+
+            <Button
+                android:id="@+id/datePickerButton"
+                style="?android:spinnerStyle"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:background="#FFFFFF"
+                android:backgroundTint="@color/accentblue"
+                android:fontFamily="@font/poppins_light"
+                android:onClick="openDatePicker"
+                android:shadowDx="3"
+                android:text="Jan 01 2020"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:backgroundTint="@color/gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/DueDateHeader" />
+
+            <Button
+                android:id="@+id/createTaskBtn"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginEnd="30dp"
+                android:fontFamily="@font/poppins_light"
+                android:text="Create new task"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/accentblue"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/datePickerButton"
+                app:rippleColor="#47B6FF" />
+
+            <Button
+                android:id="@+id/createTaskBtn2"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="60dp"
+                android:fontFamily="@font/poppins_light"
+                android:text="Cancel"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/createTaskBtn"
+                app:rippleColor="#737373" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
