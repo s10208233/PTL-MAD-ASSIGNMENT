@@ -93,7 +93,7 @@ public class AddTask extends AppCompatActivity {
         if(month == 11)
             return "Nov";
         if(month == 12)
-            return "Dem";
+            return "Dec";
 
         //default should never happen
         return "Jan";
