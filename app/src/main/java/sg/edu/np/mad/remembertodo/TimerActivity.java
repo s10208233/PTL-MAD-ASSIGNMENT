@@ -88,14 +88,21 @@ public class TimerActivity extends AppCompatActivity {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Resetting the start button
-                startButton.setText("START");
-                //Resetting the TextView
-                timeText.setText("00:00:00");
-                //Cancelling the CountDownTimer
-                cdt.cancel();
-                //Changing boolean to state that the timer has not been activated
-                isRunning = false;
+                //Check if timer was active before resetting, preventing crash from CountDownTimer
+                if(isRunning == true){
+                    //Resetting the start button
+                    startButton.setText("START");
+                    //Resetting the TextView
+                    timeText.setText("00:00:00");
+                    //Cancelling the CountDownTimer
+                    cdt.cancel();
+                    //Changing boolean to state that the timer has not been activated
+                    isRunning = false;
+                }
+                else{
+                    startButton.setText("START");
+                    timeText.setText("00:00:00");
+                }
             }
         });
 
