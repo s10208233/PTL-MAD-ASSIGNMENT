@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RememberToDo.NoActionBar">
-        <activity android:name=".ViewTask"></activity>
-        <activity android:name=".AddTask" />
-        <activity android:name=".Home" />
-        <activity android:name=".SplashScreen">
+        <activity android:name=".ViewTaskActivity"></activity>
+        <activity android:name=".AddTaskActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
