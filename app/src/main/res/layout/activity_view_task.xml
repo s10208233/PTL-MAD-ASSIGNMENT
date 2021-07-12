@@ -68,7 +68,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/viewTaskTitle" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rview_display_viewtasklist"
+                android:id="@+id/rview_category_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
