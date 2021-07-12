@@ -4,13 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +18,8 @@ public class SplashScreen extends AppCompatActivity {
 
         new Timer().schedule(new TimerTask(){
             public void run() {
-                startActivity(new Intent(SplashScreen.this, AddTask.class));
+                startActivity(new Intent(SplashScreenActivity.this, AddTaskActivity.class));
+                finish();
             }
         }, 2500 );
     }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkgray"
-    tools:context=".ViewTask">
+    tools:context=".ViewTaskActivity">
 
     <Button
         android:id="@+id/button2"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/viewTaskTitle"
+                android:id="@+id/ViewTask_Title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -54,7 +54,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/viewTaskSubTitle"
+                android:id="@+id/ViewTask_Subtitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -65,7 +65,7 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewTaskTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/ViewTask_Title" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rview_category_holder"
@@ -75,8 +75,10 @@
                 android:layout_marginBottom="200dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewTaskSubTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/ViewTask_Subtitle"
+                app:layout_constraintVertical_bias="0.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
