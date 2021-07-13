@@ -5,14 +5,14 @@ import java.util.Date;
 public class Task {
 
     private String TaskName;
-    private Date DateCreated;
-    private Date DueDate;
+    //private Date DateCreated;
+    //private Date DueDate;
     private boolean Completed;
 
-    public Task(String TaskName, Date DateCreated, Date DueDate, boolean Completed){
+    public Task(String TaskName , boolean Completed){
         this.TaskName = TaskName;
-        this.DateCreated = DateCreated;
-        this.DueDate = DueDate;
+//        this.DateCreated = DateCreated;
+//        this.DueDate = DueDate;
         this.Completed = Completed;
     }
 
@@ -23,22 +23,22 @@ public class Task {
     public void setTaskName(String taskName) {
         TaskName = taskName;
     }
+//
+//    public Date getDateCreated() {
+//        return DateCreated;
+//    }
 
-    public Date getDateCreated() {
-        return DateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        DateCreated = dateCreated;
-    }
-
-    public Date getDueDate() {
-        return DueDate;
-    }
-
-    public void setDueDate(Date dueDate) {
-        DueDate = dueDate;
-    }
+//    public void setDateCreated(Date dateCreated) {
+//        DateCreated = dateCreated;
+//    }
+//
+//    public Date getDueDate() {
+//        return DueDate;
+//    }
+//
+//    public void setDueDate(Date dueDate) {
+//        DueDate = dueDate;
+//    }
 
     public boolean isCompleted() {
         return Completed;

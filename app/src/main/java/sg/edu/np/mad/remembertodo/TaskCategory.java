@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class TaskCategory {
 
     private String TaskCategoryName;
-    private ArrayList<Task> TaskList = new ArrayList<>();
+    private ArrayList<Task> TaskList;
     private String ColorCode;
 
     public TaskCategory(String TaskCategoryName, ArrayList<Task> TaskList, String ColorCode){
