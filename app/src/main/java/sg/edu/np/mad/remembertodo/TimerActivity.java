@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,10 +23,15 @@ public class TimerActivity extends AppCompatActivity {
     //TextView in the middle showing how much time is left or at starting "00:00:00"
     TextView timeText;
 
-    //The three edit texts used for user input
-    EditText timeHour;
-    EditText timeMin;
-    EditText timeSec;
+    //The three number pickers
+    NumberPicker numPickerHour;
+    NumberPicker numPickerMin;
+    NumberPicker numPickerSec;
+
+    //Global variables for the hours, minutes and seconds
+    int hour;
+    int minutes;
+    int seconds;
 
     //CountDownTimer
     CountDownTimer cdt;
@@ -43,44 +49,57 @@ public class TimerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
 
-        //Buttons used
+        //Pre-setting values for the h,min,sec to 0 to reduce error possibility
+        hour = 0;
+        minutes = 0;
+        seconds = 0;
+
+        //Buttons used (Reset, start and pause)
         startButton = findViewById(R.id.startButton);
         resetButton = findViewById(R.id.resetButton);
 
-        //Edit texts and TextView
+        //Textview (00:00:00)
         timeText = findViewById(R.id.timeText);
-        timeHour = findViewById(R.id.timeHour);
-        timeMin = findViewById(R.id.timeMin);
-        timeSec = findViewById(R.id.timeSec);
+
+        //Setting min/max numbers for Hours in the wheel
+        numPickerHour = findViewById(R.id.numPickerHour);
+        numPickerHour.setMinValue(0);
+        numPickerHour.setMaxValue(99);
+
+        //Setting min/max numbers for Minutes in the wheel
+        numPickerMin = findViewById(R.id.numPickerMin);
+        numPickerMin.setMinValue(0);
+        numPickerMin.setMaxValue(59);
+
+        //Setting min/max numbers for Seconds in the wheel
+        numPickerSec = findViewById(R.id.numPickerSec);
+        numPickerSec.setMinValue(0);
+        numPickerSec.setMaxValue(59);
 
         //To state that the timer has not been run yet, since the button hasn't been pressed.
         isRunning = false;
 
-
-        //OnTouchListener for Hours Edit Text.
-        timeHour.setOnTouchListener(new View.OnTouchListener() {
+        //Update value for Hours every time the Hours wheel spins to a new number
+        numPickerHour.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                timeHour.setText("");
-                return false;
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                hour = newVal;
             }
         });
 
-        //OnTouchListener for Minutes Edit Text.
-        timeMin.setOnTouchListener(new View.OnTouchListener() {
+        //Update value for Minutes every time the Minutes wheel spins to a new number
+        numPickerMin.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                timeMin.setText("");
-                return false;
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                minutes = newVal;
             }
         });
 
-        //OnTouchListener for Seconds Edit Text.
-        timeSec.setOnTouchListener(new View.OnTouchListener() {
+        //Update value for Seconds every time the Seconds wheel spins to a new number
+        numPickerSec.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                timeSec.setText("");
-                return false;
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                seconds = newVal;
             }
         });
 
@@ -88,7 +107,6 @@ public class TimerActivity extends AppCompatActivity {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Check if timer was active before resetting, preventing crash from CountDownTimer
                 if(isRunning == true){
                     //Resetting the start button
                     startButton.setText("START");
@@ -100,7 +118,6 @@ public class TimerActivity extends AppCompatActivity {
                     isRunning = false;
                 }
                 else{
-                    startButton.setText("START");
                     timeText.setText("00:00:00");
                 }
             }
@@ -112,15 +129,8 @@ public class TimerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Check if user has inputted / The timer has been activated before but just in paused state
                 if(isRunning == false){
-                    //Getting user input from the edit texts
-                    String uHourText = timeHour.getText().toString();
-                    int uHour = Integer.parseInt(uHourText);
-                    String uMinText = timeMin.getText().toString();
-                    int uMin = Integer.parseInt(uMinText);
-                    String uSecText = timeSec.getText().toString();
-                    int uSec = Integer.parseInt(uSecText);
                     //Calculation of duration
-                    long durationCal = (uHour * 3600) + (uMin * 60) + uSec + 1;
+                    long durationCal = (hour* 3600) + (minutes * 60) + seconds + 1;
                     //Changing it to milliseconds
                     duration = durationCal * 1000;
                 }
