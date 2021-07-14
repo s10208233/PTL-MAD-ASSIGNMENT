@@ -20,6 +20,9 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
                 startActivity(new Intent(SplashScreenActivity.this, ViewTaskActivity.class));
                 finish();
+
+//                startActivity(new Intent(SplashScreenActivity.this, AddTaskActivity.class));
+//                finish();
             }
         }, 1000 );
     }

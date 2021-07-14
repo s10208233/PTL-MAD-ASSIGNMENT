@@ -27,8 +27,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
 
     @Override
     public void onBindViewHolder(TaskViewHolder holder, int position) {
+
         holder.Single_Task_Name.setText(data.get(position).getTaskName());
-        //  holder.Single_Task_DueDate.setText(data.get(position).getDueDate().toString());
+        holder.Single_Task_DueDate.setText(data.get(position).getDueDate().toString());
+
         if (data.get(position).isCompleted() == true) {
             holder.Single_Task_Checkbox.setChecked(true);
         }

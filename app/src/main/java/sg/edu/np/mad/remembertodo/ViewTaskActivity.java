@@ -26,15 +26,10 @@ public class ViewTaskActivity extends AppCompatActivity {
         TaskCategory_List.add(new TaskCategory("Mobile Application Development",
                 new ArrayList<Task>(
                         Arrays.asList(
-                                new Task("Assignment", false),
-                                new Task("Sample",false),
-                                new Task("Sample",false),
-                                new Task("Sample",false),
-                                new Task("Sample",false)
-
-
-
-
+                                new Task("Sample", 0,Calendar.getInstance().getTime(), false, Calendar.getInstance().getTime()),
+                                new Task("Sample", 0,Calendar.getInstance().getTime(), false, Calendar.getInstance().getTime()),
+                                new Task("Sample", 0,Calendar.getInstance().getTime(), false, Calendar.getInstance().getTime()),
+                                new Task("Sample", 0,Calendar.getInstance().getTime(), false, Calendar.getInstance().getTime())
                         )
                 ),
                 ""));
@@ -42,10 +37,9 @@ public class ViewTaskActivity extends AppCompatActivity {
         TaskCategory_List.add(new TaskCategory("Others",
                 new ArrayList<Task>(
                         Arrays.asList(
-                                new Task("Vaccination", true),
-                                new Task("Sample1",false),
-                                new Task("Sample",false)
-
+                                new Task("Sample", 0,Calendar.getInstance().getTime(), false, Calendar.getInstance().getTime()),
+                                new Task("Sample", 0,Calendar.getInstance().getTime(), true, Calendar.getInstance().getTime()),
+                                new Task("Sample", 0,Calendar.getInstance().getTime(), false, Calendar.getInstance().getTime())
                         )
                 ),
                 ""));

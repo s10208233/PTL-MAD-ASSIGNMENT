@@ -1,6 +1,8 @@
 package sg.edu.np.mad.remembertodo;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +43,16 @@ public class TaskCategoryAdapater extends RecyclerView.Adapter<TaskCategoryViewH
         holder.ViewTaskCategory_add_task_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //  Add_New_Task_Button OnClick
+                Intent addtask = new Intent(context, AddTaskActivity.class);
+                addtask.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                //  Passing data
+                Bundle databundle = new Bundle();
+                databundle.putInt("TaskCategory_Position", position);
+
+                //  Start AddTaskActivity
+                addtask.putExtras(databundle);
+                context.startActivity(addtask);
             }
         });
 

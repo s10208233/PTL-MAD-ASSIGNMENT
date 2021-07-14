@@ -1,14 +1,21 @@
 package sg.edu.np.mad.remembertodo;
 
+import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.ResourceManagerInternal;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -22,14 +29,56 @@ public class AddTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        //
+        //  Difficulty Seekbar
+        SeekBar diffseekbar = findViewById(R.id.addTaskDifficultySeekbar);
+        TextView feedback_simple = findViewById(R.id.diffTextSimple);
+        TextView feedback_moderate = findViewById(R.id.diffTextModerate);
+        TextView feedback_hard = findViewById(R.id.diffTextHard);
 
-        //  DATE PICKER
+        diffseekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+                if (seekBar.getProgress() == 0){
+                    feedback_simple.setTextColor(Color.GREEN);
+                    feedback_moderate.setTextColor(Color.GRAY);
+                    feedback_hard.setTextColor(Color.GRAY);
+                }
+                if (seekBar.getProgress() == 1){
+                    feedback_simple.setTextColor(Color.GRAY);
+                    feedback_moderate.setTextColor(Color.YELLOW);
+                    feedback_hard.setTextColor(Color.GRAY);
+                }
+                if (seekBar.getProgress() == 2){
+                    feedback_simple.setTextColor(Color.GRAY);
+                    feedback_moderate.setTextColor(Color.GRAY);
+                    feedback_hard.setTextColor(Color.RED);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        //  Date Picker
         initDatePicker();
         dateButton = findViewById(R.id.datePickerButton);
         dateButton.setText(getTodaysDate());
 
-        //  ADD TASK BUTTON
+        //  Create Task
+        findViewById(R.id.createTaskBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         //  CANCEL BUTTON
         findViewById(R.id.cancelTaskBtn).setOnClickListener(new View.OnClickListener() {
@@ -41,7 +90,7 @@ public class AddTaskActivity extends AppCompatActivity {
         });
     }
 
-    //  DATE FUNCTIONS
+    //  All Date Picker Functions
     private String getTodaysDate()
     {
         Calendar cal = Calendar.getInstance();
@@ -117,4 +166,9 @@ public class AddTaskActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        finish();
+    }
 }
