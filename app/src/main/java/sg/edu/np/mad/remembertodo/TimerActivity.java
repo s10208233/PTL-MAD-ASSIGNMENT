@@ -2,12 +2,11 @@ package sg.edu.np.mad.remembertodo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -116,6 +115,7 @@ public class TimerActivity extends AppCompatActivity {
                     cdt.cancel();
                     //Changing boolean to state that the timer has not been activated
                     isRunning = false;
+                    startButton.setBackgroundColor(Color.parseColor("#4CAF50"));
                 }
                 else{
                     timeText.setText("00:00:00");
@@ -140,6 +140,7 @@ public class TimerActivity extends AppCompatActivity {
                     //Ability for the user to start the timer
                     if(startButton.getText().toString() != "PAUSE"){
                         //Changing the start button text to PAUSE since it is in active state
+                        startButton.setBackgroundColor(Color.parseColor("#FFAF4C4C"));
                         startButton.setText("PAUSE");
                         onTimer(duration);
                         isRunning = true;
@@ -148,6 +149,7 @@ public class TimerActivity extends AppCompatActivity {
                     else{
                         //Changing the start button text to START since it is in paused state
                         startButton.setText("START");
+                        startButton.setBackgroundColor(Color.parseColor("#4CAF50"));
                         cdt.cancel();
                     }
                 }
@@ -202,6 +204,7 @@ public class TimerActivity extends AppCompatActivity {
                 startButton.setText("START");
                 //Resetting boolean to state that the timer is not running and the next time it runs, it should be completely reset
                 isRunning = false;
+                startButton.setBackgroundColor(Color.parseColor("#4CAF50"));
             }
         };
         //Starting the Timer.

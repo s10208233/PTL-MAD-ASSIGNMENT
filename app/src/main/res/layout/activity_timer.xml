@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#252525"
     tools:context=".TimerActivity">
 
     <TextView
@@ -15,6 +16,7 @@
         android:layout_marginBottom="32dp"
         android:text="00:00:00"
         android:textAlignment="center"
+        android:textColor="#D0D0D0"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,18 +40,22 @@
 
         <NumberPicker
             android:id="@+id/numPickerHour"
+            android:theme="@style/Theme.RememberToDo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp" />
 
         <NumberPicker
             android:id="@+id/numPickerMin"
+            android:theme="@style/Theme.RememberToDo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp" />
+            android:layout_margin="10dp"
+            android:solidColor="#00000000" />
 
         <NumberPicker
             android:id="@+id/numPickerSec"
+            android:theme="@style/Theme.RememberToDo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp" />
@@ -74,7 +80,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="92dp"
+        android:background="#4CAF50"
         android:text="Start"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -84,10 +92,11 @@
 
     <Button
         android:id="@+id/resetButton"
-        android:layout_width="30dp"
-        android:layout_height="35dp"
+        android:layout_width="34dp"
+        android:layout_height="31dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="92dp"
+        android:background="#670909"
         android:paddingLeft="2.2dp"
         android:paddingTop="0dp"
         android:paddingRight="0dp"
@@ -106,7 +115,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="106dp"
+        android:layout_marginTop="5dp"
         android:text="hr"
+        android:textColor="#D0D0D0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/sec"
         app:layout_constraintHorizontal_bias="0.0"
@@ -118,21 +129,24 @@
         android:id="@+id/min"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         android:text="min"
+        android:textColor="#D0D0D0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/sec"
         app:layout_constraintHorizontal_bias="0.535"
         app:layout_constraintStart_toEndOf="@+id/h"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.219" />
+        app:layout_constraintVertical_bias="0.203" />
 
     <TextView
         android:id="@+id/sec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
         android:text="sec"
+        android:textColor="#D0D0D0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.727"
