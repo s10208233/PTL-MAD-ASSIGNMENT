@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#252525"
-    tools:context=".TimerActivity">
+    android:soundEffectsEnabled="true"
+    tools:context="sg.edu.np.mad.remembertodo.TimerActivity">
 
     <TextView
         android:id="@+id/timeText"

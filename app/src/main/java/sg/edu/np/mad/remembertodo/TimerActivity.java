@@ -1,10 +1,17 @@
 package sg.edu.np.mad.remembertodo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.Application;
+import android.app.Notification;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
@@ -12,6 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Locale;
+
+import static android.Manifest.permission.FOREGROUND_SERVICE;
+
+import static sg.edu.np.mad.remembertodo.App.CHANNEL_1_ID;
 
 public class TimerActivity extends AppCompatActivity {
 
@@ -43,10 +54,14 @@ public class TimerActivity extends AppCompatActivity {
     //Total duration
     long duration;
 
+    private NotificationManagerCompat notificationManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
+
+        ActivityCompat.requestPermissions(this, new String[]{FOREGROUND_SERVICE}, PackageManager.PERMISSION_GRANTED);
 
         //Pre-setting values for the h,min,sec to 0 to reduce error possibility
         hour = 0;
@@ -78,11 +93,15 @@ public class TimerActivity extends AppCompatActivity {
         //To state that the timer has not been run yet, since the button hasn't been pressed.
         isRunning = false;
 
+        notificationManager = NotificationManagerCompat.from(this);
+
         //Update value for Hours every time the Hours wheel spins to a new number
         numPickerHour.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 hour = newVal;
+                //Plays a click sound everytime a user scrolls with the wheel picker
+                picker.playSoundEffect(SoundEffectConstants.CLICK);
             }
         });
 
@@ -91,6 +110,8 @@ public class TimerActivity extends AppCompatActivity {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 minutes = newVal;
+                //Plays a click sound everytime a user scrolls with the wheel picker
+                picker.playSoundEffect(SoundEffectConstants.CLICK);
             }
         });
 
@@ -99,6 +120,8 @@ public class TimerActivity extends AppCompatActivity {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 seconds = newVal;
+                //Plays a click sound everytime a user scrolls with the wheel picker
+                picker.playSoundEffect(SoundEffectConstants.CLICK);
             }
         });
 
@@ -157,6 +180,19 @@ public class TimerActivity extends AppCompatActivity {
         });
     }
 
+    public void sendOnChannel(View v) {
+        String notiTitle = "Time's up!";
+        String notiText = "Have you completed your task?";
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                .setSmallIcon(R.drawable.ic_clock)
+                .setContentTitle(notiTitle)
+                .setContentText(notiText)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .build();
+        notificationManager.notify(1, notification);
+    }
+
     //Timer method
     private void onTimer(long dur){
         //Creating CountDownTimer
@@ -205,6 +241,8 @@ public class TimerActivity extends AppCompatActivity {
                 //Resetting boolean to state that the timer is not running and the next time it runs, it should be completely reset
                 isRunning = false;
                 startButton.setBackgroundColor(Color.parseColor("#4CAF50"));
+
+                sendOnChannel(null);
             }
         };
         //Starting the Timer.
