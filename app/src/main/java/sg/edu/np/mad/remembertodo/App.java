@@ -11,19 +11,22 @@ public class App extends Application {
     @Override
     public void onCreate(){
         super.onCreate();
+        //Creating the notification channel
         createNotificationChannel();
     }
 
+    //Creating the Notification Channel
     private void createNotificationChannel(){
+        //If build version is higher >= oreo, then perform the code
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel channel = new NotificationChannel(
                     CHANNEL_1_ID,
                     "Channel 1",
+                    //Make the notification drop down
                     NotificationManager.IMPORTANCE_HIGH
             );
-            //channel.enableVibration(true);
-            channel.setDescription("This is a test");
-            //channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+            channel.enableVibration(true);
+            channel.setDescription("Notification from RememberToDo that the timer has finished.");
 
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
