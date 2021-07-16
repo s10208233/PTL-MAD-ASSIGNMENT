@@ -212,31 +212,6 @@ public class TimerActivity extends AppCompatActivity {
         notificationManager.notify(1, notification);
     }
 
-    //Alert dialogue when user chooses to go back
-    @Override
-    public void onBackPressed() {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(TimerActivity.this, R.style.AlertDialogCustom);
-        builder.setIcon(R.mipmap.ic_launcher);
-        builder.setTitle("Go back?");
-        builder.setMessage("Are you sure you want to go back?\nDoing so will stop the timer")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        cdt.cancel();
-                        finish();
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
-
-    }
-
     //Timer method
     private void onTimer(long dur) {
         //Creating CountDownTimer
@@ -300,11 +275,12 @@ public class TimerActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
         builder.setMessage("Is the task completed?");
         builder.setTitle("Timer Finished!");
+        builder.setCancelable(false);
 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ////
+                ///////////////////
             }
         });
 
@@ -314,11 +290,12 @@ public class TimerActivity extends AppCompatActivity {
                 AlertDialog.Builder noBuilder = new AlertDialog.Builder(TimerActivity.this, R.style.AlertDialogCustom);
                 noBuilder.setMessage("Would you like to extend your time?");
                 noBuilder.setTitle("Extend time?");
+                noBuilder.setCancelable(false);
 
                 noBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ////
+                        /////////////////////////
                     }
                 });
 
@@ -327,14 +304,41 @@ public class TimerActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent backIntent = new Intent(TimerActivity.this, MainActivity.class);
                         startActivity(backIntent);
+                        finish();
                     }
                 });
-                noBuilder.show();
+                AlertDialog backAlert = noBuilder.create();
+                backAlert.show();
             }
         });
 
 
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    //Alert dialogue when user chooses to go back
+    @Override
+    public void onBackPressed() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(TimerActivity.this, R.style.AlertDialogCustom);
+        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setTitle("Go back?");
+        builder.setMessage("Are you sure you want to go back?\n(Doing so will stop the timer)")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        cdt.cancel();
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+
     }
 }
