@@ -6,11 +6,11 @@ public class Task {
 
     private String TaskName;
     private int Difficulty;
-    private Date DueDate;
+    private String DueDate;
     private boolean Completed;
-    private Date DateCreated;
+    private String DateCreated;
 
-    public Task(String TaskName, int Difficulty, Date DueDate, boolean Completed, Date DateCreated){
+    public Task(String TaskName, int Difficulty, String DueDate, boolean Completed, String DateCreated){
         this.TaskName = TaskName;
         this.Difficulty = Difficulty;
         this.DateCreated = DateCreated;
@@ -26,19 +26,19 @@ public class Task {
         TaskName = taskName;
     }
 
-    public Date getDateCreated() {
-        return DateCreated;
+    public int getDifficulty() {
+        return Difficulty;
     }
 
-    public void setDateCreated(Date dateCreated) {
-        DateCreated = dateCreated;
+    public void setDifficulty(int difficulty) {
+        Difficulty = difficulty;
     }
 
-    public Date getDueDate() {
+    public String getDueDate() {
         return DueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(String dueDate) {
         DueDate = dueDate;
     }
 
@@ -48,5 +48,13 @@ public class Task {
 
     public void setCompleted(boolean completed) {
         Completed = completed;
+    }
+
+    public String getDateCreated() {
+        return DateCreated;
+    }
+
+    public void setDateCreated(String dateCreated) {
+        DateCreated = dateCreated;
     }
 }

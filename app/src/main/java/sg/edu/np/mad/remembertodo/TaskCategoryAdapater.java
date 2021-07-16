@@ -46,9 +46,10 @@ public class TaskCategoryAdapater extends RecyclerView.Adapter<TaskCategoryViewH
                 Intent addtask = new Intent(context, AddTaskActivity.class);
                 addtask.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                //  Passing data
-                Bundle databundle = new Bundle();
-                databundle.putInt("TaskCategory_Position", position);
+                //  Passing data & Starting AddTaskActivity
+                  Bundle databundle = new Bundle();
+                  databundle.putInt("TaskCategoryPosition", position);
+                  databundle.putString("TaskCategoryName", data.get(position).getTaskCategoryName());
 
                 //  Start AddTaskActivity
                 addtask.putExtras(databundle);
