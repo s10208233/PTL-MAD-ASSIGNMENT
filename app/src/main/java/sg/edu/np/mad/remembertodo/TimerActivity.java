@@ -1,33 +1,31 @@
 package sg.edu.np.mad.remembertodo;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-
 import android.app.AlertDialog;
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import java.util.Locale;
 
 import static android.Manifest.permission.FOREGROUND_SERVICE;
+import static sg.edu.np.mad.remembertodo.App.CHANNEL_1_ID;
 
 //String variable from App class
-import static sg.edu.np.mad.remembertodo.App.CHANNEL_1_ID;
 
 public class TimerActivity extends AppCompatActivity {
 
@@ -136,7 +134,7 @@ public class TimerActivity extends AppCompatActivity {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isRunning == true){
+                if (isRunning == true) {
                     //Resetting the start button
                     startButton.setText("START");
                     //Resetting the TextView
@@ -146,8 +144,7 @@ public class TimerActivity extends AppCompatActivity {
                     //Changing boolean to state that the timer has not been activated
                     isRunning = false;
                     startButton.setBackgroundColor(Color.parseColor("#4CAF50"));
-                }
-                else{
+                } else {
                     timeText.setText("00:00:00");
                 }
             }
@@ -158,17 +155,17 @@ public class TimerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Check if user has inputted / The timer has been activated before but just in paused state
-                if(isRunning == false){
+                if (isRunning == false) {
                     //Calculation of duration
-                    long durationCal = (hour* 3600) + (minutes * 60) + seconds + 1;
+                    long durationCal = (hour * 3600) + (minutes * 60) + seconds + 1;
                     //Changing it to milliseconds
                     duration = durationCal * 1000;
                 }
 
                 //To keep the timer running
-                if(Run = true){
+                if (Run = true) {
                     //Ability for the user to start the timer
-                    if(startButton.getText().toString() != "PAUSE"){
+                    if (startButton.getText().toString() != "PAUSE") {
                         //Changing the start button text to PAUSE and colour to light red since it is in active state
                         startButton.setBackgroundColor(Color.parseColor("#FFAF4C4C"));
                         startButton.setText("PAUSE");
@@ -176,7 +173,7 @@ public class TimerActivity extends AppCompatActivity {
                         isRunning = true;
                     }
                     //Ability for the user to pause the timer
-                    else{
+                    else {
                         //Changing the start button text to START and colour to green since it is in paused state
                         startButton.setText("START");
                         startButton.setBackgroundColor(Color.parseColor("#4CAF50"));
@@ -187,22 +184,61 @@ public class TimerActivity extends AppCompatActivity {
         });
     }
 
+    //Send notification through channel, in this case channel 1
     public void sendOnChannel(View v) {
+        //Ability for user to go back into the app's timer page through the notification
+        Intent resultIntent = new Intent(this, TimerActivity.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this,1,resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         String notiTitle = "Time's up!";
         String notiText = "Have you completed your task?";
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                //Icons for the notification
                 .setSmallIcon(R.drawable.ic_clock)
+                //Title and message
                 .setContentTitle(notiTitle)
                 .setContentText(notiText)
+                //So the message will drop down
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
+                //Same category as alarms as it counts as a alarm as well despite being a timer
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
-                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
+                //Vibrate when receive notification
+                .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+                //Will cancel it self when clicked
+                .setAutoCancel(true)
+                //Intent to go back to timer page
+                .setContentIntent(resultPendingIntent)
                 .build();
         notificationManager.notify(1, notification);
     }
 
+    //Alert dialogue when user chooses to go back
+    @Override
+    public void onBackPressed() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(TimerActivity.this, R.style.AlertDialogCustom);
+        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setTitle("Go back?");
+        builder.setMessage("Are you sure you want to go back?\nDoing so will stop the timer")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        cdt.cancel();
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+
+    }
+
     //Timer method
-    private void onTimer(long dur){
+    private void onTimer(long dur) {
         //Creating CountDownTimer
         cdt = new CountDownTimer(dur, 1000) {
             @Override
@@ -224,15 +260,15 @@ public class TimerActivity extends AppCompatActivity {
                 //Displaying the time via the TextView every tick
                 String timeLeftFormatted;
                 //Displaying this if hours is less than 0
-                if(tHours > 0){
+                if (tHours > 0) {
                     //Formatting string to get 00:00:00 style
-                    timeLeftFormatted = String.format(Locale.getDefault(),"%02d:%02d:%02d", hPassed, mPassed, sPassed);
+                    timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d:%02d", hPassed, mPassed, sPassed);
                     timeText.setText(timeLeftFormatted);
                 }
                 //Displaying this otherwise
-                else{
+                else {
                     //Formatting string to get 00:00:00 style
-                    timeLeftFormatted = String.format(Locale.getDefault(),"%02d:%02d", mPassed, sPassed);
+                    timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", mPassed, sPassed);
                     timeText.setText(timeLeftFormatted);
                 }
             }
@@ -259,8 +295,9 @@ public class TimerActivity extends AppCompatActivity {
         //Starting the Timer.
         cdt.start();
     }
-    public void timerEndDialogue(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.AlertDialogCustom);
+
+    public void timerEndDialogue() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
         builder.setMessage("Is the task completed?");
         builder.setTitle("Timer Finished!");
 
@@ -274,7 +311,25 @@ public class TimerActivity extends AppCompatActivity {
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ////
+                AlertDialog.Builder noBuilder = new AlertDialog.Builder(TimerActivity.this, R.style.AlertDialogCustom);
+                noBuilder.setMessage("Would you like to extend your time?");
+                noBuilder.setTitle("Extend time?");
+
+                noBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ////
+                    }
+                });
+
+                noBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent backIntent = new Intent(TimerActivity.this, MainActivity.class);
+                        startActivity(backIntent);
+                    }
+                });
+                noBuilder.show();
             }
         });
 
