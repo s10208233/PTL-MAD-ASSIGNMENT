@@ -1,13 +1,17 @@
 package sg.edu.np.mad.remembertodo;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import java.text.DateFormat;
@@ -87,11 +91,32 @@ public class ViewTaskActivity extends AppCompatActivity {
 
         taskcategoryadapter = adptr;
 
-        //  Floating Action Button - Create New Category
+        //  Floating Action Button - Displays Create New Category Alert Dialog
         findViewById(R.id.add_cat_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                startActivity(new Intent(ViewTaskActivity.this, AddTaskCategoryActivity.class));
+//                AlertDialog.Builder newcategory_alert_dialogbuilder = new AlertDialog.Builder(view.getContext());
+//                newcategory_alert_dialogbuilder.setTitle("Create New Task Category");
+//                newcategory_alert_dialogbuilder.setMessage("Create");
+//
+//                newcategory_alert_dialogbuilder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                    }
+//                });
+//
+//                newcategory_alert_dialogbuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                    }
+//                });
+//
+//                AlertDialog newcategory_alert_dialog = newcategory_alert_dialogbuilder.create();
+//                newcategory_alert_dialog.show();
+
             }
         });
     }
