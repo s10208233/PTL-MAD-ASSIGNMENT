@@ -63,7 +63,7 @@ public class ViewTaskActivity extends AppCompatActivity {
                                 new Task("Sample", 0, getTodaysDate(), false, getTodaysDate())
                         )
                 ),
-                ""));
+                "Red"));
 
         TaskCategoryList.add(new TaskCategory("Others",
                 new ArrayList<Task>(
@@ -72,10 +72,10 @@ public class ViewTaskActivity extends AppCompatActivity {
                                 new Task("Sample", 0, getTodaysDate(), false, getTodaysDate())
                         )
                 ),
-                ""));
+                "Blue"));
 
         TaskCategoryList.add(new TaskCategory("Sample 3",
-                new ArrayList<Task>(), ""));
+                new ArrayList<Task>(), "Green"));
 
         static_categorylist = TaskCategoryList;
 

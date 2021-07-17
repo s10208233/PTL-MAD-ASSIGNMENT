@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkgray"
+    android:scrollbarSize="0dp"
     tools:context=".ViewTaskActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -21,7 +22,8 @@
     <ScrollView
         android:id="@+id/viewTaskListScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="200dp"
         android:clickable="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -102,6 +103,7 @@ public class AddTaskActivity extends AppCompatActivity {
                 if (TaskName_value.matches("")){
                     new_task_name_edittext.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.hard));
                     Toast.makeText(AddTaskActivity.this, "Please give this task a name!", Toast.LENGTH_SHORT).show();
+                    ((ScrollView)findViewById(R.id.scrollview_addtask)).fullScroll(ScrollView.FOCUS_UP);
                 }
                 else{
                     if (DueDate_value.matches("Select A Date")){
