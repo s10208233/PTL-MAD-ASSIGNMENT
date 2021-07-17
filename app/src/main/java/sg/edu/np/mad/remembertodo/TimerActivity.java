@@ -13,12 +13,17 @@ import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+
+import com.airbnb.lottie.LottieAnimationView;
 
 import java.util.Locale;
 
@@ -32,6 +37,7 @@ public class TimerActivity extends AppCompatActivity {
     //Buttons used
     Button startButton;
     Button resetButton;
+    Button backButton;
 
     //TextView in the middle showing how much time is left or at starting "00:00:00"
     TextView timeText;
@@ -60,6 +66,9 @@ public class TimerActivity extends AppCompatActivity {
     //Notification manager
     private NotificationManagerCompat notificationManager;
 
+    LottieAnimationView lottieClock;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +85,7 @@ public class TimerActivity extends AppCompatActivity {
         //Buttons used (Reset, start and pause)
         startButton = findViewById(R.id.startButton);
         resetButton = findViewById(R.id.resetButton);
+        backButton = findViewById(R.id.backButton);
 
         //Text view (00:00:00)
         timeText = findViewById(R.id.timeText);
@@ -99,6 +109,8 @@ public class TimerActivity extends AppCompatActivity {
         isRunning = false;
 
         notificationManager = NotificationManagerCompat.from(this);
+
+        lottieClock = findViewById(R.id.animationView);
 
         //Update value for Hours every time the Hours wheel spins to a new number
         numPickerHour.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
@@ -130,20 +142,51 @@ public class TimerActivity extends AppCompatActivity {
             }
         });
 
+        //Button to go back to main activity
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         //Button to reset the timer
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isRunning == true) {
-                    //Resetting the start button
-                    startButton.setText("START");
-                    //Resetting the TextView
-                    timeText.setText("00:00:00");
-                    //Cancelling the CountDownTimer
-                    cdt.cancel();
-                    //Changing boolean to state that the timer has not been activated
-                    isRunning = false;
-                    startButton.setBackgroundColor(Color.parseColor("#4CAF50"));
+                    AlertDialog.Builder resetBuilder = new AlertDialog.Builder(TimerActivity.this, R.style.AlertDialogCustom);
+                    resetBuilder.setMessage("Are you sure you want to reset the timer?");
+                    resetBuilder.setTitle("Reset Confirmation");
+                    resetBuilder.setCancelable(false);
+
+                    resetBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Resetting the start button
+                            startButton.setText("START");
+                            //Resetting the TextView
+                            timeText.setText("00:00:00");
+                            //Cancelling the CountDownTimer
+                            cdt.cancel();
+                            //Changing boolean to state that the timer has not been activated
+                            isRunning = false;
+                            startButton.setBackgroundColor(Color.parseColor("#4CAF50"));
+                            lottieClock.setProgress(0);
+                            lottieClock.cancelAnimation();
+                            Toast.makeText(TimerActivity.this, "Timer has been reset", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    resetBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+
+                    AlertDialog alert = resetBuilder.create();
+                    alert.show();
+
                 } else {
                     timeText.setText("00:00:00");
                 }
@@ -160,6 +203,7 @@ public class TimerActivity extends AppCompatActivity {
                     long durationCal = (hour * 3600) + (minutes * 60) + seconds + 1;
                     //Changing it to milliseconds
                     duration = durationCal * 1000;
+                    lottieClock.playAnimation();
                 }
 
                 //To keep the timer running
@@ -171,12 +215,14 @@ public class TimerActivity extends AppCompatActivity {
                         startButton.setText("PAUSE");
                         onTimer(duration);
                         isRunning = true;
+                        lottieClock.resumeAnimation();
                     }
                     //Ability for the user to pause the timer
                     else {
                         //Changing the start button text to START and colour to green since it is in paused state
                         startButton.setText("START");
                         startButton.setBackgroundColor(Color.parseColor("#4CAF50"));
+                        lottieClock.pauseAnimation();
                         cdt.cancel();
                     }
                 }
@@ -246,6 +292,8 @@ public class TimerActivity extends AppCompatActivity {
                     timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", mPassed, sPassed);
                     timeText.setText(timeLeftFormatted);
                 }
+
+
             }
 
             @Override
@@ -264,6 +312,9 @@ public class TimerActivity extends AppCompatActivity {
 
                 //Alert Dialogue when the timer finishes
                 timerEndDialogue();
+
+                lottieClock.setProgress(0);
+                lottieClock.cancelAnimation();
 
             }
         };
