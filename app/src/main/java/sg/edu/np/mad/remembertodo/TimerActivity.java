@@ -9,15 +9,14 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
@@ -56,7 +55,7 @@ public class TimerActivity extends AppCompatActivity {
     CountDownTimer cdt;
 
     //Boolean to check if the timer has been activated before
-    boolean isRunning;
+    boolean timerIsRunning;
     //To keep the timer running
     boolean Run;
 
@@ -67,6 +66,8 @@ public class TimerActivity extends AppCompatActivity {
     private NotificationManagerCompat notificationManager;
 
     LottieAnimationView lottieClock;
+
+    Vibrator vibrator;
 
 
     @Override
@@ -106,11 +107,13 @@ public class TimerActivity extends AppCompatActivity {
         numPickerSec.setMaxValue(59);
 
         //To state that the timer has not been run yet, since the button hasn't been pressed.
-        isRunning = false;
+        timerIsRunning = false;
 
         notificationManager = NotificationManagerCompat.from(this);
 
         lottieClock = findViewById(R.id.animationView);
+
+        vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
 
         //Update value for Hours every time the Hours wheel spins to a new number
         numPickerHour.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
@@ -119,6 +122,7 @@ public class TimerActivity extends AppCompatActivity {
                 hour = newVal;
                 //Plays a click sound every time a user scrolls with the wheel picker
                 picker.playSoundEffect(SoundEffectConstants.CLICK);
+                vibrator.vibrate(50);
             }
         });
 
@@ -129,6 +133,7 @@ public class TimerActivity extends AppCompatActivity {
                 minutes = newVal;
                 //Plays a click sound every time a user scrolls with the wheel picker
                 picker.playSoundEffect(SoundEffectConstants.CLICK);
+                vibrator.vibrate(50);
             }
         });
 
@@ -139,6 +144,7 @@ public class TimerActivity extends AppCompatActivity {
                 seconds = newVal;
                 //Plays a click sound every time a user scrolls with the wheel picker
                 picker.playSoundEffect(SoundEffectConstants.CLICK);
+                vibrator.vibrate(50);
             }
         });
 
@@ -154,7 +160,7 @@ public class TimerActivity extends AppCompatActivity {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isRunning == true) {
+                if (timerIsRunning == true) {
                     AlertDialog.Builder resetBuilder = new AlertDialog.Builder(TimerActivity.this, R.style.AlertDialogCustom);
                     resetBuilder.setMessage("Are you sure you want to reset the timer?");
                     resetBuilder.setTitle("Reset Confirmation");
@@ -170,7 +176,7 @@ public class TimerActivity extends AppCompatActivity {
                             //Cancelling the CountDownTimer
                             cdt.cancel();
                             //Changing boolean to state that the timer has not been activated
-                            isRunning = false;
+                            timerIsRunning = false;
                             startButton.setBackgroundColor(Color.parseColor("#4CAF50"));
                             lottieClock.setProgress(0);
                             lottieClock.cancelAnimation();
@@ -198,7 +204,7 @@ public class TimerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Check if user has inputted / The timer has been activated before but just in paused state
-                if (isRunning == false) {
+                if (timerIsRunning == false) {
                     //Calculation of duration
                     long durationCal = (hour * 3600) + (minutes * 60) + seconds + 1;
                     //Changing it to milliseconds
@@ -214,7 +220,7 @@ public class TimerActivity extends AppCompatActivity {
                         startButton.setBackgroundColor(Color.parseColor("#FFAF4C4C"));
                         startButton.setText("PAUSE");
                         onTimer(duration);
-                        isRunning = true;
+                        timerIsRunning = true;
                         lottieClock.resumeAnimation();
                     }
                     //Ability for the user to pause the timer
@@ -304,7 +310,7 @@ public class TimerActivity extends AppCompatActivity {
                 //Resetting button since timer has finished
                 startButton.setText("START");
                 //Resetting boolean to state that the timer is not running and the next time it runs, it should be completely reset
-                isRunning = false;
+                timerIsRunning = false;
                 startButton.setBackgroundColor(Color.parseColor("#4CAF50"));
 
                 //Send out a notification when the timer finishes
@@ -331,7 +337,8 @@ public class TimerActivity extends AppCompatActivity {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ///////////////////
+                lottieClock.setProgress(0);
+                lottieClock.cancelAnimation();
             }
         });
 
@@ -360,6 +367,8 @@ public class TimerActivity extends AppCompatActivity {
                 });
                 AlertDialog backAlert = noBuilder.create();
                 backAlert.show();
+                lottieClock.setProgress(0);
+                lottieClock.cancelAnimation();
             }
         });
 
