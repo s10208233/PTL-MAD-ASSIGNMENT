@@ -299,7 +299,6 @@ public class TimerActivity extends AppCompatActivity {
                     timeText.setText(timeLeftFormatted);
                 }
 
-
             }
 
             @Override
