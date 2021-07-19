@@ -22,12 +22,23 @@
         <service android:name=".TasksWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
         <activity android:name=".MainActivity">
+
+        android:theme="@style/Theme.RememberToDo.NoActionBar">
+        <activity android:name=".AddTaskCategoryActivity"></activity>
+        <activity android:name=".ViewTaskActivity" />
+        <activity android:name=".AddTaskActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
