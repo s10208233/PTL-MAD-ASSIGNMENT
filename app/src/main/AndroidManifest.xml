@@ -21,7 +21,6 @@
         </receiver>
         <service android:name=".TasksWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
-        <activity android:name=".MainActivity">
 
         android:theme="@style/Theme.RememberToDo.NoActionBar">
         <activity android:name=".AddTaskCategoryActivity"></activity>
