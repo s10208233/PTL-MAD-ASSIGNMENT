@@ -1,18 +1,21 @@
 package sg.edu.np.mad.remembertodo;
 
+import java.util.ArrayList;
 import java.util.Date;
 
-public class Task {
+public class Task extends ArrayList<Task> {
 
     private String TaskName;
-    //private Date DateCreated;
-    //private Date DueDate;
+    private int Difficulty;
+    private String DueDate;
     private boolean Completed;
+    private String DateCreated;
 
-    public Task(String TaskName , boolean Completed){
+    public Task(String TaskName, int Difficulty, String DueDate, boolean Completed, String DateCreated){
         this.TaskName = TaskName;
-//        this.DateCreated = DateCreated;
-//        this.DueDate = DueDate;
+        this.Difficulty = Difficulty;
+        this.DateCreated = DateCreated;
+        this.DueDate = DueDate;
         this.Completed = Completed;
     }
 
@@ -23,22 +26,22 @@ public class Task {
     public void setTaskName(String taskName) {
         TaskName = taskName;
     }
-//
-//    public Date getDateCreated() {
-//        return DateCreated;
-//    }
 
-//    public void setDateCreated(Date dateCreated) {
-//        DateCreated = dateCreated;
-//    }
-//
-//    public Date getDueDate() {
-//        return DueDate;
-//    }
-//
-//    public void setDueDate(Date dueDate) {
-//        DueDate = dueDate;
-//    }
+    public int getDifficulty() {
+        return Difficulty;
+    }
+
+    public void setDifficulty(int difficulty) {
+        Difficulty = difficulty;
+    }
+
+    public String getDueDate() {
+        return DueDate;
+    }
+
+    public void setDueDate(String dueDate) {
+        DueDate = dueDate;
+    }
 
     public boolean isCompleted() {
         return Completed;
@@ -46,5 +49,13 @@ public class Task {
 
     public void setCompleted(boolean completed) {
         Completed = completed;
+    }
+
+    public String getDateCreated() {
+        return DateCreated;
+    }
+
+    public void setDateCreated(String dateCreated) {
+        DateCreated = dateCreated;
     }
 }

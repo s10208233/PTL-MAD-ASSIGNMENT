@@ -1,16 +1,30 @@
 package sg.edu.np.mad.remembertodo;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.ResourceManagerInternal;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ScrollView;
+import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
+
+//  static_categorylist to be converted to database
+import static sg.edu.np.mad.remembertodo.ViewTaskActivity.static_categorylist;
 
 public class AddTaskActivity extends AppCompatActivity {
 
@@ -22,26 +36,96 @@ public class AddTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        //
+        //  Receiving Information From Intent
+        Intent intent_extra = getIntent();
+        String task_category_name = intent_extra.getStringExtra("TaskCategoryName");
+        int task_category_position = intent_extra.getIntExtra("TaskCategoryPosition",0);
 
-        //  DATE PICKER
+        //  UX Message: Subtitle category name
+        TextView subtitle_message = findViewById(R.id.AddTaskSubtitle);
+        subtitle_message.setText("Create a new task for '" + task_category_name + "'");
+
+        //  EditText TaskName
+        EditText new_task_name_edittext = findViewById(R.id.editTextNewTaskName);
+
+        //  Difficulty Seekbar
+        SeekBar difficulty_seekbar = findViewById(R.id.addTaskDifficultySeekbar);
+        TextView feedback_simple = findViewById(R.id.diffTextSimple);
+        TextView feedback_moderate = findViewById(R.id.diffTextModerate);
+        TextView feedback_hard = findViewById(R.id.diffTextHard);
+
+        difficulty_seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+                if (seekBar.getProgress() == 0){
+                    feedback_simple.setTextColor(getApplicationContext().getResources().getColorStateList(R.color.simple));
+                    feedback_moderate.setTextColor(getApplicationContext().getResources().getColorStateList(R.color.gray));
+                    feedback_hard.setTextColor(getApplicationContext().getResources().getColorStateList(R.color.gray));
+                }
+                if (seekBar.getProgress() == 1){
+                    feedback_simple.setTextColor(getApplicationContext().getResources().getColorStateList(R.color.gray));
+                    feedback_moderate.setTextColor(getApplicationContext().getResources().getColorStateList(R.color.moderate));
+                    feedback_hard.setTextColor(getApplicationContext().getResources().getColorStateList(R.color.gray));
+                }
+                if (seekBar.getProgress() == 2){
+                    feedback_simple.setTextColor(getApplicationContext().getResources().getColorStateList(R.color.gray));
+                    feedback_moderate.setTextColor(getApplicationContext().getResources().getColorStateList(R.color.gray));
+                    feedback_hard.setTextColor(getApplicationContext().getResources().getColorStateList(R.color.hard));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        //  Date Picker Button
         initDatePicker();
         dateButton = findViewById(R.id.datePickerButton);
-        dateButton.setText(getTodaysDate());
+        //  dateButton.setText(getTodaysDate());
 
-        //  ADD TASK BUTTON
+        //  Create Task Button
+        findViewById(R.id.createTaskBtn).setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View view) {
+                //  Task Object Parameters
+                String TaskName_value = new_task_name_edittext.getText().toString();
+                int Difficulty_value = difficulty_seekbar.getProgress();
+                String DueDate_value = dateButton.getText().toString();
+                if (TaskName_value.matches("")){
+                    new_task_name_edittext.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.hard));
+                    Toast.makeText(AddTaskActivity.this, "Please give this task a name!", Toast.LENGTH_SHORT).show();
+                    ((ScrollView)findViewById(R.id.scrollview_addtask)).fullScroll(ScrollView.FOCUS_UP);
+                }
+                else{
+                    if (DueDate_value.matches("Select A Date")){
+                        DueDate_value = "-";
+                    }
+                    Task NewTaskObject = new Task(TaskName_value, Difficulty_value, DueDate_value,false, getTodaysDate());
+                    static_categorylist.get(task_category_position).getTaskList().add(NewTaskObject);
+                    finish();
+                }
+            }
+        });
 
-        //  CANCEL BUTTON
+        //  Cancel Button
         findViewById(R.id.cancelTaskBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AddTaskActivity.this, ViewTaskActivity.class));
                 finish();
             }
         });
     }
 
-    //  DATE FUNCTIONS
+    //  All Date Picker Functions
     private String getTodaysDate()
     {
         Calendar cal = Calendar.getInstance();
@@ -117,4 +201,9 @@ public class AddTaskActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        finish();
+    }
 }

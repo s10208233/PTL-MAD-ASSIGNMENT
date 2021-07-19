@@ -27,12 +27,19 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
 
     @Override
     public void onBindViewHolder(TaskViewHolder holder, int position) {
+
+        //  Task Name
         holder.Single_Task_Name.setText(data.get(position).getTaskName());
-        //  holder.Single_Task_DueDate.setText(data.get(position).getDueDate().toString());
-        if (data.get(position).isCompleted() == true) {
+
+        //  Task Due Date
+        holder.Single_Task_DueDate.setText(data.get(position).getDueDate());
+
+        //  Checkbox
+        if (data.get(position).isCompleted()) {
             holder.Single_Task_Checkbox.setChecked(true);
         }
 
+        //  Alternating Background Color
         if (position%2 == 0){
             holder.task_constraint_layout.setBackgroundColor(Color.parseColor("#66000000"));
         }
