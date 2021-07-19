@@ -1,8 +1,9 @@
 package sg.edu.np.mad.remembertodo;
 
+import java.util.ArrayList;
 import java.util.Date;
 
-public class Task {
+public class Task extends ArrayList<Task> {
 
     private String TaskName;
     private int Difficulty;

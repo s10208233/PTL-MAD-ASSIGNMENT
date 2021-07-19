@@ -52,8 +52,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         //  END Sample
 
 
-        //  Sample Local Data
-        //  NOTE TO SELF: Fix date format to just date instead of full string
+        //  Initial Sample Local Data Creation, DO NOT UNCOMMENT
         TaskCategoryList.add(new TaskCategory("Mobile Application Development",
                 new ArrayList<Task>(
                         Arrays.asList(
@@ -77,7 +76,13 @@ public class ViewTaskActivity extends AppCompatActivity {
         TaskCategoryList.add(new TaskCategory("Sample 3",
                 new ArrayList<Task>(), "Green"));
 
-        static_categorylist = TaskCategoryList;
+        //  Storing Initial Database Storing, DO NOT UNCOMMENT
+//        for (int i = 0; i <= TaskCategoryList.size(); i++){
+//            taskcategory_DBhandler.storeTaskCategoryList(TaskCategoryList.get(i));
+//        }
+
+        //  static_categorylist = TaskCategoryList;
+        static_categorylist = taskcategory_DBhandler.getTaskCategoryList();
 
 
         // Main RecyclerView for displaying TaskCategories
