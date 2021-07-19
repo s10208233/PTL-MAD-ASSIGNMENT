@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/widgetItemTaskNameLabel"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="414dp"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
