@@ -2,15 +2,15 @@ package sg.edu.np.mad.remembertodo;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.ViewGroup;
+import android.graphics.Color;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
-
+import static sg.edu.np.mad.remembertodo.ViewTaskActivity.static_categorylist;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DataProvider implements RemoteViewsService.RemoteViewsFactory {
-    List<String> myListView = new ArrayList<>();
+    List<TaskCategory> myListView = new ArrayList<>();
     Context mContext = null;
     public DataProvider(Context context, Intent intent) {
         mContext = context; }
@@ -28,17 +28,44 @@ public class DataProvider implements RemoteViewsService.RemoteViewsFactory {
         }
         @Override
         public int getCount() {
-            return myListView.size();
+            if (myListView == null) {
+                return 0;
+            }
+        return myListView.size();
         }
         @Override
         public RemoteViews getViewAt(int position) {
-            RemoteViews view = new RemoteViews(mContext.getPackageName(), R.layout.category_list_widget);
-//            RemoteViews task_view = new RemoteViews(mContext.getPackageName(), R.layout.task_list_widget);
-            view.setTextViewText(R.id.widgetItemTaskNameLabel, myListView.get(position));
-            
-//            view.addView(R.id.widgetItemTaskNameLabel, task_view);
-            view.setInt(R.id.widgetItemTaskNameLabel,"setBackgroundResource",R.drawable.rounded_corners);
-            return view;
+            String str = "";
+            RemoteViews view_category = new RemoteViews(mContext.getPackageName(), R.layout.category_list_widget);
+            view_category.setInt(R.id.widgetItemContainer,"setBackgroundColor", Color.parseColor(colorNameToCode(myListView.get(position).getColorCode())));
+            view_category.setTextViewText(R.id.widgetTitleLabel, myListView.get(position).getTaskCategoryName());
+            for (int i = 0; i < myListView.get(position).getTaskList().size(); i++){
+                str += myListView.get(position).getTaskList().get(i).getTaskName() + " by " + myListView.get(position).getTaskList().get(i).getDueDate() + "\n";
+            }
+            view_category.setTextViewText(R.id.task_list, str);
+
+//            String str ="MOther,MOther,Mother";
+//            view_category.setTextViewText(R.id.task_list, str.replaceAll(",","\n"));
+
+//            LinearLayout linearLayout = findViewById(R.id.linearContainer) ;
+//            for (int i = 0; i <= 3; i++){
+//                TextView textView = new TextView(this);
+//                textView.setText("mother");
+//                linearLayout.addView(textView);
+//            }
+
+
+            return view_category;
+        }
+        public String colorNameToCode(String sel){
+            if(sel.matches("Red"))      {return "#850000";}
+            if(sel.matches("Green"))    {return "#4F9300";}
+            if(sel.matches("Blue"))     {return "#0057B5";}
+            if(sel.matches("Purple"))   {return "#5A2DA8";}
+            if(sel.matches("Yellow"))   {return "#D3A20B";}
+            if(sel.matches("Orange"))   {return "#D67806";}
+            if(sel.matches("Black"))    {return "#000000";}
+            return "#404040";
         }
         @Override
         public RemoteViews getLoadingView() {
@@ -57,9 +84,6 @@ public class DataProvider implements RemoteViewsService.RemoteViewsFactory {
         return true;
         }
         private void initData() {
-        myListView.clear();
-        for (int i = 1; i <= 15; i++) {
-            myListView.add("Task " + i);
-        }
+        myListView = static_categorylist;
     }
 }

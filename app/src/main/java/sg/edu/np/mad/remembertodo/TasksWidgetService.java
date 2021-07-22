@@ -6,5 +6,6 @@ public class TasksWidgetService extends RemoteViewsService {
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
         return new DataProvider(this, intent);
+
     }
 }
