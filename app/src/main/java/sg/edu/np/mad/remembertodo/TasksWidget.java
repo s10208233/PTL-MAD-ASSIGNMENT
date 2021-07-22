@@ -13,19 +13,20 @@ public class TasksWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
         //Instantiate the RemoteViews object//
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.tasks_widget);
-        setRemoteAdapter(context, views);  //Request that the AppWidgetManager updates the application widget//
+        setRemoteAdapter(context, views);
+
+        //Request that the AppWidgetManager updates the application widget//
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
     private static void setRemoteAdapter(Context context, @NonNull final RemoteViews views) {
         views.setRemoteAdapter(R.id.widgetListView, new Intent(context, TasksWidgetService.class));
         views.setInt(R.id.widgetContainer,"setBackgroundResource",R.drawable.rounded_corners_for_widget);
+
     }
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
-            RemoteViews views = new RemoteViews(
-                    context.getPackageName(),
-                    R.layout.tasks_widget);
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.tasks_widget);
             //Update all instances of this widget//
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
