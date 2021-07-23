@@ -56,6 +56,9 @@ public class TimerActivity extends AppCompatActivity {
 
     //Boolean to check if the timer has been activated before
     boolean timerIsRunning;
+
+    //Boolean to check if the timer has paused
+    boolean timerIsPaused;
     //To keep the timer running
     boolean Run;
 
@@ -68,6 +71,12 @@ public class TimerActivity extends AppCompatActivity {
     LottieAnimationView lottieClock;
 
     Vibrator vibrator;
+
+    String timeLeftFormatted;
+
+    String timeTextString;
+
+    boolean timerEndPart2;
 
 
     @Override
@@ -169,15 +178,14 @@ public class TimerActivity extends AppCompatActivity {
                     resetBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            //Resetting the start button
-                            startButton.setText("START");
                             //Resetting the TextView
                             timeText.setText("00:00:00");
                             //Cancelling the CountDownTimer
                             cdt.cancel();
                             //Changing boolean to state that the timer has not been activated
                             timerIsRunning = false;
-                            startButton.setBackgroundColor(Color.parseColor("#4CAF50"));
+                            //Resetting the start button
+                            updateButton();
                             lottieClock.setProgress(0);
                             lottieClock.cancelAnimation();
                             Toast.makeText(TimerActivity.this, "Timer has been reset", Toast.LENGTH_SHORT).show();
@@ -217,23 +225,34 @@ public class TimerActivity extends AppCompatActivity {
                     //Ability for the user to start the timer
                     if (startButton.getText().toString() != "PAUSE") {
                         //Changing the start button text to PAUSE and colour to light red since it is in active state
-                        startButton.setBackgroundColor(Color.parseColor("#FFAF4C4C"));
-                        startButton.setText("PAUSE");
                         onTimer(duration);
                         timerIsRunning = true;
+                        updateButton();
+                        timerIsPaused = false;
                         lottieClock.resumeAnimation();
                     }
                     //Ability for the user to pause the timer
                     else {
                         //Changing the start button text to START and colour to green since it is in paused state
-                        startButton.setText("START");
-                        startButton.setBackgroundColor(Color.parseColor("#4CAF50"));
+                        updateButton();
+                        timerIsPaused = true;
                         lottieClock.pauseAnimation();
                         cdt.cancel();
                     }
                 }
             }
         });
+    }
+
+    private void updateButton(){
+        if(startButton.getText().toString() != "PAUSE"){
+            startButton.setBackgroundColor(Color.parseColor("#FFAF4C4C"));
+            startButton.setText("PAUSE");
+        }
+        else if(startButton.getText().toString() == "PAUSE" && timerIsPaused == false){
+            startButton.setText("START");
+            startButton.setBackgroundColor(Color.parseColor("#4CAF50"));
+        }
     }
 
     //Send notification through channel, in this case channel 1
@@ -285,7 +304,6 @@ public class TimerActivity extends AppCompatActivity {
                 long sPassed = millisUntilFinished / tSecs;
 
                 //Displaying the time via the TextView every tick
-                String timeLeftFormatted;
                 //Displaying this if hours is less than 0
                 if (tHours > 0) {
                     //Formatting string to get 00:00:00 style
@@ -344,6 +362,7 @@ public class TimerActivity extends AppCompatActivity {
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                timerEndPart2 = true;
                 AlertDialog.Builder noBuilder = new AlertDialog.Builder(TimerActivity.this, R.style.AlertDialogCustom);
                 noBuilder.setMessage("Would you like to extend your time?");
                 noBuilder.setTitle("Extend time?");
@@ -399,5 +418,37 @@ public class TimerActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putLong("millisLeft", duration);
+        outState.putString("timeText", timeText.getText().toString());
+        outState.putBoolean("timerIsRunning", timerIsRunning);
+        outState.putBoolean("timerIsPaused", timerIsPaused);
+        outState.putBoolean("timerEndPart2", timerEndPart2);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+
+        duration = savedInstanceState.getLong("millisLeft");
+        timeTextString = savedInstanceState.getString("timeText");
+        timerIsRunning = savedInstanceState.getBoolean("timerIsRunning");
+        timerIsPaused = savedInstanceState.getBoolean("timerIsPaused");
+        timerEndPart2 = savedInstanceState.getBoolean("timerEndPart2");
+        if(timerIsRunning == true && timerIsPaused == false){
+            onTimer(duration);
+            updateButton();
+        }
+        else if(timerIsRunning == true && timerIsPaused == true){
+            onTimer(duration);
+            cdt.cancel();
+            timeText.setText(timeTextString);
+            startButton.setText("START");
+            startButton.setBackgroundColor(Color.parseColor("#4CAF50"));
+        }
     }
 }
