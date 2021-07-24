@@ -124,6 +124,14 @@ public class ViewTaskActivity extends AppCompatActivity {
 
             }
         });
+
+        //  Timer Activity Btn
+        findViewById(R.id.timerActivityBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ViewTaskActivity.this, TimerActivity.class));
+            }
+        });
     }
 
     //  Date Functions
