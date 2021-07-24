@@ -34,8 +34,9 @@ public class TaskCategoryAdapater extends RecyclerView.Adapter<TaskCategoryViewH
 
     @Override
     public void onBindViewHolder(TaskCategoryViewHolder holder, int position) {
+
         //  Set Background Color
-            holder.Single_TaskCategory_ConstraintLayout.setBackgroundColor(Color.parseColor(colorNameToCode(data.get(position).getColorCode())));
+        holder.Single_TaskCategory_ConstraintLayout.setBackgroundColor(Color.parseColor(colorNameToCode(data.get(position).getColorCode())));
 
         //  Set Name of Task
         holder.ViewTaskCategory_CategoryName_text_view.setText(data.get(position).getTaskCategoryName());

@@ -7,8 +7,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,12 +31,27 @@ public class ViewTaskActivity extends AppCompatActivity {
 
     static ArrayList<TaskCategory> static_categorylist;
     TaskCategoryAdapater taskcategoryadapter;
-
+    SharedPreferences sharedPreferences;
+    public String GLOBAL_PREFS = "MyPrefs";
     CombinedTaskDatabaseHandler taskcategory_DBhandler = new CombinedTaskDatabaseHandler(this,null,null,1);
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        static_categorylist = taskcategory_DBhandler.getTaskCategoryList();
+
+        sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("Category", static_categorylist.get(0).getTaskCategoryName());
+        editor.apply();
+
+        //Notify AppWidgetManager to update whenever app starts
+        Context context = getApplicationContext();
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        ComponentName thisWidget = new ComponentName(context, TasksWidget.class);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetListView);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_task);
 
@@ -54,35 +73,23 @@ public class ViewTaskActivity extends AppCompatActivity {
 
         //  Initial Sample Local Data Creation, DO NOT UNCOMMENT
         TaskCategoryList.add(new TaskCategory("Mobile Application Development",
-                new ArrayList<Task>(
-                        Arrays.asList(
-                                new Task("Sample", 0, getTodaysDate(), false, getTodaysDate()),
-                                new Task("Sample", 0, getTodaysDate(), false, getTodaysDate()),
-                                new Task("Sample", 0, getTodaysDate(), false, getTodaysDate()),
-                                new Task("Sample", 0, getTodaysDate(), false, getTodaysDate())
-                        )
-                ),
+                new ArrayList<Task>(),
                 "Red"));
 
         TaskCategoryList.add(new TaskCategory("Others",
-                new ArrayList<Task>(
-                        Arrays.asList(
-                                new Task("Sample", 0, getTodaysDate(), true, getTodaysDate()),
-                                new Task("Sample", 0, getTodaysDate(), false, getTodaysDate())
-                        )
-                ),
+                new ArrayList<Task>(),
                 "Blue"));
 
         TaskCategoryList.add(new TaskCategory("Sample 3",
                 new ArrayList<Task>(), "Green"));
 
         //  Storing Initial Database Storing, DO NOT UNCOMMENT
-//        for (int i = 0; i <= TaskCategoryList.size(); i++){
+//        for (int i = 0; i < TaskCategoryList.size(); i++){
 //            taskcategory_DBhandler.storeTaskCategoryList(TaskCategoryList.get(i));
 //        }
 
         //  static_categorylist = TaskCategoryList;
-        static_categorylist = taskcategory_DBhandler.getTaskCategoryList();
+
 
 
         // Main RecyclerView for displaying TaskCategories
@@ -95,12 +102,20 @@ public class ViewTaskActivity extends AppCompatActivity {
         rview_cat_holder.setAdapter(adptr);
 
         taskcategoryadapter = adptr;
-
+        findViewById(R.id.settings).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ViewTaskActivity.this, SettingsPage.class));
+            }
+        });
         //  Floating Action Button - Displays Create New Category Alert Dialog
         findViewById(R.id.add_cat_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ViewTaskActivity.this, AddTaskCategoryActivity.class));
+                for (int i = 0;i<static_categorylist.size();i++){
+                    Log.v("list",String.valueOf(static_categorylist.get(i).getTaskList()));
+                }
 //                AlertDialog.Builder newcategory_alert_dialogbuilder = new AlertDialog.Builder(view.getContext());
 //                newcategory_alert_dialogbuilder.setTitle("Create New Task Category");
 //                newcategory_alert_dialogbuilder.setMessage("Create");

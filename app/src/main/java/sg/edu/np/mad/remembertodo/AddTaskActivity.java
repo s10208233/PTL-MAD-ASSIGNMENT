@@ -8,10 +8,14 @@ import androidx.appcompat.widget.ResourceManagerInternal;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -21,16 +25,19 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 
 //  static_categorylist to be converted to database
 import static sg.edu.np.mad.remembertodo.ViewTaskActivity.static_categorylist;
 
 public class AddTaskActivity extends AppCompatActivity {
-
+    CombinedTaskDatabaseHandler taskcategory_DBhandler = new CombinedTaskDatabaseHandler(this,null,null,1);
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
-
+    Gson gson = new Gson();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,8 +116,18 @@ public class AddTaskActivity extends AppCompatActivity {
                     if (DueDate_value.matches("Select A Date")){
                         DueDate_value = "-";
                     }
-                    Task NewTaskObject = new Task(TaskName_value, Difficulty_value, DueDate_value,false, getTodaysDate());
+                    Task NewTaskObject = new Task (TaskName_value, Difficulty_value, DueDate_value,false, getTodaysDate());
                     static_categorylist.get(task_category_position).getTaskList().add(NewTaskObject);
+                    int i = static_categorylist.get(task_category_position).getTaskList().size();
+                    Log.v("obj",gson.toJson(static_categorylist.get(task_category_position).getTaskList()));
+//                    taskcategory_DBhandler.storeTaskList(NewTaskObject,task_category_name);
+
+                    //Notify appWidgetManager to update the widget when user add new task
+                    Context context = getApplicationContext();
+                    AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                    ComponentName thisWidget = new ComponentName(context, TasksWidget.class);
+                    int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+                    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetListView);
                     finish();
                 }
             }

@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RememberToDo">
+        <activity android:name=".SettingsPage" />
 
         <receiver android:name=".TasksWidget">
             <intent-filter>
@@ -19,11 +20,12 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/tasks_widget_info" />
         </receiver>
-        <service android:name=".TasksWidgetService"
+
+        <service
+            android:name=".TasksWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        android:theme="@style/Theme.RememberToDo.NoActionBar">
-        <activity android:name=".AddTaskCategoryActivity"></activity>
+        <activity android:name=".AddTaskCategoryActivity" />
         <activity android:name=".ViewTaskActivity" />
         <activity android:name=".AddTaskActivity" />
         <activity android:name=".HomeActivity" />
