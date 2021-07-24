@@ -1,0 +1,41 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widgetContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkgray"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF">
+
+        <TextView
+            android:id="@+id/widgetTitleLabel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/darkgray"
+            android:gravity="center"
+            android:text="Remember To Do!"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18dp"></TextView>
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/linearContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF">
+
+        <ListView
+            android:id="@+id/widgetListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/darkgray"
+            android:divider="@color/darkgray"
+            android:dividerHeight="10dp"
+            tools:listitem="@layout/category_list_widget"></ListView>
+    </LinearLayout>
+</LinearLayout>
