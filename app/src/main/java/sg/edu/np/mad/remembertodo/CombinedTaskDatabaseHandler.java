@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
@@ -30,7 +31,6 @@ public class CombinedTaskDatabaseHandler extends SQLiteOpenHelper {
     public static int DATABASE_VERSION = 1;
 
     Gson gson = new Gson();
-    ArrayList<Task> EmptyTaskList;
 
     public CombinedTaskDatabaseHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)
     {
@@ -64,14 +64,21 @@ public class CombinedTaskDatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
     //  Local ArrayList<Task> into database
-    public void storeTaskList(Task task, String catergoryName){
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_TASKLIST, gson.toJson(task));
+    public void storeTaskList(Task task, String catergoryName,int position){
+        ArrayList<TaskCategory> data = getTaskCategoryList();
+        Log.v("previous",gson.toJson(data.get(position).getTaskList()));
+        String previousData = "";
+        if (data.get(position).getTaskList().isEmpty()){
+            previousData = "'[" + gson.toJson(task) + "]'";
+        }
+        else{
+            previousData = "'" + gson.toJson(data.get(position).getTaskList()).replaceFirst(".$","") + "," + gson.toJson(task) + "]'";
+        }
         SQLiteDatabase db = this.getWritableDatabase();
-        Log.v("task", task.getTaskName());
-//        db.rawQuery("UPDATE "+ TASKCATEGORY + " SET " + COLUMN_TASKLIST + " = " + task+ " WHERE( " + COLUMN_TASKCATEGORYNAME + " = " + '"' + catergoryName + '"' + ");",null);
-//        db.insert(TASKCATEGORY,null, values);
-        db.close();
+        db.execSQL("UPDATE "+ TASKCATEGORY + " SET " + COLUMN_TASKLIST + " = "+ previousData + " WHERE( " + COLUMN_TASKCATEGORYNAME + " = " + '"' + catergoryName + '"' + ");");
+        Log.v("query","UPDATE "+ TASKCATEGORY + " SET " + COLUMN_TASKLIST + " = " + "'" + gson.toJson(task) + "'" + " WHERE( " + COLUMN_TASKCATEGORYNAME + " = " + '"' + catergoryName + '"' + ");");
+
+
     }
 
 
@@ -82,6 +89,7 @@ public class CombinedTaskDatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TASKCATEGORY, null);
         while (cursor.moveToNext()) {
+
             try {
                 if (cursor.getString(0) != null) {
                     returnTaskCategoryList.add(
@@ -116,7 +124,7 @@ public class CombinedTaskDatabaseHandler extends SQLiteOpenHelper {
     public ArrayList<Task> jsonStringTaskListRebuilder(String jsonString) throws JSONException {
         JSONArray jsonArray = new JSONArray(jsonString);
         ArrayList<Task> returnTaskList = new ArrayList<Task>();
-
+        Log.v("jLength",String.valueOf(jsonArray.length()));
         for (int i = 0; i < jsonArray.length(); i++){
 
             String TaskName = (String)jsonArray.getJSONObject(i).get("TaskName");

@@ -40,10 +40,12 @@ public class ViewTaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         static_categorylist = taskcategory_DBhandler.getTaskCategoryList();
 
-        sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("Category", static_categorylist.get(0).getTaskCategoryName());
-        editor.apply();
+        if (static_categorylist.size() != 0) {
+            sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("Category", static_categorylist.get(0).getTaskCategoryName());
+            editor.apply();
+        }
 
         //Notify AppWidgetManager to update whenever app starts
         Context context = getApplicationContext();

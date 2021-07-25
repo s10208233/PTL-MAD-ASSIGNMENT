@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import static sg.edu.np.mad.remembertodo.ViewTaskActivity.static_categorylist;
 
 public class AddTaskCategoryActivity extends AppCompatActivity {
-
+    CombinedTaskDatabaseHandler taskcategory_DBhandler = new CombinedTaskDatabaseHandler(this,null,null,1);
     String colorcode = "";
 
     @Override
@@ -64,6 +64,7 @@ public class AddTaskCategoryActivity extends AppCompatActivity {
                 }
                 else{
                     static_categorylist.add(new TaskCategory(new_category_name_input, new ArrayList<Task>(), colorcode));
+                    taskcategory_DBhandler.storeTaskCategoryList(new TaskCategory(new_category_name_input, new ArrayList<Task>(), colorcode));
                     //Notify appWidgetManager to update the widget when user add new cat
                     Context context = getApplicationContext();
                     AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);

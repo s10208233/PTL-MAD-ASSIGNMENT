@@ -55,7 +55,7 @@ public class SettingsPage extends AppCompatActivity {
                 }
                 String[] category = values.toArray(new String[0]);
 
-                int checkedItem = 0; // first category
+                int checkedItem = -1; //-1 because i do not want default checked button
                 builder.setSingleChoiceItems(category , checkedItem, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
