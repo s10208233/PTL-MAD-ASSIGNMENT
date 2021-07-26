@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
@@ -27,10 +28,10 @@ import com.airbnb.lottie.LottieAnimationView;
 import java.util.Locale;
 
 import static android.Manifest.permission.FOREGROUND_SERVICE;
+//String variable from App class
 import static sg.edu.np.mad.remembertodo.App.CHANNEL_1_ID;
 
-//String variable from App class
-
+//By Daryl Chong Teck Yuan
 public class TimerActivity extends AppCompatActivity {
 
     //Buttons used
@@ -68,15 +69,27 @@ public class TimerActivity extends AppCompatActivity {
     //Notification manager
     private NotificationManagerCompat notificationManager;
 
+    //Lottie animation
     LottieAnimationView lottieClock;
 
+    //Vibration
     Vibrator vibrator;
 
+    //Format of the time to pass to restoreinstance
     String timeLeftFormatted;
 
+    //The text of the time to pass to restore instance
     String timeTextString;
 
+    //Boolean to check if the first alert dialog has been called
     boolean timerEndPart2;
+
+    //Media player to play the timer end music
+    MediaPlayer mediaPlayer;
+
+    //Boolean to check if the media player is running
+    boolean isMediaRunning;
+
 
 
     @Override
@@ -118,18 +131,25 @@ public class TimerActivity extends AppCompatActivity {
         //To state that the timer has not been run yet, since the button hasn't been pressed.
         timerIsRunning = false;
 
+        //The notification manager
         notificationManager = NotificationManagerCompat.from(this);
 
+        //Lottie animation
         lottieClock = findViewById(R.id.animationView);
 
+        //Vibration service
         vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+
+        //When app first launches, media player is not running
+        isMediaRunning = false;
+
 
         //Update value for Hours every time the Hours wheel spins to a new number
         numPickerHour.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 hour = newVal;
-                //Plays a click sound every time a user scrolls with the wheel picker
+                //Plays a click sound every time a user scrolls with the wheel picker and vibrate as well
                 picker.playSoundEffect(SoundEffectConstants.CLICK);
                 vibrator.vibrate(50);
             }
@@ -140,7 +160,7 @@ public class TimerActivity extends AppCompatActivity {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 minutes = newVal;
-                //Plays a click sound every time a user scrolls with the wheel picker
+                //Plays a click sound every time a user scrolls with the wheel picker and vibrate as well
                 picker.playSoundEffect(SoundEffectConstants.CLICK);
                 vibrator.vibrate(50);
             }
@@ -151,7 +171,7 @@ public class TimerActivity extends AppCompatActivity {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 seconds = newVal;
-                //Plays a click sound every time a user scrolls with the wheel picker
+                //Plays a click sound every time a user scrolls with the wheel picker and vibrate as well
                 picker.playSoundEffect(SoundEffectConstants.CLICK);
                 vibrator.vibrate(50);
             }
@@ -161,6 +181,7 @@ public class TimerActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Go back to home page method
                 onBackPressed();
             }
         });
@@ -186,8 +207,10 @@ public class TimerActivity extends AppCompatActivity {
                             timerIsRunning = false;
                             //Resetting the start button
                             updateButton();
+                            //Resetting the progress of the lottie clock
                             lottieClock.setProgress(0);
                             lottieClock.cancelAnimation();
+                            //Toast to alert the user that the timer has stopped
                             Toast.makeText(TimerActivity.this, "Timer has been reset", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -195,9 +218,12 @@ public class TimerActivity extends AppCompatActivity {
                     resetBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            //If click no, cancel dialog
+                            dialog.cancel();
                         }
                     });
 
+                    //Initiate dialog
                     AlertDialog alert = resetBuilder.create();
                     alert.show();
 
@@ -217,6 +243,7 @@ public class TimerActivity extends AppCompatActivity {
                     long durationCal = (hour * 3600) + (minutes * 60) + seconds + 1;
                     //Changing it to milliseconds
                     duration = durationCal * 1000;
+                    //Play the lottie animation on press of start button
                     lottieClock.playAnimation();
                 }
 
@@ -226,17 +253,24 @@ public class TimerActivity extends AppCompatActivity {
                     if (startButton.getText().toString() != "PAUSE") {
                         //Changing the start button text to PAUSE and colour to light red since it is in active state
                         onTimer(duration);
+                        //Indicate that timer has started running
                         timerIsRunning = true;
+                        //Update button from green to red and START to PAUSE
                         updateButton();
+                        //Indicate that the timer is not paused
                         timerIsPaused = false;
+                        //Resume animation of lottie clock
                         lottieClock.resumeAnimation();
                     }
                     //Ability for the user to pause the timer
                     else {
                         //Changing the start button text to START and colour to green since it is in paused state
                         updateButton();
+                        //Indicate that the timer has paused
                         timerIsPaused = true;
+                        //Pause the lottie clock animation
                         lottieClock.pauseAnimation();
+                        //Stop the timer
                         cdt.cancel();
                     }
                 }
@@ -244,6 +278,7 @@ public class TimerActivity extends AppCompatActivity {
         });
     }
 
+    //Method to update button status, green to red, START to PAUSE etc depending on conditions
     private void updateButton(){
         if(startButton.getText().toString() != "PAUSE"){
             startButton.setBackgroundColor(Color.parseColor("#FFAF4C4C"));
@@ -261,14 +296,16 @@ public class TimerActivity extends AppCompatActivity {
         Intent resultIntent = new Intent(this, TimerActivity.class);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this,1,resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        String notiTitle = "Time's up!";
-        String notiText = "Have you completed your task?";
+        //Title of the notification
+        String notificationTitle = "Time's up!";
+        //Message of the notification
+        String notificationText = "Have you completed your task?";
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
                 //Icons for the notification
                 .setSmallIcon(R.drawable.ic_clock)
                 //Title and message
-                .setContentTitle(notiTitle)
-                .setContentText(notiText)
+                .setContentTitle(notificationTitle)
+                .setContentText(notificationText)
                 //So the message will drop down
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 //Same category as alarms as it counts as a alarm as well despite being a timer
@@ -280,6 +317,7 @@ public class TimerActivity extends AppCompatActivity {
                 //Intent to go back to timer page
                 .setContentIntent(resultPendingIntent)
                 .build();
+        //Notify through channel 1
         notificationManager.notify(1, notification);
     }
 
@@ -290,30 +328,30 @@ public class TimerActivity extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 duration = millisUntilFinished;
-                long tSecs = 1000;
-                long tMins = tSecs * 60;
-                long tHours = tMins * 60;
+                long timeSeconds = 1000;
+                long timeMinutes = timeSeconds * 60;
+                long timeHours = timeMinutes * 60;
 
                 //Time math
-                long hPassed = millisUntilFinished / tHours;
-                millisUntilFinished = millisUntilFinished % tHours;
+                long hoursPassed = millisUntilFinished / timeHours;
+                millisUntilFinished = millisUntilFinished % timeHours;
 
-                long mPassed = millisUntilFinished / tMins;
-                millisUntilFinished = millisUntilFinished % tMins;
+                long minutesPassed = millisUntilFinished / timeMinutes;
+                millisUntilFinished = millisUntilFinished % timeMinutes;
 
-                long sPassed = millisUntilFinished / tSecs;
+                long secondsPassed = millisUntilFinished / timeSeconds;
 
                 //Displaying the time via the TextView every tick
                 //Displaying this if hours is less than 0
-                if (tHours > 0) {
+                if (timeHours > 0) {
                     //Formatting string to get 00:00:00 style
-                    timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d:%02d", hPassed, mPassed, sPassed);
+                    timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d:%02d", hoursPassed, minutesPassed, secondsPassed);
                     timeText.setText(timeLeftFormatted);
                 }
                 //Displaying this otherwise
                 else {
                     //Formatting string to get 00:00:00 style
-                    timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", mPassed, sPassed);
+                    timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutesPassed, secondsPassed);
                     timeText.setText(timeLeftFormatted);
                 }
 
@@ -336,8 +374,12 @@ public class TimerActivity extends AppCompatActivity {
                 //Alert Dialogue when the timer finishes
                 timerEndDialogue();
 
+                //Reset lottie clock animation when timer ends
                 lottieClock.setProgress(0);
                 lottieClock.cancelAnimation();
+
+                //Play the timer end music
+                timerEndMusic(null);
 
             }
         };
@@ -345,27 +387,50 @@ public class TimerActivity extends AppCompatActivity {
         cdt.start();
     }
 
+    //Method to initiate the timer end music
+    public void timerEndMusic(View v){
+        if(isMediaRunning == false){
+            mediaPlayer = MediaPlayer.create(this, R.raw.shuwa_shuwa_honey_lemon);
+            mediaPlayer.start();
+            mediaPlayer.setLooping(true);
+            isMediaRunning = true;
+        }
+    }
+
+    //Alert dialog that pops up when the timer finishes
     public void timerEndDialogue() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
+        //Dialog title and message
         builder.setMessage("Is the task completed?");
         builder.setTitle("Timer Finished!");
+        //Prevent the timer from being cancelled via other means other than the buttons
         builder.setCancelable(false);
 
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                //Reset the lottie clock animation
                 lottieClock.setProgress(0);
                 lottieClock.cancelAnimation();
+                //If the media player is running, stop it else do nothing
+                if(isMediaRunning == true){
+                    mediaPlayer.stop();
+                    mediaPlayer.release();
+                    isMediaRunning = false;
+                }
             }
         });
 
+        //Second dialog option if the user states that they never finished their task, to ask for time extension
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                //To indicate that the 2nd alert dialog has been launched
                 timerEndPart2 = true;
                 AlertDialog.Builder noBuilder = new AlertDialog.Builder(TimerActivity.this, R.style.AlertDialogCustom);
                 noBuilder.setMessage("Would you like to extend your time?");
                 noBuilder.setTitle("Extend time?");
+                //Prevent the timer from being cancelled via other means other than the buttons
                 noBuilder.setCancelable(false);
 
                 noBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -378,72 +443,99 @@ public class TimerActivity extends AppCompatActivity {
                 noBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        //To go back to the home page
                         Intent backIntent = new Intent(TimerActivity.this, MainActivity.class);
                         startActivity(backIntent);
                         finish();
                     }
                 });
+                //Initiating the alert dialog
                 AlertDialog backAlert = noBuilder.create();
                 backAlert.show();
+
+                //Resetting the lottie clock animation
                 lottieClock.setProgress(0);
                 lottieClock.cancelAnimation();
+
+                //Release media player resources
+                if(isMediaRunning == true){
+                    mediaPlayer.stop();
+                    mediaPlayer.release();
+                    isMediaRunning = false;
+                }
             }
         });
 
-
+        //Initiating the alert dialog
         AlertDialog alert = builder.create();
         alert.show();
     }
 
-    //Alert dialogue when user chooses to go back
+    //Alert dialogue when user chooses to go back to home page
     @Override
     public void onBackPressed() {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(TimerActivity.this, R.style.AlertDialogCustom);
         builder.setIcon(R.mipmap.ic_launcher);
         builder.setTitle("Go back?");
+        //To give the average user the proper understanding of the activation of this button
         builder.setMessage("Are you sure you want to go back?\n(Doing so will stop the timer)")
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        //Finish the activity when "Yes" is pressed
                         cdt.cancel();
                         finish();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        //Cancel the dialog
                         dialog.cancel();
                     }
                 });
+        //Initiate the dialog
         AlertDialog alert = builder.create();
         alert.show();
 
     }
 
+    //Save information that is needed even when activity is reset
     @Override
     protected void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
+        //Duration left of the timer
         outState.putLong("millisLeft", duration);
+        //The text of the time remaining
         outState.putString("timeText", timeText.getText().toString());
+        //Boolean to indicate that if timer is running
         outState.putBoolean("timerIsRunning", timerIsRunning);
+        //Boolean to indicate if timer is paused
         outState.putBoolean("timerIsPaused", timerIsPaused);
+        //Boolean to indicate that the 2nd alert dialog has launched
         outState.putBoolean("timerEndPart2", timerEndPart2);
+        //Boolean to indicate that the media player is running
+        outState.putBoolean("isMediaRunning", isMediaRunning);
     }
 
+    //Restore the information received from saveinstancestate when activity has been resetted
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState){
         super.onRestoreInstanceState(savedInstanceState);
 
+        //Restoring information
         duration = savedInstanceState.getLong("millisLeft");
         timeTextString = savedInstanceState.getString("timeText");
         timerIsRunning = savedInstanceState.getBoolean("timerIsRunning");
         timerIsPaused = savedInstanceState.getBoolean("timerIsPaused");
         timerEndPart2 = savedInstanceState.getBoolean("timerEndPart2");
+        isMediaRunning = savedInstanceState.getBoolean("isMediaRunning");
         if(timerIsRunning == true && timerIsPaused == false){
+            //If timer was running, start the timer and update button appropriately
             onTimer(duration);
             updateButton();
         }
         else if(timerIsRunning == true && timerIsPaused == true){
+            //Else if paused, start timer, immediately pause it and update button appropriately
             onTimer(duration);
             cdt.cancel();
             timeText.setText(timeTextString);

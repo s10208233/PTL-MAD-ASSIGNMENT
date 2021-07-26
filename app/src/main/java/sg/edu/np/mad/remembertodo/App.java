@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
+//By Daryl Chong Teck Yuan
 public class App extends Application {
     public static final String CHANNEL_1_ID = "channel1";
 
@@ -26,6 +27,7 @@ public class App extends Application {
                     NotificationManager.IMPORTANCE_HIGH
             );
             channel.enableVibration(true);
+            //Description of the channel
             channel.setDescription("Notification from RememberToDo that the timer has finished.");
 
             NotificationManager manager = getSystemService(NotificationManager.class);
