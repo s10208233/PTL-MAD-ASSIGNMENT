@@ -15,12 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class TaskCategoryAdapater extends RecyclerView.Adapter<TaskCategoryViewHolder> {
+public class TaskCategoryAdapter extends RecyclerView.Adapter<TaskCategoryViewHolder> {
 
     ArrayList<TaskCategory> data;
     Context context;
 
-    public TaskCategoryAdapater(ArrayList<TaskCategory> input, Context inputContext) {
+    public TaskCategoryAdapter(ArrayList<TaskCategory> input, Context inputContext) {
         data = input;
         context = inputContext;
     }

@@ -26,7 +26,7 @@ import java.util.Date;
 public class ViewTaskActivity extends AppCompatActivity {
 
     static ArrayList<TaskCategory> static_categorylist;
-    TaskCategoryAdapater taskcategoryadapter;
+    TaskCategoryAdapter taskcategoryadapter;
 
     CombinedTaskDatabaseHandler taskcategory_DBhandler = new CombinedTaskDatabaseHandler(this,null,null,1);
 
@@ -88,7 +88,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         // Main RecyclerView for displaying TaskCategories
         RecyclerView rview_cat_holder = findViewById(R.id.rview_category_holder);
         //  Change static_categorylist once db is made
-        TaskCategoryAdapater adptr = new TaskCategoryAdapater(static_categorylist, getApplicationContext());
+        TaskCategoryAdapter adptr = new TaskCategoryAdapter(static_categorylist, getApplicationContext());
         LinearLayoutManager lm = new LinearLayoutManager(this);
         rview_cat_holder.setLayoutManager(lm);
         rview_cat_holder.setItemAnimator(new DefaultItemAnimator());
