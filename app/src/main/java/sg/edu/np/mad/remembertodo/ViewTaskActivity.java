@@ -38,20 +38,6 @@ public class ViewTaskActivity extends AppCompatActivity {
 
         ArrayList<TaskCategory> TaskCategoryList = new ArrayList<>();
 
-        //  START Sample
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-
-        SimpleDateFormat simpledateformat = new SimpleDateFormat("MM dd yyyy");
-
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/YYYY");
-        LocalDateTime currentDate = LocalDateTime.now();
-
-        Calendar calendar = Calendar.getInstance();
-        String currDate = DateFormat.getDateInstance().format(calendar.getTime());
-        //  END Sample
-
-
         //  Initial Sample Local Data Creation, DO NOT UNCOMMENT
         TaskCategoryList.add(new TaskCategory("Mobile Application Development",
                 new ArrayList<Task>(
@@ -74,10 +60,10 @@ public class ViewTaskActivity extends AppCompatActivity {
                 "Blue"));
 
         TaskCategoryList.add(new TaskCategory("Sample 3",
-                new ArrayList<Task>(), "Green"));
+                new ArrayList<Task>(), ""));
 
         //  Storing Initial Database Storing, DO NOT UNCOMMENT
-//        for (int i = 0; i <= TaskCategoryList.size(); i++){
+//        for (int i = 0; i < TaskCategoryList.size(); i++){
 //            taskcategory_DBhandler.storeTaskCategoryList(TaskCategoryList.get(i));
 //        }
 
