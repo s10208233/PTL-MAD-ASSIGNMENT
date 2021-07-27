@@ -1,6 +1,7 @@
 package sg.edu.np.mad.remembertodo;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,6 +41,31 @@ public class TaskCategoryAdapter extends RecyclerView.Adapter<TaskCategoryViewHo
 
         //  Set Name of Task
         holder.ViewTaskCategory_CategoryName_text_view.setText(data.get(position).getTaskCategoryName());
+
+        //  Set Delete Function
+        holder.ViewTaskCategory_Delete_Btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //  Alert Dialog Prompt Delete TaskCategory
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext(), R.style.AlertDialogCustom);
+                builder.setTitle("Task Category Delete Confirmation");
+                builder.setMessage("Would you like to remove the task category, '" + data.get(position).getTaskCategoryName() + "'?");
+                builder.setPositiveButton("Remove", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                AlertDialog createdDialog = builder.create();
+                createdDialog.show();
+            }
+        });
 
         //  Add_New_Task_Button bind
         holder.ViewTaskCategory_add_task_button.setOnClickListener(new View.OnClickListener() {
