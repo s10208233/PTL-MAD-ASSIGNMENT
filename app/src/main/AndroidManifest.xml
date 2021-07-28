@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RememberToDo">
+        <activity android:name=".SelectTaskTimerActivity"></activity>
         <activity android:name=".SettingsPage" />
 
         <receiver android:name=".TasksWidget">

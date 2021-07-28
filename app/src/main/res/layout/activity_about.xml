@@ -41,23 +41,25 @@
 
     <TextView
         android:id="@+id/aboutText"
-        android:layout_width="332dp"
-        android:layout_height="169dp"
-        android:text="TextView"
-        android:textColor="#FFFFFF"
+        android:layout_width="301dp"
+        android:layout_height="294dp"
+        android:lineSpacingExtra="12sp"
+        android:text="'Remember To Do' is a task managing app that allows you to manage your tasks, with the ability to assign a due date and a difficulty level to your tasks, along with the ability of grouping tasks together based on a category like 'Homework' that you can set and assign a colour to said grouping. 'Remember To Do' will also mark the tasks that have passed due dates as well "
         android:textAlignment="center"
+        android:textColor="#BFFFFFFF"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.222" />
+        app:layout_constraintVertical_bias="0.264" />
 
     <TextView
         android:id="@+id/creditText"
         android:layout_width="332dp"
         android:layout_height="169dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:lineSpacingExtra="14sp"
         android:paddingTop="60dp"
         android:text="Music Credits: \nDova - Syndrome: Music Provider Site \nしゃろう / Sharou: Composer Page"

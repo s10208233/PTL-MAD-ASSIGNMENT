@@ -6,7 +6,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.solver.state.State;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +23,6 @@ public class TaskCategoryViewHolder extends RecyclerView.ViewHolder {
         TaskCategory_Inner_rview = itemView.findViewById(R.id.rview_task_holder);
         ViewTaskCategory_add_task_button = itemView.findViewById(R.id.task_category_add_task_button);
         ViewTaskCategory_CategoryName_text_view = itemView.findViewById(R.id.task_category_name);
-        ViewTaskCategory_Delete_Btn = itemView.findViewById(R.id.del_taskcat_image);
+        ViewTaskCategory_Delete_Btn = itemView.findViewById(R.id.deleteTask);
     }
 }
