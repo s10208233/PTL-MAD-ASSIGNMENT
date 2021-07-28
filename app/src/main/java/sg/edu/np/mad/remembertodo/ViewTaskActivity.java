@@ -106,6 +106,16 @@ public class ViewTaskActivity extends AppCompatActivity {
         rview_cat_holder.setAdapter(adptr);
 
         taskcategoryadapter = adptr;
+
+        //  Timer Btn
+        findViewById(R.id.timerActivityBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ViewTaskActivity.this, SelectTaskTimerActivity.class));
+            }
+        });
+
+        //  Settings BTN
         findViewById(R.id.settings).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
