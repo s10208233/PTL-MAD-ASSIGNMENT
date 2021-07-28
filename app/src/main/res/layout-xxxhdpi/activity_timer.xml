@@ -10,14 +10,12 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animationView"
-        android:layout_width="342dp"
-        android:layout_height="212dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.09"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/lf30_editor_q4itebtl" />
 
@@ -25,80 +23,72 @@
         android:id="@+id/timeText"
         android:layout_width="185dp"
         android:layout_height="43dp"
-        android:layout_marginStart="43dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="40dp"
         android:text="00:00:00"
         android:textAlignment="center"
         android:textColor="#D0D0D0"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/animationView" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_margin="10dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.723">
+        app:layout_constraintTop_toBottomOf="@+id/min">
 
         <NumberPicker
             android:id="@+id/numPickerHour"
-            android:theme="@style/Theme.RememberToDo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp" />
-
-        <NumberPicker
-            android:id="@+id/numPickerMin"
-            android:theme="@style/Theme.RememberToDo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:solidColor="#00000000" />
+            android:theme="@style/Theme.RememberToDo" />
+
+        <NumberPicker
+            android:id="@+id/numPickerMin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:solidColor="#00000000"
+            android:theme="@style/Theme.RememberToDo" />
 
         <NumberPicker
             android:id="@+id/numPickerSec"
-            android:theme="@style/Theme.RememberToDo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp" />
+            android:layout_margin="10dp"
+            android:theme="@style/Theme.RememberToDo" />
 
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/startButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="92dp"
-        android:background="#4CAF50"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="20dp"
+        android:background="#369A3A"
+        android:fontFamily="@font/poppins"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
         android:text="Start"
         android:textColor="#FFFFFF"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintBottom_toTopOf="@+id/backButton"
+        app:layout_constraintEnd_toEndOf="@+id/backButton"
+        app:layout_constraintStart_toEndOf="@+id/resetButton"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/resetButton"
-        android:layout_width="34dp"
-        android:layout_height="31dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="92dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:background="#670909"
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:paddingLeft="2.2dp"
@@ -106,65 +96,69 @@
         android:paddingRight="0dp"
         android:paddingBottom="0dp"
         android:text="⟳"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/startButton"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="@+id/backButton"
+        app:layout_constraintTop_toTopOf="@+id/startButton" />
 
     <TextView
         android:id="@+id/h"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="hr"
+        android:layout_marginEnd="66dp"
+        android:text=" hr"
         android:textColor="#D0D0D0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/sec"
-        app:layout_constraintHorizontal_bias="0.444"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/min"
+        app:layout_constraintTop_toTopOf="@+id/min" />
 
     <TextView
         android:id="@+id/min"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="9dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginTop="20dp"
         android:text="min"
         android:textColor="#D0D0D0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/sec"
-        app:layout_constraintHorizontal_bias="0.524"
-        app:layout_constraintStart_toEndOf="@+id/h"
-        app:layout_constraintTop_toBottomOf="@+id/animationView"
-        app:layout_constraintVertical_bias="0.214" />
+        app:layout_constraintEnd_toEndOf="@+id/timeText"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/timeText"
+        app:layout_constraintTop_toBottomOf="@+id/timeText" />
 
     <TextView
         android:id="@+id/sec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
         android:text="sec"
         android:textColor="#D0D0D0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.709"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/min"
+        app:layout_constraintTop_toTopOf="@+id/min" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/backButton"
-        android:layout_width="200dp"
-        android:layout_height="47dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
         android:background="#151515"
+        android:fontFamily="@font/poppins"
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:text="Back"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.956" />
+        app:layout_constraintTop_toBottomOf="@+id/startButton" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="-245dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="-33dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
