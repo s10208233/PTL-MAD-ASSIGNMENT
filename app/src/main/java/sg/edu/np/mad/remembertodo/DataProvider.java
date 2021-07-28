@@ -110,7 +110,6 @@ public class DataProvider implements RemoteViewsService.RemoteViewsFactory {
             if (myListView != null){
                 Log.v("ListView",gson.toJson(myListView));
             }
-
             Log.v("CategoryFromDataP",category);
 
         }
