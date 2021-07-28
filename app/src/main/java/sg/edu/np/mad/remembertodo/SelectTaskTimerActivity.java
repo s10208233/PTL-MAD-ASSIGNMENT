@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 public class SelectTaskTimerActivity extends AppCompatActivity {
 
-    static ArrayList<TaskCategory> static_categorylist;
     private String TaskCategoryName;
     private ArrayList<Task> TaskList;
     private String ColorCode;
@@ -27,7 +26,7 @@ public class SelectTaskTimerActivity extends AppCompatActivity {
         ArrayList<TaskCategory> TaskCategoryList = new ArrayList<>();
 
         RecyclerView recyclerView_cat_holder = findViewById(R.id.rv_stt_TaskCategory);
-        SelectTaskTimerCategoryAdapter sttAdapter = new SelectTaskTimerCategoryAdapter(static_categorylist, getApplicationContext());
+        SelectTaskTimerCategoryAdapter sttAdapter = new SelectTaskTimerCategoryAdapter(taskcategory_DBhandler.getTaskCategoryList(), getApplicationContext());
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView_cat_holder.setLayoutManager(mLayoutManager);
         recyclerView_cat_holder.setItemAnimator(new DefaultItemAnimator());
