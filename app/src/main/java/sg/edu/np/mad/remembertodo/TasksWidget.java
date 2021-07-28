@@ -29,12 +29,14 @@ public class TasksWidget extends AppWidgetProvider {
         sharedPreferences = context.getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
         String color = sharedPreferences.getString("Color","");
         String title = sharedPreferences.getString("Category","");
+
         Log.v("SetR",color+title);
 
         views.setRemoteAdapter(R.id.widgetListView, new Intent(context, TasksWidgetService.class));
-//        views.setInt(R.id.widgetContainer,"setBackgroundResource",R.drawable.rounded_corners_for_widget);
-        views.setInt(R.id.widgetTitleLabel,"setBackgroundColor", Color.parseColor(colorNameToCode(color)));
-        views.setInt(R.id.widgetListView,"setBackgroundColor", Color.parseColor(colorNameToCode(color)));
+        views.setInt(R.id.widgetContainer,"setBackgroundResource",R.drawable.rounded_corners_for_widget);
+
+//        views.setInt(R.id.widgetTitleLabel,"setBackgroundColor", Color.parseColor(colorNameToCode(color)));
+//        views.setInt(R.id.widgetListView,"setBackgroundColor", Color.parseColor(colorNameToCode(color)));
         views.setTextViewText(R.id.widgetTitleLabel,title);
 
 

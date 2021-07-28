@@ -70,6 +70,9 @@ public class TaskCategoryAdapater extends RecyclerView.Adapter<TaskCategoryViewH
 
     @Override
     public int getItemCount() {
+        if (data == null){
+            return 0;
+        }
         return data.size();
     }
 

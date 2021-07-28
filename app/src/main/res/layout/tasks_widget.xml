@@ -8,30 +8,31 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF">
+        android:background="#00FFFFFF">
 
         <TextView
             android:id="@+id/widgetTitleLabel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:background="#000000"
+            android:fontFamily="@font/poppins"
+            android:gravity="center|top"
             android:text="Remember To Do!"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="18dp"></TextView>
+            android:textSize="20dp"></TextView>
     </FrameLayout>
 
     <LinearLayout
         android:id="@+id/linearContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FFFFFF">
+        android:layout_height="match_parent">
 
         <ListView
             android:id="@+id/widgetListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:dividerHeight="10dp"
+            android:background="#000000"
             tools:listitem="@layout/category_list_widget"></ListView>
     </LinearLayout>
 </LinearLayout>

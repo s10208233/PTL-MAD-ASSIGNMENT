@@ -8,16 +8,17 @@ import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.google.gson.Gson;
+
 import static android.content.Context.MODE_PRIVATE;
 import static sg.edu.np.mad.remembertodo.ViewTaskActivity.static_categorylist;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DataProvider implements RemoteViewsService.RemoteViewsFactory {
     public String GLOBAL_PREFS = "MyPrefs";
     SharedPreferences sharedPreferences;
     TaskCategory myListView;
     Context mContext = null;
+    Gson gson = new Gson();
     public DataProvider(Context context, Intent intent) {
         mContext = context; }
         @Override
@@ -27,6 +28,7 @@ public class DataProvider implements RemoteViewsService.RemoteViewsFactory {
         @Override
         public void onDataSetChanged() {
             initData();
+
         }
         @Override
         public void onDestroy() {
@@ -41,15 +43,15 @@ public class DataProvider implements RemoteViewsService.RemoteViewsFactory {
         }
         @Override
         public RemoteViews getViewAt(int position) {
-            String str = "";
+            String str;
             RemoteViews view_category = new RemoteViews(mContext.getPackageName(), R.layout.category_list_widget);
             view_category.setInt(R.id.widgetItemContainer,"setBackgroundColor", Color.parseColor(colorNameToCode(myListView.getColorCode())));
-            view_category.setTextViewText(R.id.widgetTitleLabel, myListView.getTaskCategoryName());
+            view_category.setTextViewText(R.id.list_item_task,"Task: " +  myListView.getTaskList().get(position).getTaskName());
+            view_category.setTextViewText(R.id.list_item_date,  "Due date: " + myListView.getTaskList().get(position).getDueDate());
+//            for (int i = 0; i < myListView.getTaskList().size(); i++){
+//                str =  + "\n";
+//            }
 
-            for (int i = 0; i < myListView.getTaskList().size(); i++){
-                str += myListView.getTaskList().get(i).getTaskName() + " by " + myListView.getTaskList().get(i).getDueDate() + "\n";
-            }
-            view_category.setTextViewText(R.id.list_items, str);
 
 //            String str ="MOther,MOther,Mother";
 //            view_category.setTextViewText(R.id.task_list, str.replaceAll(",","\n"));
@@ -90,6 +92,7 @@ public class DataProvider implements RemoteViewsService.RemoteViewsFactory {
         public boolean hasStableIds() {
         return true;
         }
+
         private void initData() {
             int count = 0;
             sharedPreferences = mContext.getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
@@ -98,11 +101,19 @@ public class DataProvider implements RemoteViewsService.RemoteViewsFactory {
                 count = static_categorylist.size();
             }
             for (int i = 0; i < count;i++){
-            if (static_categorylist.get(i).getTaskCategoryName() == category){
-                myListView = static_categorylist.get(i);
+                Log.v("CategoryFromDataPp",gson.toJson(static_categorylist.get(i)));
+                if (static_categorylist.get(i).getTaskCategoryName().equals(category)){
+                    myListView = static_categorylist.get(i);
+
+                }
             }
-            Log.v("ListView",category);
+            if (myListView != null){
+                Log.v("ListView",gson.toJson(myListView));
+            }
+
+            Log.v("CategoryFromDataP",category);
+
         }
 
     }
-}
+

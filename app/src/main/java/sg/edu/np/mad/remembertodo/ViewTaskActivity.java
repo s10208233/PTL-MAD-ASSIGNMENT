@@ -39,20 +39,22 @@ public class ViewTaskActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         static_categorylist = taskcategory_DBhandler.getTaskCategoryList();
-
-        if (static_categorylist.size() != 0) {
-            sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("Category", static_categorylist.get(0).getTaskCategoryName());
-            editor.apply();
-        }
-
-        //Notify AppWidgetManager to update whenever app starts
-        Context context = getApplicationContext();
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        ComponentName thisWidget = new ComponentName(context, TasksWidget.class);
-        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
-        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetListView);
+//
+//        if (static_categorylist.size() != 0) {
+//            sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
+//            int num = sharedPreferences.getInt("number",0);
+//            Log.v("number",String.valueOf(num));
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
+//            editor.putString("Category", static_categorylist.get(num).getTaskCategoryName());
+//            editor.apply();
+//        }
+//
+//        //Notify AppWidgetManager to update whenever app starts
+//        Context context = getApplicationContext();
+//        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+//        ComponentName thisWidget = new ComponentName(context, TasksWidget.class);
+//        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+//        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetListView);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_task);
@@ -194,5 +196,22 @@ public class ViewTaskActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         taskcategoryadapter.notifyDataSetChanged();
+        if (static_categorylist.size() != 0) {
+            sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
+            int num = sharedPreferences.getInt("number",0);
+            Log.v("number",String.valueOf(num));
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("Category", static_categorylist.get(num).getTaskCategoryName());
+            editor.apply();
+        }
+        //Notify AppWidgetManager to update whenever app starts
+        Context context = getApplicationContext();
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        ComponentName thisWidget = new ComponentName(context, TasksWidget.class);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetListView);
+
+
+
     }
 }

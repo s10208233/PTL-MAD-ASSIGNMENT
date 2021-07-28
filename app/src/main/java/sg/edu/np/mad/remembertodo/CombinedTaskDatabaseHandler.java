@@ -65,22 +65,26 @@ public class CombinedTaskDatabaseHandler extends SQLiteOpenHelper {
     }
     //  Local ArrayList<Task> into database
     public void storeTaskList(Task task, String catergoryName,int position){
-        ArrayList<TaskCategory> data = getTaskCategoryList();
-        Log.v("previous",gson.toJson(data.get(position).getTaskList()));
-        String previousData = "";
-        if (data.get(position).getTaskList().isEmpty()){
-            previousData = "'[" + gson.toJson(task) + "]'";
+        ArrayList<TaskCategory> category = getTaskCategoryList();
+
+        String data;
+        if (category.get(position).getTaskList().isEmpty()){
+            data = "'[" + gson.toJson(task) + "]'";
         }
         else{
-            previousData = "'" + gson.toJson(data.get(position).getTaskList()).replaceFirst(".$","") + "," + gson.toJson(task) + "]'";
+            data = "'" + gson.toJson(category.get(position).getTaskList()).replaceFirst(".$","") + "," + gson.toJson(task) + "]'";
         }
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("UPDATE "+ TASKCATEGORY + " SET " + COLUMN_TASKLIST + " = "+ previousData + " WHERE( " + COLUMN_TASKCATEGORYNAME + " = " + '"' + catergoryName + '"' + ");");
+        db.execSQL("UPDATE "+ TASKCATEGORY + " SET " + COLUMN_TASKLIST + " = "+ data + " WHERE( " + COLUMN_TASKCATEGORYNAME + " = " + '"' + catergoryName + '"' + ");");
         Log.v("query","UPDATE "+ TASKCATEGORY + " SET " + COLUMN_TASKLIST + " = " + "'" + gson.toJson(task) + "'" + " WHERE( " + COLUMN_TASKCATEGORYNAME + " = " + '"' + catergoryName + '"' + ");");
-
 
     }
 
+    //Remove a whole category from database
+    public void deleteTaskCategory(String categoryName){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("Delete top(1) from TaskCategory where TaskCategory = " +categoryName );
+    }
 
     //  Retrieving Database data into program
     public ArrayList<TaskCategory> getTaskCategoryList() {
@@ -124,7 +128,7 @@ public class CombinedTaskDatabaseHandler extends SQLiteOpenHelper {
     public ArrayList<Task> jsonStringTaskListRebuilder(String jsonString) throws JSONException {
         JSONArray jsonArray = new JSONArray(jsonString);
         ArrayList<Task> returnTaskList = new ArrayList<Task>();
-        Log.v("jLength",String.valueOf(jsonArray.length()));
+
         for (int i = 0; i < jsonArray.length(); i++){
 
             String TaskName = (String)jsonArray.getJSONObject(i).get("TaskName");

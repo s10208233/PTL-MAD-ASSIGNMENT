@@ -61,6 +61,7 @@ public class SettingsPage extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         // user checked an item
                         int count = 0;
+                        int num = 0;
                         String colour = "";
                         if (static_categorylist != null){
                             count = static_categorylist.size();
@@ -68,22 +69,13 @@ public class SettingsPage extends AppCompatActivity {
                         for (int i = 0; i < count;i++) {
                             if (static_categorylist.get(i).getTaskCategoryName() == category[which]) {
                                 colour = static_categorylist.get(i).getColorCode();
+                                num = i;
                             }
                         }
                         editor.putString("Category", category[which]);
                         editor.putString("Color", colour);
+                        editor.putInt("number",num);
                         editor.apply();
-                    }
-                });
-
-                // add OK and Cancel buttons
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-
-                        // user clicked OK
-
 
                         //Notify AppWidgetManager to update when user clicks ok
                         Context context = getApplicationContext();
@@ -96,6 +88,24 @@ public class SettingsPage extends AppCompatActivity {
                         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
                         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
                         sendBroadcast(intent);
+                        //Notify AppWidgetManager to update whenever app starts
+                        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetListView);
+
+//                        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.category_list_widget);
+//                        appWidgetManager.updateAppWidget(new ComponentName(context, TasksWidget.class), views);
+                    }
+                });
+
+                // add OK and Cancel buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+                        // user clicked OK
+
+
+
 
                     }
                 });
