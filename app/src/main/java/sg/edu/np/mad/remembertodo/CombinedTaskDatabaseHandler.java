@@ -8,10 +8,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.w3c.dom.Text;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Type;
@@ -61,29 +63,66 @@ public class CombinedTaskDatabaseHandler extends SQLiteOpenHelper {
         db.insert(TASKCATEGORY,null, values);
         db.close();
     }
+    //  Local ArrayList<Task> into database
+    public void storeTaskList(Task task, String catergoryName,int position){
+        ArrayList<TaskCategory> category = getTaskCategoryList();
 
+        String data;
+        if (category.get(position).getTaskList().isEmpty()){
+            data = "'[" + gson.toJson(task) + "]'";
+        }
+        else{
+            data = "'" + gson.toJson(category.get(position).getTaskList()).replaceFirst(".$","") + "," + gson.toJson(task) + "]'";
+        }
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE "+ TASKCATEGORY + " SET " + COLUMN_TASKLIST + " = "+ data + " WHERE( " + COLUMN_TASKCATEGORYNAME + " = " + '"' + catergoryName + '"' + ");");
+        Log.v("query","UPDATE "+ TASKCATEGORY + " SET " + COLUMN_TASKLIST + " = " + "'" + gson.toJson(task) + "'" + " WHERE( " + COLUMN_TASKCATEGORYNAME + " = " + '"' + catergoryName + '"' + ");");
+
+    }
+
+    //Remove a whole category from database
+    public void deleteTaskCategory(String categoryName){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("Delete top(1) from TaskCategory where TaskCategory = " +categoryName );
+    }
 
     //  Retrieving Database data into program
-    public ArrayList<TaskCategory> getTaskCategoryList(){
+    public ArrayList<TaskCategory> getTaskCategoryList() {
         ArrayList<TaskCategory> returnTaskCategoryList = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM "+ TASKCATEGORY,null);
-        try{
-            while (cursor.moveToNext()) {
-                returnTaskCategoryList.add(
-                        new TaskCategory(
-                                cursor.getString(0),
-                                jsonStringTaskListRebuilder(cursor.getString(1)),
-                                cursor.getString(2)
-                                )
-                );
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TASKCATEGORY, null);
+        while (cursor.moveToNext()) {
+
+            try {
+                if (cursor.getString(0) != null) {
+                    returnTaskCategoryList.add(
+                            new TaskCategory(
+                                    cursor.getString(0),
+                                    jsonStringTaskListRebuilder(cursor.getString(1)),
+                                    cursor.getString(2)
+                            )
+                    );
+                }
+
+            } catch (JSONException e) {
+                Log.e("Exception", e.toString());
+                if (cursor.getString(0) != null) {
+                    returnTaskCategoryList.add(
+                            new TaskCategory(
+                                    cursor.getString(0),
+                                    null,
+                                    cursor.getString(2)
+                            )
+                    );
+                }
+
             }
+
+
         }
-        finally {
-            cursor.close();
-            return returnTaskCategoryList;
-        }
+        cursor.close();
+        return returnTaskCategoryList;
     }
 
     public ArrayList<Task> jsonStringTaskListRebuilder(String jsonString) throws JSONException {
@@ -103,3 +142,4 @@ public class CombinedTaskDatabaseHandler extends SQLiteOpenHelper {
         return returnTaskList;
     }
 }
+

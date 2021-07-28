@@ -118,5 +118,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     }
 
     @Override
-    public int getItemCount() { return data.size(); }
+    public int getItemCount() {
+        if (data == null){
+            return 0;
+        }
+        return data.size(); }
 }

@@ -3,8 +3,12 @@ package sg.edu.np.mad.remembertodo;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -18,7 +22,7 @@ import java.util.ArrayList;
 import static sg.edu.np.mad.remembertodo.ViewTaskActivity.static_categorylist;
 
 public class AddTaskCategoryActivity extends AppCompatActivity {
-
+    CombinedTaskDatabaseHandler taskcategory_DBhandler = new CombinedTaskDatabaseHandler(this,null,null,1);
     String colorcode = "";
 
     @Override
@@ -60,6 +64,13 @@ public class AddTaskCategoryActivity extends AppCompatActivity {
                 }
                 else{
                     static_categorylist.add(new TaskCategory(new_category_name_input, new ArrayList<Task>(), colorcode));
+                    taskcategory_DBhandler.storeTaskCategoryList(new TaskCategory(new_category_name_input, new ArrayList<Task>(), colorcode));
+                    //Notify appWidgetManager to update the widget when user add new cat
+                    Context context = getApplicationContext();
+                    AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                    ComponentName thisWidget = new ComponentName(context, TasksWidget.class);
+                    int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+                    appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetListView);
 //                    if (DueDate_value.matches("Select A Date")){
 //                        DueDate_value = "-";
 //                    }
