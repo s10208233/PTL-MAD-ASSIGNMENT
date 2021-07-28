@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
+import static sg.edu.np.mad.remembertodo.ViewTaskActivity.static_categorylist;
+
 
 public class SelectTaskTimerActivity extends AppCompatActivity {
 
@@ -29,7 +31,7 @@ public class SelectTaskTimerActivity extends AppCompatActivity {
         ArrayList<TaskCategory> TaskCategoryList = new ArrayList<>();
 
         RecyclerView recyclerView_cat_holder = findViewById(R.id.rv_stt_TaskCategory);
-        SelectTaskTimerAdapter sttAdapter = new SelectTaskTimerAdapter(taskcategory_DBhandler.getTaskCategoryList(), getApplicationContext());
+        SelectTaskTimerAdapter sttAdapter = new SelectTaskTimerAdapter(static_categorylist, getApplicationContext());
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView_cat_holder.setLayoutManager(mLayoutManager);
         recyclerView_cat_holder.setItemAnimator(new DefaultItemAnimator());
