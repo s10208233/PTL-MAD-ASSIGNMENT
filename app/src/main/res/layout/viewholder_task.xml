@@ -8,12 +8,23 @@
     android:background="#99000000">
 
     <TextView
+        android:id="@+id/task_diff_indicator"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="⬤"
+        android:textColor="@color/simple"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/single_task_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginBottom="10dp"
         android:fontFamily="@font/poppins_light"
         android:text="{Task Name}"
@@ -21,14 +32,15 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/single_task_duedate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/task_diff_indicator"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/single_task_duedate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="15dp"
         android:fontFamily="@font/poppins_light"
         android:text="{Due Date}"
         android:textColor="#FFFFFF"
@@ -41,12 +53,25 @@
         android:id="@+id/single_task_checkbox"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="10dp"
         android:checked="false"
         android:gravity="center|center_horizontal|center_vertical"
         app:buttonTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/single_task_duedate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/single_task_duedate" />
+
+    <View
+        android:id="@+id/task_strikeline"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="50dp"
+        android:background="@color/simple"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
