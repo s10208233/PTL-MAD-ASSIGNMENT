@@ -22,7 +22,7 @@ public class TaskCategoryViewHolder extends RecyclerView.ViewHolder {
         Single_TaskCategory_ConstraintLayout = itemView.findViewById(R.id.taskcat_constaintlayout);
         TaskCategory_Inner_rview = itemView.findViewById(R.id.rview_task_holder);
         ViewTaskCategory_add_task_button = itemView.findViewById(R.id.task_category_add_task_button);
-        ViewTaskCategory_CategoryName_text_view = itemView.findViewById(R.id.task_category_name);
+        ViewTaskCategory_CategoryName_text_view = itemView.findViewById(R.id.stt_task_category_name);
         ViewTaskCategory_Delete_Btn = itemView.findViewById(R.id.deleteTask);
     }
 }

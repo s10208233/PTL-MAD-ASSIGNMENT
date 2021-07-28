@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/task_name"
+        android:id="@+id/stt_vh_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -45,9 +45,9 @@
         android:text="{Due Date}"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/task_name"
+        app:layout_constraintBottom_toBottomOf="@+id/stt_vh_name"
         app:layout_constraintEnd_toStartOf="@+id/single_task_checkbox"
-        app:layout_constraintTop_toTopOf="@+id/task_name" />
+        app:layout_constraintTop_toTopOf="@+id/stt_vh_name" />
 
     <CheckBox
         android:id="@+id/single_task_checkbox"

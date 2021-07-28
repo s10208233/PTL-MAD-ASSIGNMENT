@@ -1,9 +1,6 @@
 package sg.edu.np.mad.remembertodo;
 
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,8 +19,8 @@ public class SelectTaskTimerViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         constraint_layout = itemView.findViewById(R.id.constraint_layout);
         Task_DiffIndicator = itemView.findViewById(R.id.task_diff_indicator);
-        Task_Name = itemView.findViewById(R.id.task_name);
-        Task_DueDate = itemView.findViewById(R.id.task_duedate);
+        Task_Name = itemView.findViewById(R.id.stt_vh_name);
+        Task_DueDate = itemView.findViewById(R.id.stt_vh_duedate);
         Task_StrikeLine = itemView.findViewById(R.id.task_strikeline);
     }
 

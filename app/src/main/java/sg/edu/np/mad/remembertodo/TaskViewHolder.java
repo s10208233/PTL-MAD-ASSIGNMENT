@@ -22,7 +22,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         task_constraint_layout = itemView.findViewById(R.id.task_constraint_layout);
         Single_Task_DiffIndicator = itemView.findViewById(R.id.task_diff_indicator);
-        Single_Task_Name = itemView.findViewById(R.id.task_name);
+        Single_Task_Name = itemView.findViewById(R.id.stt_vh_name);
         Single_Task_DueDate = itemView.findViewById(R.id.single_task_duedate);
         Single_Task_Checkbox = itemView.findViewById(R.id.single_task_checkbox);
         Single_Task_StrikeLine = itemView.findViewById(R.id.task_strikeline);
