@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -30,13 +32,18 @@ public class SelectTaskTimerCategoryAdapter extends RecyclerView.Adapter<SelectT
 
     @Override
     public void onBindViewHolder(@NonNull SelectTaskTimerCategoryViewHolder holder, int position) {
-        //Set Background Color
+        //  Set Background Color
         holder.Stt_ConstraintLayout.setBackgroundColor(Color.parseColor(colorNameToCode(data.get(position).getColorCode())));
 
         //Set stt TaskCat Name
         holder.stt_task_category_name.setText(data.get(position).getTaskCategoryName());
 
-        //Set stt
+        //  Nested Task Recycler View Code
+        SelectTaskTimer_TaskAdapter sttadapter = new SelectTaskTimer_TaskAdapter(data.get(position).getTaskList());
+        LinearLayoutManager tlm = new LinearLayoutManager(context);
+        holder.rv_stt_taskHolder.setLayoutManager(tlm);
+        holder.rv_stt_taskHolder.setItemAnimator(new DefaultItemAnimator());
+        holder.rv_stt_taskHolder.setAdapter(sttadapter);
     }
 
 

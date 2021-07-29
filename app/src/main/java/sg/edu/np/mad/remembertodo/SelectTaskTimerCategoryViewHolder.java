@@ -12,13 +12,11 @@ public class SelectTaskTimerCategoryViewHolder extends RecyclerView.ViewHolder {
     ConstraintLayout Stt_ConstraintLayout;
     TextView stt_task_category_name;
     RecyclerView rv_stt_taskHolder;
-    ImageView deleteTask;
 
     public SelectTaskTimerCategoryViewHolder(@NonNull View itemView) {
         super(itemView);
         Stt_ConstraintLayout = itemView.findViewById(R.id.stt_constraintlayout);
         rv_stt_taskHolder = itemView.findViewById(R.id.rv_stt_taskholder);
         stt_task_category_name = itemView.findViewById(R.id.stt_task_category_name);
-        deleteTask = itemView.findViewById(R.id.deleteTask);
     }
 }
