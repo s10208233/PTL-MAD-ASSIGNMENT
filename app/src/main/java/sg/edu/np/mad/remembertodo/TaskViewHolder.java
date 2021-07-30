@@ -2,9 +2,7 @@ package sg.edu.np.mad.remembertodo;
 
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -23,8 +21,8 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
     public TaskViewHolder(@NonNull View itemView) {
         super(itemView);
         task_constraint_layout = itemView.findViewById(R.id.task_constraint_layout);
-        Single_Task_DiffIndicator = itemView.findViewById(R.id.task_diff_indicator);
-        Single_Task_Name = itemView.findViewById(R.id.single_task_name);
+        Single_Task_DiffIndicator = itemView.findViewById(R.id.stt_task_diff_indicator);
+        Single_Task_Name = itemView.findViewById(R.id.stt_vh_name);
         Single_Task_DueDate = itemView.findViewById(R.id.single_task_duedate);
         Single_Task_Checkbox = itemView.findViewById(R.id.single_task_checkbox);
         Single_Task_StrikeLine = itemView.findViewById(R.id.task_strikeline);

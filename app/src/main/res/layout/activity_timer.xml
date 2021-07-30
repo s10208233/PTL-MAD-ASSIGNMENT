@@ -55,25 +55,25 @@
 
         <NumberPicker
             android:id="@+id/numPickerHour"
-            android:theme="@style/Theme.RememberToDo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp" />
-
-        <NumberPicker
-            android:id="@+id/numPickerMin"
-            android:theme="@style/Theme.RememberToDo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:solidColor="#00000000" />
+            android:theme="@style/Theme.RememberToDo" />
+
+        <NumberPicker
+            android:id="@+id/numPickerMin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:solidColor="#00000000"
+            android:theme="@style/Theme.RememberToDo" />
 
         <NumberPicker
             android:id="@+id/numPickerSec"
-            android:theme="@style/Theme.RememberToDo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp" />
+            android:layout_margin="10dp"
+            android:theme="@style/Theme.RememberToDo" />
 
     </LinearLayout>
 
@@ -83,9 +83,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="92dp"
         android:background="#4CAF50"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
         android:text="Start"
         android:textColor="#FFFFFF"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
