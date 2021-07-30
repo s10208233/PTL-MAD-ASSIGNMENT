@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class Task {
 
+//    private String TaskCategoryName;
     private String TaskName;
     private int Difficulty;
     private String DueDate;
@@ -12,6 +13,7 @@ public class Task {
     private String DateCreated;
 
     public Task(String TaskName, int Difficulty, String DueDate, boolean Completed, String DateCreated){
+//        this.TaskCategoryName = TaskCategoryName;
         this.TaskName = TaskName;
         this.Difficulty = Difficulty;
         this.DateCreated = DateCreated;
