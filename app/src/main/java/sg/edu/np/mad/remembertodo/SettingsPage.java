@@ -27,7 +27,7 @@ public class SettingsPage extends AppCompatActivity {
     SharedPreferences sharedPreferences;
 
     static ArrayList<TaskCategory> static_categorylist;
-    ListView listView;
+
     CombinedTaskDatabaseHandler taskcategory_DBhandler = new CombinedTaskDatabaseHandler(this,null,null,1);
     public String GLOBAL_PREFS = "MyPrefs";
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +43,10 @@ public class SettingsPage extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
                 // setup the alert builder
-                AlertDialog.Builder builder = new AlertDialog.Builder(SettingsPage.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingsPage.this, R.style.AlertDialogCustom);
                 builder.setTitle("Choose a category");
+                builder.setCancelable(false);
+
 
                 // add a radio button list
 
@@ -75,24 +77,8 @@ public class SettingsPage extends AppCompatActivity {
                         editor.putString("Category", category[which]);
                         editor.putString("Color", colour);
                         editor.putInt("number",num);
-                        editor.apply();
 
-                        //Notify AppWidgetManager to update when user clicks ok
-                        Context context = getApplicationContext();
-                        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-                        Intent intent = new Intent(SettingsPage.this, TasksWidget.class);
-                        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-                        // Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
-                        // since it seems the onUpdate() is only fired on that:
-                        ComponentName thisWidget = new ComponentName(context, TasksWidget.class);
-                        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
-                        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
-                        sendBroadcast(intent);
-                        //Notify AppWidgetManager to update whenever app starts
-                        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetListView);
 
-//                        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.category_list_widget);
-//                        appWidgetManager.updateAppWidget(new ComponentName(context, TasksWidget.class), views);
                     }
                 });
 
@@ -100,13 +86,22 @@ public class SettingsPage extends AppCompatActivity {
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
-
                         // user clicked OK
+                        //only apply changes to widget if user press ok
+                        editor.apply();
 
-
-
-
+                        //Notify AppWidgetManager to update when user clicks ok
+                        Context context = getApplicationContext();
+                        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                        Intent intent = new Intent(SettingsPage.this, TasksWidget.class);
+                        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                        //Calls the method OnUpdate to update widget
+                        ComponentName thisWidget = new ComponentName(context, TasksWidget.class);
+                        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+                        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
+                        sendBroadcast(intent);
+                        //Notify AppWidgetManager to update whenever app starts
+                        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetListView);
                     }
                 });
                 builder.setNegativeButton("Cancel", null);

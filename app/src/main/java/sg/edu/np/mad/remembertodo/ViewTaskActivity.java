@@ -30,7 +30,8 @@ import java.util.Date;
 public class ViewTaskActivity extends AppCompatActivity {
 
     static ArrayList<TaskCategory> static_categorylist;
-    TaskCategoryAdapter taskcategoryadapter;
+    static RecyclerView static_rview_cat_holder;
+    static TaskCategoryAdapter taskcategoryadapter;
     SharedPreferences sharedPreferences;
     public String GLOBAL_PREFS = "MyPrefs";
     CombinedTaskDatabaseHandler taskcategory_DBhandler = new CombinedTaskDatabaseHandler(this,null,null,1);
@@ -39,6 +40,7 @@ public class ViewTaskActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         static_categorylist = taskcategory_DBhandler.getTaskCategoryList();
+
 //
 //        if (static_categorylist.size() != 0) {
 //            sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
@@ -98,6 +100,7 @@ public class ViewTaskActivity extends AppCompatActivity {
 
         // Main RecyclerView for displaying TaskCategories
         RecyclerView rview_cat_holder = findViewById(R.id.rview_category_holder);
+        static_rview_cat_holder = rview_cat_holder;
         //  Change static_categorylist once db is made
         TaskCategoryAdapter adptr = new TaskCategoryAdapter(static_categorylist, getApplicationContext());
         LinearLayoutManager lm = new LinearLayoutManager(this);
@@ -117,9 +120,7 @@ public class ViewTaskActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ViewTaskActivity.this, AddTaskCategoryActivity.class));
-                for (int i = 0;i<static_categorylist.size();i++){
-                    Log.v("list",String.valueOf(static_categorylist.get(i).getTaskList()));
-                }
+
 //                AlertDialog.Builder newcategory_alert_dialogbuilder = new AlertDialog.Builder(view.getContext());
 //                newcategory_alert_dialogbuilder.setTitle("Create New Task Category");
 //                newcategory_alert_dialogbuilder.setMessage("Create");
@@ -199,19 +200,30 @@ public class ViewTaskActivity extends AppCompatActivity {
         if (static_categorylist.size() != 0) {
             sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
             int num = sharedPreferences.getInt("number",0);
-            Log.v("number",String.valueOf(num));
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("Category", static_categorylist.get(num).getTaskCategoryName());
             editor.apply();
         }
-        //Notify AppWidgetManager to update whenever app starts
+        //Notify AppWidgetManager to update whenever app resumes to ViewTaskActivity
+
         Context context = getApplicationContext();
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        //Calls the method OnUpdate to update widget
+        Intent intent = new Intent(ViewTaskActivity.this, TasksWidget.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
         ComponentName thisWidget = new ComponentName(context, TasksWidget.class);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
+        sendBroadcast(intent);
+        //Notify AppWidgetManager to update the listview
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetListView);
 
 
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 }

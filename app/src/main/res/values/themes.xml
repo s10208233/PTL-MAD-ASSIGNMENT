@@ -15,9 +15,13 @@
         <!-- Customize your theme here. -->
     </style>
     <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
         <item name="android:background">#252525</item>
         <item name="colorAccent">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="android:textColorAlertDialogListItem">@color/white</item>
+
+
     </style>
 
     <style name="ThemeOverlay.RememberToDo.AppWidgetContainer" parent="">
