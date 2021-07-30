@@ -101,17 +101,14 @@ public class DataProvider implements RemoteViewsService.RemoteViewsFactory {
                 count = static_categorylist.size();
             }
             for (int i = 0; i < count;i++){
-                Log.v("CategoryFromDataPp",gson.toJson(static_categorylist.get(i)));
+
                 if (static_categorylist.get(i).getTaskCategoryName().equals(category)){
                     myListView = static_categorylist.get(i);
 
                 }
             }
-            if (myListView != null){
-                Log.v("ListView",gson.toJson(myListView));
-            }
 
-            Log.v("CategoryFromDataP",category);
+
 
         }
 

@@ -63,7 +63,7 @@ public class CombinedTaskDatabaseHandler extends SQLiteOpenHelper {
         db.insert(TASKCATEGORY,null, values);
         db.close();
     }
-    //  Local ArrayList<Task> into database
+    //store Local ArrayList<Task> into database
     public void storeTaskList(Task task, String catergoryName,int position){
         ArrayList<TaskCategory> category = getTaskCategoryList();
 
@@ -76,14 +76,22 @@ public class CombinedTaskDatabaseHandler extends SQLiteOpenHelper {
         }
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("UPDATE "+ TASKCATEGORY + " SET " + COLUMN_TASKLIST + " = "+ data + " WHERE( " + COLUMN_TASKCATEGORYNAME + " = " + '"' + catergoryName + '"' + ");");
-        Log.v("query","UPDATE "+ TASKCATEGORY + " SET " + COLUMN_TASKLIST + " = " + "'" + gson.toJson(task) + "'" + " WHERE( " + COLUMN_TASKCATEGORYNAME + " = " + '"' + catergoryName + '"' + ");");
+
 
     }
 
     //Remove a whole category from database
-    public void deleteTaskCategory(String categoryName){
+    public boolean deleteTaskCategory(String categoryName){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("Delete top(1) from TaskCategory where TaskCategory = " +categoryName );
+//        db.execSQL("Delete top(1) from TaskCategory where TaskCategoryName = " + categoryName );
+        return db.delete(TASKCATEGORY, COLUMN_TASKCATEGORYNAME + " = " + "'" + categoryName + "'", null) > 0;
+    }
+    //Remove a single Task
+    public void deleteSingleTask(String data,String categoryName){
+        data = data.substring(1);
+        data = data.replaceFirst(".$","");
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE TaskCategory SET TaskList =" + "'[" + data + "]'" + "WHERE (TaskCategoryName =" + "'" + categoryName + "'"+");");
     }
 
     //  Retrieving Database data into program
@@ -141,5 +149,7 @@ public class CombinedTaskDatabaseHandler extends SQLiteOpenHelper {
         }
         return returnTaskList;
     }
+
+
 }
 

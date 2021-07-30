@@ -30,7 +30,7 @@ public class TasksWidget extends AppWidgetProvider {
         String color = sharedPreferences.getString("Color","");
         String title = sharedPreferences.getString("Category","");
 
-        Log.v("SetR",color+title);
+
 
         views.setRemoteAdapter(R.id.widgetListView, new Intent(context, TasksWidgetService.class));
         views.setInt(R.id.widgetContainer,"setBackgroundResource",R.drawable.rounded_corners_for_widget);
@@ -47,7 +47,7 @@ public class TasksWidget extends AppWidgetProvider {
         for (int appWidgetId : appWidgetIds) {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.tasks_widget);
             setRemoteAdapter(context, views);
-            Log.v("OnUpdate","Updated");
+
             //Update all instances of this widget//
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }

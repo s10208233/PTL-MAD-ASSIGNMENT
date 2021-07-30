@@ -1,9 +1,12 @@
 package sg.edu.np.mad.remembertodo;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.os.IResultReceiver;
+import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +17,18 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
+import static sg.edu.np.mad.remembertodo.TaskCategoryAdapter.static_inner_task_rv;
+import static sg.edu.np.mad.remembertodo.ViewTaskActivity.static_categorylist;
 
+public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
+    String TaskCategoryName;
     ArrayList<Task> data;
+    private Context Mcontext;
+    Gson gson = new Gson();
 
     public TaskAdapter(ArrayList<Task> input) {
         data = input;
@@ -28,6 +38,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     @Override
     public TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_task, parent, false);
+        Mcontext = parent.getContext();
         return new TaskViewHolder(item);
     }
 
@@ -98,6 +109,48 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                 builder.setPositiveButton("Remove", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        String result;
+                        if (position == 0){
+                            result = gson.toJson(data).replace(gson.toJson(data.get(position))+",","");
+                            if (data.size() == 1){
+                                result = " ";
+                            }
+                        }
+                        else{
+                            result = gson.toJson(data).replace(","+gson.toJson(data.get(position)),"");
+                        }
+
+
+                        for (int j = 0; j < static_categorylist.size();j++){
+                            if (static_categorylist.get(j).getTaskList() == data){
+                                TaskCategoryName = static_categorylist.get(j).getTaskCategoryName();
+                            }
+                        }
+
+                        CombinedTaskDatabaseHandler taskcategory_DBhandler = new CombinedTaskDatabaseHandler(Mcontext,null,null,1);
+                        taskcategory_DBhandler.deleteSingleTask(result,TaskCategoryName);
+                        data.remove(position);
+                        static_inner_task_rv.removeViewAt(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, data.size());
+                        notifyDataSetChanged();
+
+//                        if (position == 0){
+//                            taskcategory_DBhandler.deleteSingleTask(task,TaskCategoryName);
+//                            static_inner_task_rv.removeViewAt(position);
+//                            notifyItemRemoved(position);
+//                            notifyItemRangeChanged(position, data.size());
+//                            notifyDataSetChanged();
+//                        }
+//                        else{
+//                            taskcategory_DBhandler.deleteSingleTask(data.remove(position-1),TaskCategoryName);
+////                            data.remove(position);
+////                            static_inner_task_rv.removeViewAt(position-1);
+//
+//
+//                            notifyDataSetChanged();
+//                        }
+
 
                     }
                 });
