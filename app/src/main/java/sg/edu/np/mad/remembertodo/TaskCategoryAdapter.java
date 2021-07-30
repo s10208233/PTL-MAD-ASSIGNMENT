@@ -112,7 +112,7 @@ public class TaskCategoryAdapter extends RecyclerView.Adapter<TaskCategoryViewHo
         });
 
         //  Nested Task Recycler View Code
-        TaskAdapter tadapter = new TaskAdapter(data.get(position).getTaskList());
+        TaskAdapter tadapter = new TaskAdapter(data.get(position).getTaskList(), context);
         LinearLayoutManager tlm = new LinearLayoutManager(context);
         holder.TaskCategory_Inner_rview.setLayoutManager(tlm);
         holder.TaskCategory_Inner_rview.setItemAnimator(new DefaultItemAnimator());

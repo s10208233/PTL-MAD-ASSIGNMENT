@@ -38,8 +38,17 @@ public class SelectTaskTimerCategoryAdapter extends RecyclerView.Adapter<SelectT
         //Set stt TaskCat Name
         holder.stt_task_category_name.setText(data.get(position).getTaskCategoryName());
 
+
         //  Nested Task Recycler View Code
-        SelectTaskTimer_TaskAdapter sttadapter = new SelectTaskTimer_TaskAdapter(data.get(position).getTaskList());
+            //  Get only task that are not checked
+        ArrayList<Task> onlyUncheckedTasks = new ArrayList<>();
+        for (int i = 0; i<data.get(position).getTaskList().size(); i++){
+            if (data.get(position).getTaskList().get(i).isCompleted() == false){
+                onlyUncheckedTasks.add(data.get(position).getTaskList().get(i));
+            }
+        }
+
+        SelectTaskTimer_TaskAdapter sttadapter = new SelectTaskTimer_TaskAdapter(data.get(position).getTaskCategoryName(), onlyUncheckedTasks, context);
         LinearLayoutManager tlm = new LinearLayoutManager(context);
         holder.rv_stt_taskHolder.setLayoutManager(tlm);
         holder.rv_stt_taskHolder.setItemAnimator(new DefaultItemAnimator());

@@ -102,7 +102,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         RecyclerView rview_cat_holder = findViewById(R.id.rview_category_holder);
         static_rview_cat_holder = rview_cat_holder;
         //  Change static_categorylist once db is made
-        TaskCategoryAdapter adptr = new TaskCategoryAdapter(static_categorylist, getApplicationContext());
+        TaskCategoryAdapter adptr = new TaskCategoryAdapter(taskcategory_DBhandler.getTaskCategoryList(), getApplicationContext());
         LinearLayoutManager lm = new LinearLayoutManager(this);
         rview_cat_holder.setLayoutManager(lm);
         rview_cat_holder.setItemAnimator(new DefaultItemAnimator());
@@ -130,28 +130,6 @@ public class ViewTaskActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ViewTaskActivity.this, AddTaskCategoryActivity.class));
-
-//                AlertDialog.Builder newcategory_alert_dialogbuilder = new AlertDialog.Builder(view.getContext());
-//                newcategory_alert_dialogbuilder.setTitle("Create New Task Category");
-//                newcategory_alert_dialogbuilder.setMessage("Create");
-//
-//                newcategory_alert_dialogbuilder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                    }
-//                });
-//
-//                newcategory_alert_dialogbuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                    }
-//                });
-//
-//                AlertDialog newcategory_alert_dialog = newcategory_alert_dialogbuilder.create();
-//                newcategory_alert_dialog.show();
-
             }
         });
     }

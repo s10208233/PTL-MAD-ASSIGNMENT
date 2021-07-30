@@ -1,6 +1,5 @@
 package sg.edu.np.mad.remembertodo;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -10,16 +9,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ListView;
-import android.widget.RemoteViews;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -35,8 +28,31 @@ public class SettingsPage extends AppCompatActivity {
         static_categorylist = taskcategory_DBhandler.getTaskCategoryList();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_page);
+        CheckBox task_del_toast_checkbox = findViewById(R.id.task_del_toast_checkbox);
 
-        findViewById(R.id.customDialog).setOnClickListener(new View.OnClickListener() {
+
+        //  SharedPref Tooltips Option
+        if (true){
+            task_del_toast_checkbox.setChecked(true);
+        }
+        else{
+            task_del_toast_checkbox.setChecked(true);
+        }
+
+        task_del_toast_checkbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (task_del_toast_checkbox.isChecked()){
+
+                }
+                else{
+
+                }
+            }
+        });
+
+        //  Select Widget Choice
+        findViewById(R.id.WidgetSettingsBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
