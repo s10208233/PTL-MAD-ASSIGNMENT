@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.RememberToDo" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.RememberToDo.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="colorPrimary">@color/darkgray</item>
@@ -14,11 +14,12 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <item name="android:fontFamily">@font/poppins_light</item>
         <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
     <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:fontFamily">@font/poppins_light</item>
         <item name="android:textColorPrimary">@android:color/white</item>
-        <item name="android:textColorPrimary">@color/white</item>
         <item name="android:background">#252525</item>
         <item name="colorAccent">@color/white</item>
         <item name="colorControlNormal">@color/white</item>
@@ -30,10 +31,6 @@
     <style name="ThemeOverlay.RememberToDo.AppWidgetContainer" parent="">
         <item name="appWidgetBackgroundColor">@color/light_blue_600</item>
         <item name="appWidgetTextColor">@color/light_blue_50</item>
-    </style>
-    <style name="Theme.RememberToDo.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="Theme.RememberToDo.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

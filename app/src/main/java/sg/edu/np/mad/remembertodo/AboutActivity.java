@@ -51,5 +51,12 @@ public class AboutActivity extends AppCompatActivity {
 
         creditText.setText(ss);
         creditText.setMovementMethod(LinkMovementMethod.getInstance());
+
+        findViewById(R.id.about_act_back_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

@@ -100,6 +100,7 @@ public class ViewTaskActivity extends AppCompatActivity {
 
         // Main RecyclerView for displaying TaskCategories
         RecyclerView rview_cat_holder = findViewById(R.id.rview_category_holder);
+        rview_cat_holder.setNestedScrollingEnabled(false);
         static_rview_cat_holder = rview_cat_holder;
         //  Change static_categorylist once db is made
         TaskCategoryAdapter adptr = new TaskCategoryAdapter(static_categorylist, getApplicationContext());
@@ -111,7 +112,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         taskcategoryadapter = adptr;
 
         //  Timer Btn
-        findViewById(R.id.timerActivityBtn).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.timer_task_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ViewTaskActivity.this, SelectTaskTimerActivity.class));
@@ -119,7 +120,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         });
 
         //  Settings BTN
-        findViewById(R.id.settings).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.setting_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ViewTaskActivity.this, SettingsPage.class));
