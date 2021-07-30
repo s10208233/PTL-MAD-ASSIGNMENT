@@ -25,6 +25,7 @@ public class SelectTaskTimerActivity extends AppCompatActivity {
 
         //  Selection Adapter to select task from task category, task category retrieved from database.
         RecyclerView recyclerView_cat_holder = findViewById(R.id.rv_stt_TaskCategory);
+        recyclerView_cat_holder.setNestedScrollingEnabled(false);
         SelectTaskTimerCategoryAdapter sttAdapter = new SelectTaskTimerCategoryAdapter(taskcategory_DBhandler.getTaskCategoryList(), getApplicationContext());
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView_cat_holder.setLayoutManager(mLayoutManager);
