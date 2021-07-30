@@ -127,5 +127,13 @@ public class SettingsPage extends AppCompatActivity {
                 dialog.show();
             }
         });
+
+        //  About Redirect
+        findViewById(R.id.settings_about_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SettingsPage.this, AboutActivity.class));
+            }
+        });
     }
 }

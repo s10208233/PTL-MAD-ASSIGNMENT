@@ -1,5 +1,6 @@
 package sg.edu.np.mad.remembertodo;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -44,10 +45,10 @@ public class DataProvider implements RemoteViewsService.RemoteViewsFactory {
         @Override
         public RemoteViews getViewAt(int position) {
             String str;
-            RemoteViews view_category = new RemoteViews(mContext.getPackageName(), R.layout.category_list_widget);
-            view_category.setInt(R.id.widgetItemContainer,"setBackgroundColor", Color.parseColor(colorNameToCode(myListView.getColorCode())));
-            view_category.setTextViewText(R.id.list_item_task,"Task: " +  myListView.getTaskList().get(position).getTaskName());
-            view_category.setTextViewText(R.id.list_item_date,  "Due date: " + myListView.getTaskList().get(position).getDueDate());
+            @SuppressLint("RemoteViewLayout") RemoteViews view_category = new RemoteViews(mContext.getPackageName(), R.layout.category_list_widget);
+//            view_category.setInt(R.id.widgetItemContainer,"setBackgroundColor", Color.parseColor(colorNameToCode(myListView.getColorCode())));
+            view_category.setTextViewText(R.id.list_item_task, myListView.getTaskList().get(position).getTaskName());
+            view_category.setTextViewText(R.id.list_item_date, myListView.getTaskList().get(position).getDueDate());
 //            for (int i = 0; i < myListView.getTaskList().size(); i++){
 //                str =  + "\n";
 //            }

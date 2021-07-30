@@ -449,8 +449,6 @@ public class TimerActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //To go back to the home page
-                        Intent backIntent = new Intent(TimerActivity.this, ViewTaskActivity.class);
-                        startActivity(backIntent);
                         finish();
                     }
                 });

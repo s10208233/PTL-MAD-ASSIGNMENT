@@ -33,10 +33,11 @@ public class TasksWidget extends AppWidgetProvider {
 
 
         views.setRemoteAdapter(R.id.widgetListView, new Intent(context, TasksWidgetService.class));
-        views.setInt(R.id.widgetContainer,"setBackgroundResource",R.drawable.rounded_corners_for_widget);
+        //  views.setInt(R.id.widgetContainer,"setBackgroundResource",R.drawable.rounded_corners_for_widget);
 
-//        views.setInt(R.id.widgetTitleLabel,"setBackgroundColor", Color.parseColor(colorNameToCode(color)));
-//        views.setInt(R.id.widgetListView,"setBackgroundColor", Color.parseColor(colorNameToCode(color)));
+
+        views.setInt(R.id.widgetTitleLabel,"setBackgroundColor", Color.parseColor(colorNameToCode(color,"80")));
+        views.setInt(R.id.widgetListView,"setBackgroundColor", Color.parseColor(colorNameToCode(color,"CC")));
         views.setTextViewText(R.id.widgetTitleLabel,title);
 
 
@@ -60,14 +61,14 @@ public class TasksWidget extends AppWidgetProvider {
     @Override public void onDisabled(Context context) {
         Toast.makeText(context,"All widgets deleted", Toast.LENGTH_LONG).show();
     }
-    public static String colorNameToCode(String sel){
-        if(sel.matches("Red"))      {return "#850000";}
-        if(sel.matches("Green"))    {return "#4F9300";}
-        if(sel.matches("Blue"))     {return "#0057B5";}
-        if(sel.matches("Purple"))   {return "#5A2DA8";}
-        if(sel.matches("Yellow"))   {return "#D3A20B";}
-        if(sel.matches("Orange"))   {return "#D67806";}
-        if(sel.matches("Black"))    {return "#000000";}
+    public static String colorNameToCode(String sel, String transparency){
+        if(sel.matches("Red"))      {return "#"+transparency+"850000";}
+        if(sel.matches("Green"))    {return "#"+transparency+"4F9300";}
+        if(sel.matches("Blue"))     {return "#"+transparency+"0057B5";}
+        if(sel.matches("Purple"))   {return "#"+transparency+"5A2DA8";}
+        if(sel.matches("Yellow"))   {return "#"+transparency+"D3A20B";}
+        if(sel.matches("Orange"))   {return "#"+transparency+"D67806";}
+        if(sel.matches("Black"))    {return "#"+transparency+"000000";}
         return "#404040";
     }
 

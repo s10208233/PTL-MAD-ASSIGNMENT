@@ -114,7 +114,7 @@ public class AddTaskActivity extends AppCompatActivity {
                 }
                 else{
                     if (DueDate_value.matches("Select A Date")){
-                        DueDate_value = "-";
+                        DueDate_value = "";
                     }
                     Task NewTaskObject = new Task (TaskName_value, Difficulty_value, DueDate_value,false, getTodaysDate());
                     static_categorylist.get(task_category_position).getTaskList().add(NewTaskObject);
