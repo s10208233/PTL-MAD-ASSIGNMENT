@@ -97,6 +97,11 @@ public class TimerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
 
+        //  Receiving Information From Intent
+        Intent intent_extra = getIntent();
+        String task_category_name = intent_extra.getStringExtra("TaskCategoryName");
+        String selected_json_task = intent_extra.getStringExtra("SelectedJSONTask");
+
         //Granting permission for FOREGROUND_SERVICE
         ActivityCompat.requestPermissions(this, new String[]{FOREGROUND_SERVICE}, PackageManager.PERMISSION_GRANTED);
 
@@ -436,7 +441,7 @@ public class TimerActivity extends AppCompatActivity {
                 noBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        /////////////////////////
+                        //  OKAY CODE HERE KENGSHION
                     }
                 });
 
@@ -444,7 +449,7 @@ public class TimerActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //To go back to the home page
-                        Intent backIntent = new Intent(TimerActivity.this, MainActivity.class);
+                        Intent backIntent = new Intent(TimerActivity.this, ViewTaskActivity.class);
                         startActivity(backIntent);
                         finish();
                     }
