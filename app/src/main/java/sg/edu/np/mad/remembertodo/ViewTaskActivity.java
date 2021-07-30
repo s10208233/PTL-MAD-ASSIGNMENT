@@ -102,7 +102,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         RecyclerView rview_cat_holder = findViewById(R.id.rview_category_holder);
         static_rview_cat_holder = rview_cat_holder;
         //  Change static_categorylist once db is made
-        TaskCategoryAdapter adptr = new TaskCategoryAdapter(taskcategory_DBhandler.getTaskCategoryList(), getApplicationContext());
+        TaskCategoryAdapter adptr = new TaskCategoryAdapter(static_categorylist, getApplicationContext());
         LinearLayoutManager lm = new LinearLayoutManager(this);
         rview_cat_holder.setLayoutManager(lm);
         rview_cat_holder.setItemAnimator(new DefaultItemAnimator());

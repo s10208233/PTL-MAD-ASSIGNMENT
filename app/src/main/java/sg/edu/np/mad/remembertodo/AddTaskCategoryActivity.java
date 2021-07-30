@@ -81,6 +81,13 @@ public class AddTaskCategoryActivity extends AppCompatActivity {
             }
         });
 
+        //  Cancel Button
+        findViewById(R.id.cancelCategoryBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
