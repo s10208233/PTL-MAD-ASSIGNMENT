@@ -28,7 +28,7 @@ public class SelectTaskTimerActivity extends AppCompatActivity {
         //  Array list only picks categories where getTaskCategoryList().size() > 0
         ArrayList<TaskCategory> temp_select_taskcat_list = new ArrayList<TaskCategory>();
         for (int i = 0; i<static_categorylist.size(); i++){
-            if (static_categorylist.get(i).getTaskList().size()>0 && checkIfTaskListChecked(static_categorylist.get(i).getTaskList())==false){
+            if (static_categorylist.get(i).getTaskList().size()>0 || checkIfTaskListChecked(static_categorylist.get(i).getTaskList())==false){
                 temp_select_taskcat_list.add(static_categorylist.get(i));
             }
         }
@@ -45,12 +45,15 @@ public class SelectTaskTimerActivity extends AppCompatActivity {
     }
 
     private boolean checkIfTaskListChecked(ArrayList<Task> tasklist){
-        boolean allChecked = false;
+        int allChecked = 0;
         for (int i=0; i<tasklist.size(); i++){
             if (tasklist.get(i).isCompleted()){
-                allChecked=true;
+                allChecked+=1;
             }
         }
-        return allChecked;
+        if (allChecked == tasklist.size()){
+            return true;
+        }
+        return false;
     }
 }
