@@ -8,166 +8,156 @@
     android:soundEffectsEnabled="true"
     tools:context="sg.edu.np.mad.remembertodo.TimerActivity">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animationView"
-        android:layout_width="342dp"
-        android:layout_height="212dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.09"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/lf30_editor_q4itebtl" />
-
-    <TextView
-        android:id="@+id/timeText"
-        android:layout_width="185dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="43dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="32dp"
-        android:text="00:00:00"
-        android:textAlignment="center"
-        android:textColor="#D0D0D0"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.875" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.723">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="-16dp">
 
-        <NumberPicker
-            android:id="@+id/numPickerHour"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:theme="@style/Theme.RememberToDo" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <NumberPicker
-            android:id="@+id/numPickerMin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:solidColor="#00000000"
-            android:theme="@style/Theme.RememberToDo" />
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
+                android:layout_width="342dp"
+                android:layout_height="212dp"
+                android:layout_marginTop="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/lf30_editor_q4itebtl" />
 
-        <NumberPicker
-            android:id="@+id/numPickerSec"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:theme="@style/Theme.RememberToDo" />
+            <TextView
+                android:id="@+id/timeText"
+                android:layout_width="185dp"
+                android:layout_height="43dp"
+                android:layout_marginTop="40dp"
+                android:text="00:00:00"
+                android:textAlignment="center"
+                android:textColor="#D0D0D0"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/min" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/h"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:text="hr"
+                android:textColor="#D0D0D0"
+                app:layout_constraintEnd_toStartOf="@+id/min"
+                app:layout_constraintTop_toTopOf="@+id/min" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/startButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="92dp"
-        android:background="#4CAF50"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        android:text="Start"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="1.0" />
+            <TextView
+                android:id="@+id/min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="min"
+                android:textColor="#D0D0D0"
+                app:layout_constraintEnd_toEndOf="@+id/timeText"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/timeText"
+                app:layout_constraintTop_toBottomOf="@+id/animationView" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/resetButton"
-        android:layout_width="34dp"
-        android:layout_height="31dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="92dp"
-        android:background="#670909"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        android:paddingLeft="2.2dp"
-        android:paddingTop="0dp"
-        android:paddingRight="0dp"
-        android:paddingBottom="0dp"
-        android:text="⟳"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/startButton"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="1.0" />
+            <TextView
+                android:id="@+id/sec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:text="sec"
+                android:textColor="#D0D0D0"
+                app:layout_constraintStart_toEndOf="@+id/min"
+                app:layout_constraintTop_toTopOf="@+id/min" />
 
-    <TextView
-        android:id="@+id/h"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:text="hr"
-        android:textColor="#D0D0D0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/sec"
-        app:layout_constraintHorizontal_bias="0.443"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.472" />
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/timeText"
+                tools:layout_editor_absoluteX="24dp">
 
-    <TextView
-        android:id="@+id/min"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="2dp"
-        android:text="min"
-        android:textColor="#D0D0D0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/sec"
-        app:layout_constraintHorizontal_bias="0.521"
-        app:layout_constraintStart_toEndOf="@+id/h"
-        app:layout_constraintTop_toBottomOf="@+id/animationView"
-        app:layout_constraintVertical_bias="0.172" />
+                <NumberPicker
+                    android:id="@+id/numPickerHour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:theme="@style/Theme.RememberToDo" />
 
-    <TextView
-        android:id="@+id/sec"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="sec"
-        android:textColor="#D0D0D0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.712"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.473" />
+                <NumberPicker
+                    android:id="@+id/numPickerMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:solidColor="#00000000"
+                    android:theme="@style/Theme.RememberToDo" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/backButton"
-        android:layout_width="200dp"
-        android:layout_height="47dp"
-        android:background="#151515"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        android:text="Back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.956" />
+                <NumberPicker
+                    android:id="@+id/numPickerSec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:theme="@style/Theme.RememberToDo" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/backButton"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="40dp"
+                android:background="#151515"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:text="Back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/resetButton"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="10dp"
+                android:background="#670909"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:paddingLeft="2.2dp"
+                android:paddingTop="0dp"
+                android:paddingRight="0dp"
+                android:paddingBottom="0dp"
+                android:text="⟳"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/backButton"
+                app:layout_constraintStart_toStartOf="@+id/backButton"
+                app:layout_constraintTop_toTopOf="@+id/startButton" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/startButton"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="10dp"
+                android:background="#4CAF50"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:text="Start"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toTopOf="@+id/backButton"
+                app:layout_constraintEnd_toEndOf="@+id/backButton"
+                app:layout_constraintStart_toEndOf="@+id/resetButton"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
