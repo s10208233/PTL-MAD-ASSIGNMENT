@@ -1,5 +1,6 @@
 package sg.edu.np.mad.remembertodo;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -69,6 +70,7 @@ public class SelectTaskTimer_TaskAdapter extends RecyclerView.Adapter<SelectTask
                         //  Start AddTaskActivity
                         tasktimer.putExtras(databundle);
                         v.getContext().startActivity(tasktimer);
+                        ((Activity)v.getContext()).finish();
                     }
                 });
 

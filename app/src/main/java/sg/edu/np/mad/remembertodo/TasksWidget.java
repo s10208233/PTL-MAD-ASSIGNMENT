@@ -38,8 +38,8 @@ public class TasksWidget extends AppWidgetProvider {
         //  views.setInt(R.id.widgetContainer,"setBackgroundResource",R.drawable.rounded_corners_for_widget);
 
 
-        views.setInt(R.id.widgetTitleLabel,"setBackgroundColor", Color.parseColor(colorNameToCode(color,"80")));
-        views.setInt(R.id.widgetListView,"setBackgroundColor", Color.parseColor(colorNameToCode(color,"CC")));
+        views.setInt(R.id.widgetTitleLabel,"setBackgroundColor", Color.parseColor(colorNameToCode(color,"CC")));
+        views.setInt(R.id.widgetListView,"setBackgroundColor", Color.parseColor(colorNameToCode(color,"80")));
         views.setTextViewText(R.id.widgetTitleLabel,title);
 
 

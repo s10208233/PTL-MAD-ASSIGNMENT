@@ -450,7 +450,7 @@ public class TimerActivity extends AppCompatActivity {
                 }
                 //update database
                 taskcategory_DBhandler.CheckedTaskTimer(result,task_category_name);
-
+                finish();
             }
         });
 
