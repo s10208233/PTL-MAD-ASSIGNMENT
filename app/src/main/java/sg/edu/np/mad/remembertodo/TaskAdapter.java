@@ -34,10 +34,11 @@ import static sg.edu.np.mad.remembertodo.ViewTaskActivity.static_categorylist;
 public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     SharedPreferences sharedPreferences;
     String TaskCategoryName;
+    int TaskCategoryPos;
     ArrayList<Task> data;
     Context con;
     public String GLOBAL_PREFS = "MyPrefs";
-  
+
     private Context Mcontext;
     Gson gson = new Gson();
 
@@ -78,7 +79,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         if (data.get(position).isCompleted()) {
             holder.Single_Task_Checkbox.setChecked(true);
             holder.Single_Task_StrikeLine.setVisibility(View.VISIBLE);
-            CompoundButtonCompat.setButtonTintList(holder.Single_Task_Checkbox, ColorStateList.valueOf(Color.parseColor("#08fa00")));
+            CompoundButtonCompat.setButtonTintList(holder.Single_Task_Checkbox, ColorStateList.valueOf(Color.parseColor("#CCFFFFFF")));
+            holder.Single_Task_Name.setTextColor(Color.parseColor("#CCFFFFFF"));
+            holder.Single_Task_DueDate.setTextColor(Color.parseColor("#CCFFFFFF"));
+            holder.Single_Task_DiffIndicator.setTextColor(Color.parseColor("#CCFFFFFF"));
         }
         else {
             holder.Single_Task_StrikeLine.setVisibility(View.INVISIBLE);
@@ -90,9 +94,27 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
             public void onClick(View v) {
                 if (holder.Single_Task_Checkbox.isChecked()) {
                     holder.Single_Task_StrikeLine.setVisibility(View.VISIBLE);
-                    holder.Single_Task_Name.setTextColor(Color.parseColor("#08fa00"));
-                    holder.Single_Task_DueDate.setTextColor(Color.parseColor("#08fa00"));
-                    CompoundButtonCompat.setButtonTintList(holder.Single_Task_Checkbox, ColorStateList.valueOf(Color.parseColor("#08fa00")));
+                    holder.Single_Task_Name.setTextColor(Color.parseColor("#CCFFFFFF"));
+                    holder.Single_Task_DueDate.setTextColor(Color.parseColor("#CCFFFFFF"));
+                    CompoundButtonCompat.setButtonTintList(holder.Single_Task_Checkbox, ColorStateList.valueOf(Color.parseColor("#CCFFFFFF")));
+                    holder.Single_Task_DiffIndicator.setTextColor(Color.parseColor("#CCFFFFFF"));
+
+
+                    for (int j = 0; j < static_categorylist.size();j++){
+                        if (static_categorylist.get(j).getTaskList() == data){
+                            TaskCategoryName = static_categorylist.get(j).getTaskCategoryName();
+                            TaskCategoryPos = j;
+                        }
+                    }
+                    CombinedTaskDatabaseHandler taskcategory_DBhandler = new CombinedTaskDatabaseHandler(Mcontext,null,null,1);
+                    String notChecked = gson.toJson(data.get(position));
+                    data.get(position).setCompleted(true);
+                    //change back to gson string
+                    String checkedTask = gson.toJson(data.get(position));
+                    //replace string to the updated data
+                    String result = gson.toJson(static_categorylist.get(TaskCategoryPos).getTaskList()).replace(notChecked,checkedTask);
+                    //update database
+                    taskcategory_DBhandler.CheckedTaskTimer(result,TaskCategoryName);
 
                     //  SHARED PREFERENCE THIS SHIT WITH IF ELSE THANKS KS
                     //  Apply shared pref here pls thanks ks
@@ -111,6 +133,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                     holder.Single_Task_DueDate.setTextColor(Color.parseColor("#ffffff"));
                     holder.Single_Task_Checkbox.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ffffff")));
                     CompoundButtonCompat.setButtonTintList(holder.Single_Task_Checkbox, ColorStateList.valueOf(Color.parseColor("#ffffff")));
+                    //  Task Difficult Indicator
+                    if (data.get(position).getDifficulty() == 1){
+                        holder.Single_Task_DiffIndicator.setTextColor(Color.parseColor("#FFDD00"));
+                    }
+                    else if (data.get(position).getDifficulty() == 2){
+                        holder.Single_Task_DiffIndicator.setTextColor(Color.parseColor("#ff0000"));
+                    }
+                    else {
+                        holder.Single_Task_DiffIndicator.setTextColor(Color.parseColor("#08fa00"));
+                    }
                 }
             }
         });

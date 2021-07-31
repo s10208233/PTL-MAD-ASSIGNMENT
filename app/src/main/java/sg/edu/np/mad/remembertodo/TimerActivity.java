@@ -431,6 +431,7 @@ public class TimerActivity extends AppCompatActivity {
                 Intent intent_extra = getIntent();
                 String task_category_name = intent_extra.getStringExtra("TaskCategoryName");
                 String selected_json_task = intent_extra.getStringExtra("SelectedJSONTask");
+
                 int position = intent_extra.getIntExtra("position",0);
                 //convert back to task obj
                 Task task = gson.fromJson(selected_json_task,Task.class);
