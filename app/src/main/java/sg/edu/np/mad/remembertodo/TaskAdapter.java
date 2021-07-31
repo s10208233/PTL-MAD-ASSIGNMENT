@@ -79,10 +79,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         if (data.get(position).isCompleted()) {
             holder.Single_Task_Checkbox.setChecked(true);
             holder.Single_Task_StrikeLine.setVisibility(View.VISIBLE);
-            CompoundButtonCompat.setButtonTintList(holder.Single_Task_Checkbox, ColorStateList.valueOf(Color.parseColor("#CCFFFFFF")));
-            holder.Single_Task_Name.setTextColor(Color.parseColor("#CCFFFFFF"));
-            holder.Single_Task_DueDate.setTextColor(Color.parseColor("#CCFFFFFF"));
-            holder.Single_Task_DiffIndicator.setTextColor(Color.parseColor("#CCFFFFFF"));
+            CompoundButtonCompat.setButtonTintList(holder.Single_Task_Checkbox, ColorStateList.valueOf(Color.parseColor("#80FFFFFF")));
+            holder.Single_Task_Name.setTextColor(Color.parseColor("#80FFFFFF"));
+            holder.Single_Task_DueDate.setTextColor(Color.parseColor("#80FFFFFF"));
+            holder.Single_Task_DiffIndicator.setTextColor(Color.parseColor("#80FFFFFF"));
         }
         else {
             holder.Single_Task_StrikeLine.setVisibility(View.INVISIBLE);
@@ -94,10 +94,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
             public void onClick(View v) {
                 if (holder.Single_Task_Checkbox.isChecked()) {
                     holder.Single_Task_StrikeLine.setVisibility(View.VISIBLE);
-                    holder.Single_Task_Name.setTextColor(Color.parseColor("#CCFFFFFF"));
-                    holder.Single_Task_DueDate.setTextColor(Color.parseColor("#CCFFFFFF"));
-                    CompoundButtonCompat.setButtonTintList(holder.Single_Task_Checkbox, ColorStateList.valueOf(Color.parseColor("#CCFFFFFF")));
-                    holder.Single_Task_DiffIndicator.setTextColor(Color.parseColor("#CCFFFFFF"));
+                    holder.Single_Task_Name.setTextColor(Color.parseColor("#80FFFFFF"));
+                    holder.Single_Task_DueDate.setTextColor(Color.parseColor("#80FFFFFF"));
+                    CompoundButtonCompat.setButtonTintList(holder.Single_Task_Checkbox, ColorStateList.valueOf(Color.parseColor("#80FFFFFF")));
+                    holder.Single_Task_DiffIndicator.setTextColor(Color.parseColor("#80FFFFFF"));
 
 
                     for (int j = 0; j < static_categorylist.size();j++){
