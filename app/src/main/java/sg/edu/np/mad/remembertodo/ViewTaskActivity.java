@@ -192,6 +192,14 @@ public class ViewTaskActivity extends AppCompatActivity {
             int num = sharedPreferences.getInt("number",0);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("Category", static_categorylist.get(num).getTaskCategoryName());
+            editor.putString("Color", static_categorylist.get(num).getColorCode());
+            editor.apply();
+        }
+        else{
+            sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("Category", "Configure this widget under settings of the app");
+            editor.putString("Color", "#404040");
             editor.apply();
         }
         //Notify AppWidgetManager to update whenever app resumes to ViewTaskActivity
@@ -215,5 +223,33 @@ public class ViewTaskActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        if (static_categorylist.size() != 0) {
+            sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
+            int num = sharedPreferences.getInt("number",0);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("Category", static_categorylist.get(num).getTaskCategoryName());
+            editor.putString("Color", static_categorylist.get(num).getColorCode());
+            editor.apply();
+        }
+        else{
+            sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("Category", "Please add a task in the application!");
+            editor.putString("Color", "#404040");
+            editor.apply();
+        }
+        //Notify AppWidgetManager to update whenever app pauses
+
+        Context context = getApplicationContext();
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        //Calls the method OnUpdate to update widget
+        Intent intent = new Intent(ViewTaskActivity.this, TasksWidget.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        ComponentName thisWidget = new ComponentName(context, TasksWidget.class);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
+        sendBroadcast(intent);
+        //Notify AppWidgetManager to update the listview
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetListView);
     }
 }

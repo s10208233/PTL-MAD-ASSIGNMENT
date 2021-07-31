@@ -11,7 +11,6 @@ import android.graphics.Color;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import static android.content.Context.MODE_PRIVATE;
 public class TasksWidget extends AppWidgetProvider {
@@ -29,13 +28,9 @@ public class TasksWidget extends AppWidgetProvider {
     private static void setRemoteAdapter(Context context, @NonNull final RemoteViews views) {
 
         sharedPreferences = context.getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
-        String color = sharedPreferences.getString("Color","");
-        String title = sharedPreferences.getString("Category","");
-
-
-
+        String color = sharedPreferences.getString("Color","#404040");
+        String title = sharedPreferences.getString("Category","Please add a task in the application!");
         views.setRemoteAdapter(R.id.widgetListView, new Intent(context, TasksWidgetService.class));
-        //  views.setInt(R.id.widgetContainer,"setBackgroundResource",R.drawable.rounded_corners_for_widget);
 
 
         views.setInt(R.id.widgetTitleLabel,"setBackgroundColor", Color.parseColor(colorNameToCode(color,"CC")));

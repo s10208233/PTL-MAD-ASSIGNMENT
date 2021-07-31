@@ -80,6 +80,7 @@ public class TaskCategoryAdapter extends RecyclerView.Adapter<TaskCategoryViewHo
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, data.size());
                         notifyDataSetChanged();
+
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

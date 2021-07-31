@@ -124,7 +124,7 @@ public class SettingsPage extends AppCompatActivity {
                         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
                         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
                         sendBroadcast(intent);
-                        //Notify AppWidgetManager to update whenever app starts
+                        //Notify AppWidgetManager to update listview
                         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetListView);
                     }
                 });

@@ -143,6 +143,23 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                     else {
                         holder.Single_Task_DiffIndicator.setTextColor(Color.parseColor("#08fa00"));
                     }
+
+                    for (int j = 0; j < static_categorylist.size();j++){
+                        if (static_categorylist.get(j).getTaskList() == data){
+                            TaskCategoryName = static_categorylist.get(j).getTaskCategoryName();
+                            TaskCategoryPos = j;
+                        }
+                    }
+
+                    CombinedTaskDatabaseHandler taskcategory_DBhandler = new CombinedTaskDatabaseHandler(Mcontext,null,null,1);
+                    String notChecked = gson.toJson(data.get(position));
+                    data.get(position).setCompleted(false);
+                    //change back to gson string
+                    String checkedTask = gson.toJson(data.get(position));
+                    //replace string to the updated data
+                    String result = gson.toJson(static_categorylist.get(TaskCategoryPos).getTaskList()).replace(notChecked,checkedTask);
+                    //update database
+                    taskcategory_DBhandler.CheckedTaskTimer(result,TaskCategoryName);
                 }
             }
         });
@@ -194,21 +211,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                         notifyItemRangeChanged(position, data.size());
                         notifyDataSetChanged();
 
-//                        if (position == 0){
-//                            taskcategory_DBhandler.deleteSingleTask(task,TaskCategoryName);
-//                            static_inner_task_rv.removeViewAt(position);
-//                            notifyItemRemoved(position);
-//                            notifyItemRangeChanged(position, data.size());
-//                            notifyDataSetChanged();
-//                        }
-//                        else{
-//                            taskcategory_DBhandler.deleteSingleTask(data.remove(position-1),TaskCategoryName);
-////                            data.remove(position);
-////                            static_inner_task_rv.removeViewAt(position-1);
-//
-//
-//                            notifyDataSetChanged();
-//                        }
 
 
                     }
