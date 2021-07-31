@@ -186,6 +186,7 @@ public class ViewTaskActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         taskcategoryadapter.notifyDataSetChanged();
+
         if (static_categorylist.size() != 0) {
             sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
             int num = sharedPreferences.getInt("number",0);

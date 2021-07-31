@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
-import static sg.edu.np.mad.remembertodo.ViewTaskActivity.static_categorylist;
+
 import static sg.edu.np.mad.remembertodo.ViewTaskActivity.taskcategoryadapter;
 import static sg.edu.np.mad.remembertodo.ViewTaskActivity.static_rview_cat_holder;
 

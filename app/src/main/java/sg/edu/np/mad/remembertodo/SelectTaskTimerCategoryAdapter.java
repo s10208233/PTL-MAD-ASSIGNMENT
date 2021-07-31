@@ -48,7 +48,7 @@ public class SelectTaskTimerCategoryAdapter extends RecyclerView.Adapter<SelectT
             }
         }
 
-        SelectTaskTimer_TaskAdapter sttadapter = new SelectTaskTimer_TaskAdapter(data.get(position).getTaskCategoryName(), onlyUncheckedTasks, context);
+        SelectTaskTimer_TaskAdapter sttadapter = new SelectTaskTimer_TaskAdapter(position,data.get(position).getTaskCategoryName(), onlyUncheckedTasks, context);
         LinearLayoutManager tlm = new LinearLayoutManager(context);
         holder.rv_stt_taskHolder.setLayoutManager(tlm);
         holder.rv_stt_taskHolder.setItemAnimator(new DefaultItemAnimator());

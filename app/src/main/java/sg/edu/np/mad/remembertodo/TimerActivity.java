@@ -11,6 +11,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.Button;
@@ -24,16 +25,21 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
 import java.util.Locale;
-
+import static sg.edu.np.mad.remembertodo.ViewTaskActivity.static_categorylist;
 import static android.Manifest.permission.FOREGROUND_SERVICE;
 //String variable from App class
 import static sg.edu.np.mad.remembertodo.App.CHANNEL_1_ID;
 
 //By Daryl Chong Teck Yuan
 public class TimerActivity extends AppCompatActivity {
-
+    CombinedTaskDatabaseHandler taskcategory_DBhandler = new CombinedTaskDatabaseHandler(this,null,null,1);
     //Buttons used
     Button startButton;
     Button resetButton;
@@ -96,11 +102,6 @@ public class TimerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
-
-        //  Receiving Information From Intent
-        Intent intent_extra = getIntent();
-        String task_category_name = intent_extra.getStringExtra("TaskCategoryName");
-        String selected_json_task = intent_extra.getStringExtra("SelectedJSONTask");
 
         //Granting permission for FOREGROUND_SERVICE
         ActivityCompat.requestPermissions(this, new String[]{FOREGROUND_SERVICE}, PackageManager.PERMISSION_GRANTED);
@@ -423,6 +424,32 @@ public class TimerActivity extends AppCompatActivity {
                     mediaPlayer.release();
                     isMediaRunning = false;
                 }
+
+                //set checked = true and insert into database
+                Gson gson = new Gson();
+                //  Receiving Information From Intent
+                Intent intent_extra = getIntent();
+                String task_category_name = intent_extra.getStringExtra("TaskCategoryName");
+                String selected_json_task = intent_extra.getStringExtra("SelectedJSONTask");
+                int position = intent_extra.getIntExtra("position",0);
+                //convert back to task obj
+                Task task = gson.fromJson(selected_json_task,Task.class);
+                //set checked = true
+                task.setCompleted(true);
+                //change back to gson string
+                String checkedTask = gson.toJson(task);
+                //replace string to the updated data
+                String result = gson.toJson(static_categorylist.get(position).getTaskList()).replace(selected_json_task,checkedTask);
+                try {
+                    //update staticlist
+                    static_categorylist.get(position).setTaskList(jsonStringTaskListRebuilder(result));
+                }
+                catch(JSONException e){
+
+                }
+                //update database
+                taskcategory_DBhandler.CheckedTaskTimer(result,task_category_name);
+
             }
         });
 
@@ -441,7 +468,7 @@ public class TimerActivity extends AppCompatActivity {
                 noBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //  OKAY CODE HERE KENGSHION
+                        //  timer continue?
                     }
                 });
 
@@ -486,7 +513,9 @@ public class TimerActivity extends AppCompatActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         //Finish the activity when "Yes" is pressed
-                        cdt.cancel();
+                        if (cdt != null){
+                            cdt.cancel();
+                        }
                         finish();
                     }
                 })
@@ -545,5 +574,21 @@ public class TimerActivity extends AppCompatActivity {
             startButton.setText("START");
             startButton.setBackgroundColor(Color.parseColor("#4CAF50"));
         }
+    }
+    public ArrayList<Task> jsonStringTaskListRebuilder(String jsonString) throws JSONException {
+        JSONArray jsonArray = new JSONArray(jsonString);
+        ArrayList<Task> returnTaskList = new ArrayList<Task>();
+
+        for (int i = 0; i < jsonArray.length(); i++){
+
+            String TaskName = (String)jsonArray.getJSONObject(i).get("TaskName");
+            int Difficulty = (int)jsonArray.getJSONObject(i).get("Difficulty");
+            String DueDate = (String)jsonArray.getJSONObject(i).get("DueDate");
+            Boolean Completed = (Boolean) jsonArray.getJSONObject(i).get("Completed");
+            String DateCreated = (String)jsonArray.getJSONObject(i).get("DueDate");
+
+            returnTaskList.add(new Task(TaskName,Difficulty,DueDate,Completed,DateCreated));
+        }
+        return returnTaskList;
     }
 }

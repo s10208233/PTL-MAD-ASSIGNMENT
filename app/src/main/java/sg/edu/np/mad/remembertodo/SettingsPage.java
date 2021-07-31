@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class SettingsPage extends AppCompatActivity {
     SharedPreferences sharedPreferences;
-
     static ArrayList<TaskCategory> static_categorylist;
 
     CombinedTaskDatabaseHandler taskcategory_DBhandler = new CombinedTaskDatabaseHandler(this,null,null,1);
@@ -32,21 +31,30 @@ public class SettingsPage extends AppCompatActivity {
 
 
         //  SharedPref Tooltips Option
-        if (true){
+        sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
+        String check = sharedPreferences.getString("check","");
+
+        if (check.equals("true")){
             task_del_toast_checkbox.setChecked(true);
         }
         else{
-            task_del_toast_checkbox.setChecked(true);
+            task_del_toast_checkbox.setChecked(false);
         }
 
         task_del_toast_checkbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (task_del_toast_checkbox.isChecked()){
-
+                    sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("check","true");
+                    editor.apply();
                 }
                 else{
-
+                    sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("check","");
+                    editor.apply();
                 }
             }
         });
