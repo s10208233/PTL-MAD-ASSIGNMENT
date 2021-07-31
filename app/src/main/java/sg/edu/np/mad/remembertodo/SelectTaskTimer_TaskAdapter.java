@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +23,13 @@ public class SelectTaskTimer_TaskAdapter extends RecyclerView.Adapter<SelectTask
 
     ArrayList<Task> data;
     String TaskCatName;
+    int TaskCatPos;
     Context context;
 
-    public SelectTaskTimer_TaskAdapter(String task_category_name, ArrayList<Task> input, Context con) {
+    public SelectTaskTimer_TaskAdapter(int position,String task_category_name, ArrayList<Task> input, Context con) {
         data = input;
         TaskCatName = task_category_name;
+        TaskCatPos = position;
         context = con;
     }
 
@@ -59,7 +62,9 @@ public class SelectTaskTimer_TaskAdapter extends RecyclerView.Adapter<SelectTask
                         //  Passing data & Starting AddTaskActivity
                         Bundle databundle = new Bundle();
                         databundle.putString("TaskCategoryName", TaskCatName);
-                        databundle.getString("SelectedJSONTask", gson.toJson(data));
+                        databundle.putString("SelectedJSONTask", gson.toJson(data.get(position)));
+                        databundle.putInt("position",TaskCatPos);
+
 
                         //  Start AddTaskActivity
                         tasktimer.putExtras(databundle);

@@ -118,8 +118,6 @@ public class AddTaskActivity extends AppCompatActivity {
                     }
                     Task NewTaskObject = new Task (TaskName_value, Difficulty_value, DueDate_value,false, getTodaysDate());
                     static_categorylist.get(task_category_position).getTaskList().add(NewTaskObject);
-//                    int i = static_categorylist.get(task_category_position).getTaskList().size();
-
                     taskcategory_DBhandler.storeTaskList(NewTaskObject,task_category_name,task_category_position);
 
                     //Notify appWidgetManager to update the widget when user add new task

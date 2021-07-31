@@ -93,6 +93,15 @@ public class CombinedTaskDatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("UPDATE TaskCategory SET TaskList =" + "'[" + data + "]'" + "WHERE (TaskCategoryName =" + "'" + categoryName + "'"+");");
     }
+    //CheckedTaskTimer : to make task check = true after a timer task is done
+    public void CheckedTaskTimer(String data, String categoryName){
+        data = data.substring(1);
+        data = data.replaceFirst(".$","");
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE TaskCategory SET TaskList =" + "'[" + data + "]'" + "WHERE (TaskCategoryName =" + "'" + categoryName + "'"+");");
+    }
+
+
 
     //  Retrieving Database data into program
     public ArrayList<TaskCategory> getTaskCategoryList() {

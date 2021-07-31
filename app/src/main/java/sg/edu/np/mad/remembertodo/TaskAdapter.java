@@ -3,6 +3,7 @@ package sg.edu.np.mad.remembertodo;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
@@ -26,13 +27,16 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
 import static sg.edu.np.mad.remembertodo.TaskCategoryAdapter.static_inner_task_rv;
 import static sg.edu.np.mad.remembertodo.ViewTaskActivity.static_categorylist;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
+    SharedPreferences sharedPreferences;
     String TaskCategoryName;
     ArrayList<Task> data;
     Context con;
+    public String GLOBAL_PREFS = "MyPrefs";
   
     private Context Mcontext;
     Gson gson = new Gson();
@@ -92,7 +96,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
 
                     //  SHARED PREFERENCE THIS SHIT WITH IF ELSE THANKS KS
                     //  Apply shared pref here pls thanks ks
-                    Toast.makeText(con, "Tip! You may hold down on a task to delete!", Toast.LENGTH_SHORT).show();
+                    sharedPreferences = Mcontext.getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
+                    String check = sharedPreferences.getString("check","");
+                    if (check.equals("true")){
+                        Toast.makeText(con, "Tip! You may hold down on a task to delete!", Toast.LENGTH_SHORT).show();
+                    }
+
                     
                 }
                 else
