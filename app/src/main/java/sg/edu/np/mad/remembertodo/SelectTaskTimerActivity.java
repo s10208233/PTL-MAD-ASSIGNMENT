@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import static sg.edu.np.mad.remembertodo.ViewTaskActivity.static_categorylist;
 
 
 public class SelectTaskTimerActivity extends AppCompatActivity {
@@ -25,9 +27,9 @@ public class SelectTaskTimerActivity extends AppCompatActivity {
 
         //  Array list only picks categories where getTaskCategoryList().size() > 0
         ArrayList<TaskCategory> temp_select_taskcat_list = new ArrayList<TaskCategory>();
-        for (int i = 0; i<taskcategory_DBhandler.getTaskCategoryList().size(); i++){
-            if (taskcategory_DBhandler.getTaskCategoryList().get(i).getTaskList().size()>0){
-                temp_select_taskcat_list.add(taskcategory_DBhandler.getTaskCategoryList().get(i));
+        for (int i = 0; i<static_categorylist.size(); i++){
+            if (static_categorylist.get(i).getTaskList().size()>0 && checkIfTaskListChecked(static_categorylist.get(i).getTaskList())==false){
+                temp_select_taskcat_list.add(static_categorylist.get(i));
             }
         }
 
@@ -40,5 +42,15 @@ public class SelectTaskTimerActivity extends AppCompatActivity {
         recyclerView_cat_holder.setItemAnimator(new DefaultItemAnimator());
         recyclerView_cat_holder.setAdapter(sttAdapter);
 
+    }
+
+    private boolean checkIfTaskListChecked(ArrayList<Task> tasklist){
+        boolean allChecked = false;
+        for (int i=0; i<tasklist.size(); i++){
+            if (tasklist.get(i).isCompleted()){
+                allChecked=true;
+            }
+        }
+        return allChecked;
     }
 }
