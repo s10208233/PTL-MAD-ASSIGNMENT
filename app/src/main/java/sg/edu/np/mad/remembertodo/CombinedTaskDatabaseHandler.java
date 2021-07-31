@@ -53,7 +53,7 @@ public class CombinedTaskDatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    //  Local ArrayList<TaskCategory> into database
+    //store local ArrayList<TaskCategory> into database
     public void storeTaskCategoryList(TaskCategory taskcategory){
         ContentValues values = new ContentValues();
         values.put(COLUMN_TASKCATEGORYNAME,taskcategory.getTaskCategoryName());
@@ -141,7 +141,7 @@ public class CombinedTaskDatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
         return returnTaskCategoryList;
     }
-
+    //json rebuilder into Task obj
     public ArrayList<Task> jsonStringTaskListRebuilder(String jsonString) throws JSONException {
         JSONArray jsonArray = new JSONArray(jsonString);
         ArrayList<Task> returnTaskList = new ArrayList<Task>();

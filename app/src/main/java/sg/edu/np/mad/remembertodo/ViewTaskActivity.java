@@ -41,23 +41,6 @@ public class ViewTaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         static_categorylist = taskcategory_DBhandler.getTaskCategoryList();
 
-//
-//        if (static_categorylist.size() != 0) {
-//            sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
-//            int num = sharedPreferences.getInt("number",0);
-//            Log.v("number",String.valueOf(num));
-//            SharedPreferences.Editor editor = sharedPreferences.edit();
-//            editor.putString("Category", static_categorylist.get(num).getTaskCategoryName());
-//            editor.apply();
-//        }
-//
-//        //Notify AppWidgetManager to update whenever app starts
-//        Context context = getApplicationContext();
-//        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-//        ComponentName thisWidget = new ComponentName(context, TasksWidget.class);
-//        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
-//        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widgetListView);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_task);
 
@@ -77,17 +60,17 @@ public class ViewTaskActivity extends AppCompatActivity {
         //  END Sample
 
 
-        //  Initial Sample Local Data Creation, DO NOT UNCOMMENT
-        TaskCategoryList.add(new TaskCategory("Mobile Application Development",
-                new ArrayList<Task>(),
-                "Red"));
-
-        TaskCategoryList.add(new TaskCategory("Others",
-                new ArrayList<Task>(),
-                "Blue"));
-
-        TaskCategoryList.add(new TaskCategory("Sample 3",
-                new ArrayList<Task>(), "Green"));
+//        //  Initial Sample Local Data Creation, DO NOT UNCOMMENT
+//        TaskCategoryList.add(new TaskCategory("Mobile Application Development",
+//                new ArrayList<Task>(),
+//                "Red"));
+//
+//        TaskCategoryList.add(new TaskCategory("Others",
+//                new ArrayList<Task>(),
+//                "Blue"));
+//
+//        TaskCategoryList.add(new TaskCategory("Sample 3",
+//                new ArrayList<Task>(), "Green"));
 
         //  Storing Initial Database Storing, DO NOT UNCOMMENT
 //        for (int i = 0; i < TaskCategoryList.size(); i++){
@@ -188,6 +171,7 @@ public class ViewTaskActivity extends AppCompatActivity {
         taskcategoryadapter.notifyDataSetChanged();
 
         if (static_categorylist.size() != 0) {
+            //if user didnt choose catergory it will default to first category to show on widget
             sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
             int num = sharedPreferences.getInt("number",0);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -196,6 +180,7 @@ public class ViewTaskActivity extends AppCompatActivity {
             editor.apply();
         }
         else{
+            //if user hasnt created any tasks
             sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("Category", "Configure this widget under settings of the app");
@@ -224,6 +209,7 @@ public class ViewTaskActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         if (static_categorylist.size() != 0) {
+            //if user didnt choose catergory it will default to first category to show on widget
             sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
             int num = sharedPreferences.getInt("number",0);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -232,6 +218,7 @@ public class ViewTaskActivity extends AppCompatActivity {
             editor.apply();
         }
         else{
+            //if user hasnt created any tasks
             sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("Category", "Please add a task in the application!");
