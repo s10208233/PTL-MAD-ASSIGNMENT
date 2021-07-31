@@ -49,21 +49,6 @@ public class DataProvider implements RemoteViewsService.RemoteViewsFactory {
 //            view_category.setInt(R.id.widgetItemContainer,"setBackgroundColor", Color.parseColor(colorNameToCode(myListView.getColorCode())));
             view_category.setTextViewText(R.id.list_item_task, myListView.getTaskList().get(position).getTaskName());
             view_category.setTextViewText(R.id.list_item_date, myListView.getTaskList().get(position).getDueDate());
-//            for (int i = 0; i < myListView.getTaskList().size(); i++){
-//                str =  + "\n";
-//            }
-
-
-//            String str ="MOther,MOther,Mother";
-//            view_category.setTextViewText(R.id.task_list, str.replaceAll(",","\n"));
-
-//            LinearLayout linearLayout = findViewById(R.id.linearContainer) ;
-//            for (int i = 0; i <= 3; i++){
-//                TextView textView = new TextView(this);
-//                textView.setText("mother");
-//                linearLayout.addView(textView);
-//            }
-
 
             return view_category;
         }
@@ -93,7 +78,7 @@ public class DataProvider implements RemoteViewsService.RemoteViewsFactory {
         public boolean hasStableIds() {
         return true;
         }
-
+        //Data initialisation to show on widget
         private void initData() {
             int count = 0;
             sharedPreferences = mContext.getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
@@ -108,9 +93,6 @@ public class DataProvider implements RemoteViewsService.RemoteViewsFactory {
 
                 }
             }
-
-
-
         }
 
     }

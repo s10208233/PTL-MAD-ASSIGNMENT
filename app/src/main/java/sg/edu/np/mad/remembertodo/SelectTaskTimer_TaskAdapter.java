@@ -60,7 +60,7 @@ public class SelectTaskTimer_TaskAdapter extends RecyclerView.Adapter<SelectTask
                         Intent tasktimer = new Intent(v.getContext(), TimerActivity.class);
                         tasktimer.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                        //  Passing data & Starting AddTaskActivity
+                        //  Passing data & Starting tasktimer
                         Bundle databundle = new Bundle();
                         databundle.putString("TaskCategoryName", TaskCatName);
                         databundle.putString("SelectedJSONTask", gson.toJson(data.get(position)));
