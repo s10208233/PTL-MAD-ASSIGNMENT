@@ -70,7 +70,7 @@ public class SelectTaskTimer_TaskAdapter extends RecyclerView.Adapter<SelectTask
                         //  Start AddTaskActivity
                         tasktimer.putExtras(databundle);
                         v.getContext().startActivity(tasktimer);
-                        ((Activity)context).finish();
+                        ((Activity)v.getContext()).finish();
                     }
                 });
 
