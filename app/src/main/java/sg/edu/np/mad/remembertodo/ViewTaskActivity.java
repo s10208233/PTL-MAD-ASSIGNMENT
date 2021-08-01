@@ -208,6 +208,8 @@ public class ViewTaskActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        taskcategoryadapter.notifyDataSetChanged();
+
         if (static_categorylist.size() != 0) {
             //if user didnt choose catergory it will default to first category to show on widget
             sharedPreferences = getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
@@ -226,7 +228,6 @@ public class ViewTaskActivity extends AppCompatActivity {
             editor.apply();
         }
         //Notify AppWidgetManager to update whenever app pauses
-
         Context context = getApplicationContext();
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         //Calls the method OnUpdate to update widget

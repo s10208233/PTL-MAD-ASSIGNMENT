@@ -52,10 +52,10 @@ public class TaskCategoryAdapter extends RecyclerView.Adapter<TaskCategoryViewHo
     public void onBindViewHolder(TaskCategoryViewHolder holder, int position) {
 
         //  Set Background Color
-        holder.Single_TaskCategory_ConstraintLayout.setBackgroundColor(Color.parseColor(colorNameToCode(data.get(position).getColorCode())));
+        holder.Single_TaskCategory_ConstraintLayout.setBackgroundColor(Color.parseColor(colorNameToCode(data.get(holder.getAdapterPosition()).getColorCode())));
 
         //  Set Name of Task
-        holder.ViewTaskCategory_CategoryName_text_view.setText(data.get(position).getTaskCategoryName());
+        holder.ViewTaskCategory_CategoryName_text_view.setText(data.get(holder.getAdapterPosition()).getTaskCategoryName());
 
         //  Set Delete Function
         holder.ViewTaskCategory_Delete_Btn.setOnClickListener(new View.OnClickListener() {

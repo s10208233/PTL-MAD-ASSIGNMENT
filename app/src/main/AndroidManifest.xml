@@ -30,9 +30,9 @@
             android:name=".TasksWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <activity android:name=".AddTaskCategoryActivity" />
+        <activity android:name=".AddTaskCategoryActivity" android:screenOrientation="portrait" ></activity>
         <activity android:name=".ViewTaskActivity" />
-        <activity android:name=".AddTaskActivity" />
+        <activity android:name=".AddTaskActivity" android:screenOrientation="portrait" ></activity>
         <activity android:name=".AboutActivity" />
         <activity android:name=".TimerActivity"
             android:resizeableActivity="true"
