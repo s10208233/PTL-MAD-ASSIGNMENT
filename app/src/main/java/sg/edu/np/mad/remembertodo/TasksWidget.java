@@ -26,7 +26,7 @@ public class TasksWidget extends AppWidgetProvider {
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
     private static void setRemoteAdapter(Context context, @NonNull final RemoteViews views) {
-
+        //To set the UI of the widget
         sharedPreferences = context.getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
         String color = sharedPreferences.getString("Color","#404040");
         String title = sharedPreferences.getString("Category","Please add a task in the application!");
@@ -45,18 +45,25 @@ public class TasksWidget extends AppWidgetProvider {
         for (int appWidgetId : appWidgetIds) {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.tasks_widget);
             setRemoteAdapter(context, views);
-
+            //intent to go to activity
+            Intent configIntent = new Intent(context, ViewTaskActivity.class);
+            PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
+            //when user clicks the widget
+            views.setOnClickPendingIntent(R.id.widgetContainer, configPendingIntent);
+            appWidgetManager.updateAppWidget(appWidgetIds, views);
             //Update all instances of this widget//
             updateAppWidget(context, appWidgetManager, appWidgetId);
+
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
+
     }
     @Override
     public void onEnabled(Context context) {
         Toast.makeText(context,"Widget created successfully", Toast.LENGTH_LONG).show();
     }
     @Override public void onDisabled(Context context) {
-        Toast.makeText(context,"All widgets deleted", Toast.LENGTH_LONG).show();
+        Toast.makeText(context,"Widget deleted succesfully", Toast.LENGTH_LONG).show();
     }
     public static String colorNameToCode(String sel, String transparency){
         if(sel.matches("Red"))      {return "#"+transparency+"850000";}

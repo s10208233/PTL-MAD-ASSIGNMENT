@@ -186,6 +186,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String result;
+                        //using string slicing to update database data
                         if (position == 0){
                             result = gson.toJson(data).replace(gson.toJson(data.get(position))+",","");
                             if (data.size() == 1){
@@ -196,7 +197,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                             result = gson.toJson(data).replace(","+gson.toJson(data.get(position)),"");
                         }
 
-
+                        //get catergory name
                         for (int j = 0; j < static_categorylist.size();j++){
                             if (static_categorylist.get(j).getTaskList() == data){
                                 TaskCategoryName = static_categorylist.get(j).getTaskCategoryName();
@@ -204,7 +205,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                         }
 
                         CombinedTaskDatabaseHandler taskcategory_DBhandler = new CombinedTaskDatabaseHandler(Mcontext,null,null,1);
+                        //update the database
                         taskcategory_DBhandler.deleteSingleTask(result,TaskCategoryName);
+                        //notify viewholder to reflect correct data
                         data.remove(position);
                         static_inner_task_rv.removeViewAt(position);
                         notifyItemRemoved(position);

@@ -69,12 +69,15 @@ public class TaskCategoryAdapter extends RecyclerView.Adapter<TaskCategoryViewHo
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         sharedPreferences = Mcontext.getSharedPreferences(GLOBAL_PREFS, MODE_PRIVATE);
-
                         SharedPreferences.Editor editor = sharedPreferences.edit();
+
                         CombinedTaskDatabaseHandler taskcategory_DBhandler = new CombinedTaskDatabaseHandler(Mcontext,null,null,1);
+                        //delete from database
                         taskcategory_DBhandler.deleteTaskCategory(data.get(position).getTaskCategoryName());
+                        //this is so that when user deletes a category the widget will update correctly
                         editor.putInt("number",0);
                         editor.apply();
+                        //notify the viewholder that data changed and reflect it
                         data.remove(position);
                         static_rview_cat_holder.removeViewAt(position);
                         notifyItemRemoved(position);
