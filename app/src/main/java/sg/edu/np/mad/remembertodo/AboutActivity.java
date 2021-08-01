@@ -46,8 +46,8 @@ public class AboutActivity extends AppCompatActivity {
             }
         };
 
-        ss.setSpan(clickableSpan1, 32, 50, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ss.setSpan(clickableSpan2, 67, 79, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(clickableSpan1, 33, 52, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(clickableSpan2, 69, 82, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         creditText.setText(ss);
         creditText.setMovementMethod(LinkMovementMethod.getInstance());
