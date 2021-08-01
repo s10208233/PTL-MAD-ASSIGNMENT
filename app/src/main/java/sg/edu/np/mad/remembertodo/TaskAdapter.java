@@ -70,10 +70,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         }
 
         //  Task Name
-        holder.Single_Task_Name.setText(data.get(position).getTaskName());
+        holder.Single_Task_Name.setText(data.get(holder.getAdapterPosition()).getTaskName());
 
         //  Task Due Date
-        holder.Single_Task_DueDate.setText(data.get(position).getDueDate());
+        holder.Single_Task_DueDate.setText(data.get(holder.getAdapterPosition()).getDueDate());
 
         //  Checkbox
         if (data.get(position).isCompleted()) {
@@ -208,10 +208,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                         //update the database
                         taskcategory_DBhandler.deleteSingleTask(result,TaskCategoryName);
                         //notify viewholder to reflect correct data
-                        data.remove(position);
-                        static_inner_task_rv.removeViewAt(position);
-                        notifyItemRemoved(position);
-                        notifyItemRangeChanged(position, data.size());
+                        data.remove(holder.getAdapterPosition());
+//                        static_inner_task_rv.removeViewAt(holder.getAdapterPosition());
+                        notifyItemRemoved(holder.getAdapterPosition());
+                        notifyItemRangeChanged(holder.getAdapterPosition(), data.size());
                         notifyDataSetChanged();
 
 

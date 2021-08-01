@@ -12,7 +12,7 @@
     <TextView
         android:id="@+id/list_item_task"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:fontFamily="@font/poppins_light"
         android:paddingLeft="20dp"
@@ -21,13 +21,13 @@
         android:paddingBottom="10dp"
         android:text="TextView"
         android:textAlignment="viewStart"
-        android:textColor="#FFFFFF"
+        android:textColor="#CCFFFFFF"
         android:textSize="14sp" />
 
     <TextView
         android:id="@+id/list_item_date"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="0"
         android:fontFamily="@font/poppins_light"
         android:paddingLeft="20dp"
@@ -36,7 +36,18 @@
         android:paddingBottom="10dp"
         android:text="TextView"
         android:textAlignment="textEnd"
-        android:textColor="#FFFFFF"
+        android:textColor="#CCFFFFFF"
         android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tick"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:paddingTop="10dp"
+        android:paddingRight="5dp"
+        android:text="✓"
+        android:textColor="@color/white"
+        android:visibility="invisible" />
 
 </LinearLayout>
