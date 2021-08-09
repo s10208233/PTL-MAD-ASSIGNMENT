@@ -1,5 +1,18 @@
 # RTD - Remember To Do
-'RTD' or 'Remember To Do' is a simple task list manager for users to set tasks and keep track and manage their task. 
+'RTD' or 'Remember To Do' is a simple task list manager for users to set tasks and keep track and manage their task.
+
+## Screenshots
+![Splash Screen of RTD](https://play-lh.googleusercontent.com/7hXt8nTWNb6Hxr7o13YQ8WIj2hmW7ML8yRwXsPwRekZP2aY8dHkh2rru4hMCTAAhF6-d=w1774-h1194-rw)
+![View Task List](https://play-lh.googleusercontent.com/izcJLIZ8UQQj3_PIlx7KpKLvqNUDAT385nW4A4E1DFrjHj00o9XJwZgPRoREzPj3FX4=w1774-h1194-rw)
+![Create Task Category](https://play-lh.googleusercontent.com/Dgqypkqp9tAnUXnyvD6k81pWX6g-JUNgEDXSunvS7Io-pHC8ECB_QLO5m_REu5V5IRo=w1774-h1194-rw)
+![Add Task](https://play-lh.googleusercontent.com/Ux1xUdjiw6NNOevnPYa7KsMeNjWgZp43JXtsetqFmLwxPrQwDdRz-7wFDKJjHqHJOao=w1774-h1194-rw)
+![Task Timer Selection](https://play-lh.googleusercontent.com/ALDfBUFn8S2lZ36-wbdJ33QIX7mqK5eD7pDN2esQj8KBkrxDFuXl_N4s5jTNtOa7Nb4=w1774-h1194-rw)
+![Timer](https://play-lh.googleusercontent.com/Zj5f7crOmnjp7OLjFqdkOz-Ohd0qgWyR-Chv2Si3E83T6WZGHgOt19hFEph9iuWQ1w=w1774-h1194-rw)
+![Widgets](https://play-lh.googleusercontent.com/Y9MzLyjQK5LzrCGZgfnJEeR3ZuAb6-iBvdS9VC0zm0FxeF3S63Hi_u-Mu-1U1zwsT3Ii=w1774-h1194-rw)
+
+
+## Playstore Link
+- https://play.google.com/store/apps/details?id=sg.edu.np.mad.remembertodo
 
 **Note that this is a group work assignment of the module of Mobile Application Development.*
 
