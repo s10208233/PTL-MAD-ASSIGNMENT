@@ -1,6 +1,6 @@
 # RTD - Remember To Do
 'RTD' or 'Remember To Do' is a simple task list manager for users to set tasks and keep track and manage their task.<br>
-This README.md provides information of the features of the application and person behind thme.
+This README.md provides information of the features of the application and person behind their assigned feature.
 
 ## Playstore Link
 - https://play.google.com/store/apps/details?id=sg.edu.np.mad.remembertodo
