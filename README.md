@@ -12,7 +12,7 @@
 ### Who is this application for?
 - This could be anyone who has a task in mind they wish to accomplish, e.g Students, Working Adults
 ### Why did we choose to develop this application?
-- We believe task management should be kept simple and convenient. By making management simple and convenient, people can focus more on doing rather than spending too much time on plannong
+- We believe task management should be kept simple and convenient. By making management simple and convenient, people can focus more on doing rather than spending too much time on planning
 - Test what we've learnt in this module
 - For our own personal use
 
@@ -31,11 +31,13 @@ Performance report, checks frequency of task being completed over time show user
 ## Group Members Roles & Responsibilities Taken
 -
 ### S10208233 | Lester Cheong
-#### Basic Creation of Task Categories and Task within them.
+#### *Basic Creation of Task Categories and Task within them.*
+Bread and butter of the application, will not be called a task list if this feature isn't here, no? Recycler views and view holder with functions are present in this feature.
+#### *Responsible for Layout Designs/XML Files*
 
 ### S10204765 | Chow Keng Shion
-#### Homescreen Widgets
-####
+#### *Homescreen Widgets*
+#### *Database Handlers*
 
 ### S10194048 | Daryl Chong
 #### Task Timer Challenge
